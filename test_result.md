@@ -229,10 +229,7 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus:
-    - "Contact form submission API"
-    - "Get contacts API endpoint"
-    - "Health check API endpoint"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
