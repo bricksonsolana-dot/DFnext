@@ -136,15 +136,18 @@ backend:
 
   - task: "Get contacts API endpoint"
     implemented: true
-    working: "NA"
+    working: true
     file: "app/api/[[...path]]/route.js"
     stuck_count: 0
     priority: "medium"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "GET /api/contacts returns all contacts sorted by createdAt descending."
+        - working: true
+          agent: "testing"
+          comment: "✅ CONFIRMED: GET /api/contacts working correctly. Returns 200 status with {contacts: [array]}. Successfully retrieved test contact that was just submitted. Data properly sorted by createdAt descending. UUIDs properly returned (not MongoDB ObjectIDs)."
 
 frontend:
   - task: "Home page with all sections (hero, marquee, portfolio, services, about, stats, process, testimonials, CTA)"
