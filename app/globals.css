@@ -10,20 +10,21 @@
     --card-foreground: 0 0% 100%;
     --popover: 0 0% 7%;
     --popover-foreground: 0 0% 100%;
-    --primary: 69 100% 62%;
+    --primary: 68 100% 61%;
     --primary-foreground: 0 0% 4%;
     --secondary: 0 0% 10%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 10%;
+    --muted: 0 0% 15%;
     --muted-foreground: 0 0% 53%;
-    --accent: 69 100% 62%;
+    --accent: 68 100% 61%;
     --accent-foreground: 0 0% 4%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
     --border: 0 0% 16%;
     --input: 0 0% 16%;
-    --ring: 69 100% 62%;
-    --radius: 0.5rem;
+    --ring: 68 100% 61%;
+    /* ✅ Changed: 0rem to match old project (was 0.5rem) — sharp corners */
+    --radius: 0rem;
   }
 
   * {
@@ -31,34 +32,111 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto !important;
+  }
+
+  html.lenis {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
   }
 
   body {
-    background-color: #0A0A0A;
-    color: #FFFFFF;
+    background-color: #0a0a0a;
+    color: #ffffff;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 }
 
+/* ✅ Added: Scrollbar styles from old project */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a2a2a;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444444;
+}
+
+/* ✅ Added: Custom cursor — matched old project */
 @media (min-width: 768px) {
-  html, body, a, button, [data-cursor] {
+  html,
+  body,
+  a,
+  button,
+  [data-cursor] {
     cursor: none !important;
   }
 }
 
+/* ✅ Added: Perspective utility from old project */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* ✅ Added: Gradient border for footer from old project */
+.gradient-border-top {
+  position: relative;
+}
+
+.gradient-border-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e8ff3d, transparent);
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(232, 255, 61, 0.3);
+  color: #ffffff;
+}
+
+/* Marquee pause on hover */
 .marquee-container:hover .marquee-track {
   animation-play-state: paused;
 }
-
-::selection {
-  background-color: rgba(232, 255, 61, 0.3);
-  color: #FFFFFF;
+/* ✅ Fix: Prevent descenders from being clipped */
+.perspective-1000 > div {
+  overflow: visible;
 }
 
+.perspective-1000 {
+  overflow: visible;
+  padding-bottom: 0.1em; /* Extra space for descenders */
+}
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
