@@ -1,8 +1,6 @@
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
-import Navigation from '@/components/navigation';
-import CustomCursor from '@/components/custom-cursor';
-import Footer from '@/components/footer';
+import ClientLayout from '@/components/client-layout';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -23,20 +21,15 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: 'ETAIRIA — Web Development & Design Studio | Athens, Greece',
-  description: 'Premium web development & design studio based in Athens. Custom websites, e-commerce, UI/UX design, brand identity.',
+  title: 'Digital Footprint — Web Development & Design Studio | Athens, Greece',
+  description: 'Premium web development & design studio based in Athens. Custom websites, e-commerce, UI/UX design, brand identity. digitalfootprint.gr',
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="el" className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="bg-[#0A0A0A] text-white font-body antialiased">
-        <CustomCursor />
-        <Navigation />
-        <main className="min-h-screen">
-          {children}
-        </main>
-        <Footer />
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
