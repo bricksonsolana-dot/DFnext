@@ -1099,73 +1099,76 @@ function AboutTeaser() {
   });
   const imageY = useTransform(scrollYProgress, [0, 1], [-50, 50]);
 
-  return (
-    <section
-      ref={sectionRef}
-      className="py-24 md:py-32 bg-ag-bg overflow-hidden"
-      data-testid="about-teaser"
-    >
-      <div className="max-w-[1800px] mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Image — aspect-[4/3] with gradient overlay */}
-          <FadeUp className="relative aspect-[4/3] overflow-hidden">
-            <motion.img
-              src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1200"
-              alt="Studio team"
-              className="w-full h-full object-cover"
-              style={{ y: imageY }}
-              loading="lazy"
-            />
-            {/* ✅ Added: gradient overlay from old project */}
-            <div className="absolute inset-0 bg-gradient-to-t from-ag-bg/50 to-transparent" />
+return (
+  <section ref={sectionRef} className="py-32 md:py-48 bg-ag-bg overflow-hidden" data-testid="about-teaser">
+    <div className="max-w-[1800px] mx-auto px-4 md:px-8">
+      
+      {/* Top decorative line */}
+      <FadeUp>
+        <div className="w-24 h-[1px] bg-ag-accent mb-16" />
+      </FadeUp>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        
+        {/* Left side - Large heading */}
+        <div className="lg:col-span-7 space-y-8">
+          <FadeUp>
+            <span className="font-mono text-xs text-ag-muted tracking-[0.3em] uppercase">
+              {t('aboutTeaser.label')}
+            </span>
           </FadeUp>
 
-          {/* Content */}
-          <div className="space-y-6">
-            <FadeUp>
-              <span className="font-mono text-xs text-ag-muted tracking-wider">
-                {t('aboutTeaser.label')}
+          <FadeUp delay={0.1}>
+            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white leading-[1.1]">
+              {t('aboutTeaser.heading1')}
+              <br />
+              <span className="text-ag-accent">{t('aboutTeaser.heading2')}</span>
+              <br />
+              {t('aboutTeaser.heading3')}
+            </h2>
+          </FadeUp>
+        </div>
+
+        {/* Right side - Body text and CTA */}
+        <div className="lg:col-span-5 lg:pt-24 space-y-8">
+          <FadeUp delay={0.2}>
+            <p className="font-body text-lg md:text-xl text-ag-body leading-relaxed">
+              {t('aboutTeaser.body')}
+            </p>
+          </FadeUp>
+
+          <FadeUp delay={0.3}>
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-3 font-body text-white group"
+              data-cursor="hover"
+              data-testid="about-learn-more"
+            >
+              <span className="relative text-lg">
+                {t('aboutTeaser.learnMore')}
+                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-ag-accent group-hover:w-full transition-all duration-500" />
               </span>
-            </FadeUp>
-
-            <FadeUp delay={0.1}>
-              <h2 className="font-heading text-h2 text-white">
-                {t('aboutTeaser.heading1')}
-                <br />
-                {t('aboutTeaser.heading2')}
-                <br />
-                {t('aboutTeaser.heading3')}
-              </h2>
-            </FadeUp>
-
-            <FadeUp delay={0.2}>
-              <p className="font-body text-ag-body leading-relaxed">
-                {t('aboutTeaser.body')}
-              </p>
-            </FadeUp>
-
-            <FadeUp delay={0.4}>
-              <Link
-                href="/about"
-                className="inline-flex items-center gap-2 font-body text-white group mt-4"
-                data-cursor="hover"
-                data-testid="about-learn-more"
-              >
-                <span className="relative">
-                  {t('aboutTeaser.learnMore')}
-                  <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-ag-accent group-hover:w-full transition-all duration-300" />
-                </span>
-                <ArrowRight
-                  size={18}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
-              </Link>
-            </FadeUp>
-          </div>
+              <ArrowRight
+                size={20}
+                className="group-hover:translate-x-2 transition-transform duration-300"
+              />
+            </Link>
+          </FadeUp>
         </div>
       </div>
-    </section>
-  );
+
+      {/* Bottom decorative elements */}
+      <FadeUp delay={0.4}>
+        <div className="mt-24 flex items-center gap-8">
+          <div className="flex-1 h-[1px] bg-gradient-to-r from-ag-accent/50 to-transparent" />
+          <span className="font-mono text-xs text-ag-muted tracking-widest">EST. 2024</span>
+          <div className="flex-1 h-[1px] bg-gradient-to-l from-ag-accent/50 to-transparent" />
+        </div>
+      </FadeUp>
+
+    </div>
+  </section>
+);
 }
 
 /* ═══════════════════════════════════════════════════════
