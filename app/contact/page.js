@@ -51,7 +51,7 @@ export default function ContactPage() {
       if (res.ok) { setIsSubmitted(true); } else { const err = await res.json(); setSubmitError(err.error || 'Something went wrong.'); }
     } catch (error) { setSubmitError('Network error. Please try again.'); } finally { setIsSubmitting(false); }
   };
-
+//o giorgos thelei poutsa ston kolo
   return (
     <div className="pt-24">
       <section className="max-w-[1400px] mx-auto px-6 lg:px-12 py-16 md:py-24">
