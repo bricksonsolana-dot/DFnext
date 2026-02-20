@@ -1,7 +1,7 @@
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import ClientLayout from '@/components/client-layout';
-import SmoothScroll from '@/components/ui/smoothscroll';
+import SmoothScroll from '@/components/ui/SmoothScroll';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
