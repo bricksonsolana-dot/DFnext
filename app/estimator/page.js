@@ -16,6 +16,162 @@ import {
 /* ═══════════════════════════════════════
    FADE UP ANIMATION COMPONENT
 ═══════════════════════════════════════ */
+function EstimatorBackground() {
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      {/* Large square — top right */}
+      <motion.div
+        className="absolute border border-ag-accent/[0.04]"
+        style={{ width: '400px', height: '400px', top: '5%', right: '-5%' }}
+        animate={{
+          rotate: [0, 90],
+          x: [0, -20, 0],
+          y: [0, 30, 0],
+        }}
+        transition={{
+          duration: 40,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'linear',
+        }}
+      />
+
+      {/* Medium rectangle — left side */}
+      <motion.div
+        className="absolute border border-white/[0.03]"
+        style={{ width: '250px', height: '180px', top: '30%', left: '-3%' }}
+        animate={{
+          rotate: [15, -15],
+          y: [0, 50, 0],
+        }}
+        transition={{
+          duration: 30,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'linear',
+        }}
+      />
+
+      {/* Small square — center right */}
+      <motion.div
+        className="absolute border border-ag-accent/[0.06]"
+        style={{ width: '120px', height: '120px', top: '55%', right: '10%' }}
+        animate={{
+          rotate: [45, 135],
+          x: [0, -30, 0],
+          y: [0, -40, 0],
+        }}
+        transition={{
+          duration: 25,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'linear',
+        }}
+      />
+
+      {/* Tiny square — top left */}
+      <motion.div
+        className="absolute border border-white/[0.04]"
+        style={{ width: '60px', height: '60px', top: '15%', left: '15%' }}
+        animate={{
+          rotate: [0, 180],
+          y: [0, 20, 0],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'linear',
+        }}
+      />
+
+      {/* Large rectangle — bottom left */}
+      <motion.div
+        className="absolute border border-ag-accent/[0.03]"
+        style={{ width: '350px', height: '200px', bottom: '10%', left: '-8%' }}
+        animate={{
+          rotate: [-10, 10],
+          x: [0, 40, 0],
+          y: [0, -20, 0],
+        }}
+        transition={{
+          duration: 35,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'linear',
+        }}
+      />
+
+      {/* Medium square — bottom right */}
+      <motion.div
+        className="absolute border border-white/[0.03]"
+        style={{ width: '180px', height: '180px', bottom: '25%', right: '-2%' }}
+        animate={{
+          rotate: [20, -20],
+          y: [0, 60, 0],
+        }}
+        transition={{
+          duration: 28,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'linear',
+        }}
+      />
+
+      {/* Tiny accent dot — floating */}
+      <motion.div
+        className="absolute w-2 h-2 bg-ag-accent/[0.08] rotate-45"
+        style={{ top: '40%', left: '25%' }}
+        animate={{
+          y: [0, -30, 0],
+          x: [0, 15, 0],
+          scale: [1, 1.5, 1],
+        }}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'linear',
+        }}
+      />
+
+      {/* Another accent dot */}
+      <motion.div
+        className="absolute w-1.5 h-1.5 bg-ag-accent/[0.06] rotate-45"
+        style={{ top: '70%', right: '30%' }}
+        animate={{
+          y: [0, 20, 0],
+          x: [0, -10, 0],
+          scale: [1, 1.3, 1],
+        }}
+        transition={{
+          duration: 18,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'linear',
+        }}
+      />
+
+      {/* Subtle gradient orbs */}
+      <div
+        className="absolute w-[500px] h-[500px] rounded-full opacity-[0.015]"
+        style={{
+          top: '10%',
+          right: '5%',
+          background: 'radial-gradient(circle, #E8FF3D 0%, transparent 70%)',
+        }}
+      />
+      <div
+        className="absolute w-[400px] h-[400px] rounded-full opacity-[0.01]"
+        style={{
+          bottom: '20%',
+          left: '0%',
+          background: 'radial-gradient(circle, #E8FF3D 0%, transparent 70%)',
+        }}
+      />
+    </div>
+  );
+}
 
 function FadeUp({ children }) {
   return (
@@ -39,7 +195,7 @@ const websiteTypes = [
     id: "onepage",
     name: "One Page Site",
     desc: "Μία σελίδα με τα βασικά sections.",
-    basePrice: 500,
+    basePrice: 700,
     timeEstimate: "5-10 ημέρες",
     icon: FileText,
     popular: false,
@@ -55,7 +211,7 @@ const websiteTypes = [
     id: "multipage",
     name: "Εταιρικό Site",
     desc: "3-8 σελίδες με CMS για εταιρική παρουσία.",
-    basePrice: 1200,
+    basePrice: 1500,
     timeEstimate: "2-3 εβδομάδες",
     icon: Globe,
     popular: true,
@@ -75,7 +231,7 @@ const websiteTypes = [
     id: "eshop-small",
     name: "E-Shop Basic",
     desc: "Ηλεκτρονικό κατάστημα με έως 50 προϊόντα.",
-    basePrice: 2000,
+    basePrice: 3000,
     timeEstimate: "3-4 εβδομάδες",
     icon: ShoppingCart,
     popular: false,
@@ -96,7 +252,7 @@ const websiteTypes = [
     id: "eshop-large",
     name: "E-Shop Pro",
     desc: "500+ προϊόντα, bulk import, advanced filters.",
-    basePrice: 4500,
+    basePrice: 4000,
     timeEstimate: "5-8 εβδομάδες",
     icon: Database,
     popular: false,
@@ -401,9 +557,10 @@ export default function EstimatorPage() {
   }, [selectedType, selectedFeatures]);
 
   return (
-    <div className="min-h-screen bg-ag-bg pt-24" data-testid="estimator-page">
+    <div className="min-h-screen bg-ag-bg pt-24 relative" data-testid="estimator-page">
+  <EstimatorBackground />
       {/* TOP BAR */}
-      <div className="border-b border-ag-border">
+      <div className="border-b border-ag-border relative z-10">
         <div className="max-w-6xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
           <Link href="/services" className="flex items-center gap-2 text-ag-body hover:text-ag-text transition-colors text-sm" data-cursor="hover">
             <ArrowLeft size={16} />
@@ -424,7 +581,7 @@ export default function EstimatorPage() {
         </div>
       </div>
 
-      <main className="max-w-6xl mx-auto px-4 md:px-8 py-8 md:py-12">
+      <main className="max-w-6xl mx-auto px-4 md:px-8 py-8 md:py-12 relative z-10">
         {/* STEP INDICATOR */}
         <div className="mb-10">
           <StepIndicator current={step} onNavigate={setStep} canNavigateTo={canNavigateTo} />
