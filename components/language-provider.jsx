@@ -1,3 +1,4 @@
+// components/language-provider.jsx
 'use client';
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { translations } from '@/lib/translations';
@@ -6,24 +7,31 @@ const LanguageContext = createContext({
   lang: 'el',
   toggleLang: () => {},
   t: (key) => key,
+  langKey: 0,
 });
 
 export function LanguageProvider({ children }) {
+  // 1. Ξεκινάμε ΠΑΝΤΑ με 'el' για να συμφωνούμε με τον Server (SSR)
   const [lang, setLang] = useState('el');
+  const [langKey, setLangKey] = useState(0);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const saved = typeof window !== 'undefined' ? localStorage.getItem('df-lang') : null;
+    // 2. Μόλις "πατήσουμε" στον Client, ελέγχουμε το localStorage
+    const saved = localStorage.getItem('df-lang');
     if (saved && (saved === 'el' || saved === 'en')) {
       setLang(saved);
     }
+    // 3. Ενημερώνουμε ότι ο Client είναι έτοιμος
+    setMounted(true);
+    document.documentElement.lang = saved || 'el';
   }, []);
 
   const toggleLang = useCallback(() => {
     const newLang = lang === 'el' ? 'en' : 'el';
     setLang(newLang);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('df-lang', newLang);
-    }
+    setLangKey((prev) => prev + 1);
+    localStorage.setItem('df-lang', newLang);
     document.documentElement.lang = newLang;
   }, [lang]);
 
@@ -38,8 +46,21 @@ export function LanguageProvider({ children }) {
   }, [lang]);
 
   return (
-    <LanguageContext.Provider value={{ lang, toggleLang, t }}>
-      {children}
+    <LanguageContext.Provider value={{ lang, toggleLang, t, langKey }}>
+      {/* 
+         Luxury Reveal: 
+         Αν δεν έχει γίνει hydration (mounted), κρατάμε το περιεχόμενο 
+         κρυφό (opacity 0) για να αποφύγουμε το stuttering και το error.
+      */}
+      <div 
+        style={{ 
+          opacity: mounted ? 1 : 0,
+          visibility: mounted ? 'visible' : 'hidden',
+          transition: 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1)' 
+        }}
+      >
+        {children}
+      </div>
     </LanguageContext.Provider>
   );
 }

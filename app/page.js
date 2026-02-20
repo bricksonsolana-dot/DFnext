@@ -121,53 +121,6 @@ function Counter({ from = 0, to, duration = 2, suffix = '' }) {
    DATA
    ═══════════════════════════════════════════════════════ */
 
-const portfolioProjects = [
-  {
-    id: 1,
-    title: 'Flavor Restaurant',
-    category: 'Web Design',
-    image:
-      'https://images.unsplash.com/photo-1719400471588-575b23e27bd7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwzfHxkYXJrJTIwdGVjaCUyMHdvcmtzcGFjZXxlbnwwfHx8YmxhY2t8MTc3MTUxODk0OXww&ixlib=rb-4.1.0&q=85',
-    size: 'large',
-    slug: 'flavor-restaurant',
-  },
-  {
-    id: 2,
-    title: 'TechStart Platform',
-    category: 'E-Commerce',
-    image:
-      'https://images.pexels.com/photos/7172646/pexels-photo-7172646.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-    size: 'small',
-    slug: 'techstart-platform',
-  },
-  {
-    id: 3,
-    title: 'Artisan Coffee Co.',
-    category: 'Brand Identity',
-    image:
-      'https://images.pexels.com/photos/633409/pexels-photo-633409.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-    size: 'small',
-    slug: 'artisan-coffee',
-  },
-  {
-    id: 4,
-    title: 'Urban Hotel Athens',
-    category: 'Hotel',
-    image:
-      'https://images.unsplash.com/photo-1640346876473-f76a73c71539?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHw0fHxhYnN0cmFjdCUyMGdlb21ldHJpYyUyMGRhcmt8ZW58MHx8fGJsYWNrfDE3NzE1MTg5NTN8MA&ixlib=rb-4.1.0&q=85',
-    size: 'large',
-    slug: 'urban-hotel-athens',
-  },
-  {
-    id: 5,
-    title: 'Olympus Fitness',
-    category: 'Corporate',
-    image:
-      'https://images.pexels.com/photos/28428591/pexels-photo-28428591.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-    size: 'full',
-    slug: 'olympus-fitness',
-  },
-];
 
 /* ═══════════════════════════════════════════════════════
    HERO — matched to old project
@@ -332,31 +285,41 @@ function MarqueeSection() {
     'CUSTOM SOLUTIONS',
   ];
 
-  const marqueeContent = [...items, ...items].map((item, index) => (
+  const marqueeContent = [...items, ...items, ...items].map((item, index) => (
     <span key={index} className="flex items-center">
-      <span className="font-mono text-sm text-ag-muted whitespace-nowrap">{item}</span>
-      <span className="text-ag-accent mx-4">✦</span>
+      <span className="font-mono text-[11px] tracking-[0.25em] text-ag-muted/60 whitespace-nowrap uppercase">
+        {item}
+      </span>
+      <span className="mx-8 md:mx-12">
+        <span className="block w-[3px] h-[3px] bg-ag-accent/40 rotate-45" />
+      </span>
     </span>
   ));
 
   return (
     <div
-      className="relative w-full h-14 bg-ag-card border-y border-ag-border overflow-hidden"
+      className="relative w-full py-5 bg-transparent border-y border-ag-border/30 overflow-hidden"
       data-testid="marquee-section"
     >
+      {/* Luxury edge fades */}
+      <div className="absolute inset-y-0 left-0 w-24 md:w-40 bg-gradient-to-r from-ag-bg to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-24 md:w-40 bg-gradient-to-l from-ag-bg to-transparent z-10 pointer-events-none" />
+
+      {/* Subtle top highlight */}
+      <div className="absolute top-0 left-[20%] right-[20%] h-px bg-gradient-to-r from-transparent via-ag-accent/10 to-transparent" />
+
       <motion.div
-        className="absolute flex items-center h-full"
-        animate={{ x: ['0%', '-50%'] }}
+        className="flex items-center"
+        animate={{ x: ['0%', '-33.333%'] }}
         transition={{
           x: {
             repeat: Infinity,
             repeatType: 'loop',
-            duration: 20,
+            duration: 40,
             ease: 'linear',
           },
         }}
       >
-        {marqueeContent}
         {marqueeContent}
       </motion.div>
     </div>
@@ -371,8 +334,399 @@ function MarqueeSection() {
    - showAll prop
    ═══════════════════════════════════════════════════════ */
 
+// ✅ Portfolio Projects Data — κάθε project είναι ένα μοναδικό visual world
+const portfolioProjects = [
+  {
+    id: 1,
+    slug: 'aurion-hotel',
+    title: 'Aurion Hotel & Spa',
+    category: 'Hotel / Web Design',
+    size: 'large',
+    gradient: 'from-[#1a1a2e] via-[#16213e] to-[#0f3460]',
+    accent: '#c4a35a',
+    pattern: 'hotel',
+    year: '2024',
+  },
+  {
+    id: 2,
+    slug: 'nova-commerce',
+    title: 'Nova Commerce',
+    category: 'E-Commerce',
+    size: 'small',
+    gradient: 'from-[#1a1a1a] via-[#2d2d2d] to-[#1a1a1a]',
+    accent: '#E8FF3D',
+    pattern: 'ecommerce',
+    year: '2024',
+  },
+  {
+    id: 3,
+    slug: 'kyma-restaurant',
+    title: 'Kyma Restaurant',
+    category: 'Brand Identity',
+    size: 'small',
+    gradient: 'from-[#0d1b2a] via-[#1b2838] to-[#1d3044]',
+    accent: '#64b5f6',
+    pattern: 'brand',
+    year: '2023',
+  },
+  {
+    id: 4,
+    slug: 'atlas-consulting',
+    title: 'Atlas Consulting',
+    category: 'Corporate',
+    size: 'large',
+    gradient: 'from-[#1c1c1c] via-[#262626] to-[#1c1c1c]',
+    accent: '#ffffff',
+    pattern: 'corporate',
+    year: '2024',
+  },
+  {
+    id: 5,
+    slug: 'elixir-wellness',
+    title: 'Elixir Wellness',
+    category: 'Web Design',
+    size: 'full',
+    gradient: 'from-[#1a1a2e] via-[#1f1f3a] to-[#0a0a1a]',
+    accent: '#a78bfa',
+    pattern: 'wellness',
+    year: '2023',
+  },
+];
+
+
+// ═══════════════════════════════════════
+// ANIMATED MOCK UI — κάθε pattern ζωντανεύει
+// ═══════════════════════════════════════
+
+function MockUI({ pattern, accent, isHovered }) {
+  // Shared floating animation style
+  const floatStyle = (delay = 0) => ({
+    transition: `all 1.2s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
+    transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
+    opacity: isHovered ? 1 : 0.6,
+  });
+
+  switch (pattern) {
+    case 'hotel':
+      return (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-[70%] h-[65%] relative">
+            {/* Nav mockup */}
+            <div className="flex justify-between items-center mb-6" style={floatStyle(0)}>
+              <div className="w-16 h-[1px]" style={{ backgroundColor: accent, opacity: 0.5 }} />
+              <div className="flex gap-4">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="w-8 h-[1px] bg-white/10" />
+                ))}
+              </div>
+              <div className="w-12 h-[1px] bg-white/10" />
+            </div>
+
+            {/* Hero text lines — staggered float */}
+            <div className="space-y-3 mb-8">
+              <div className="w-[60%] h-[2px]" style={{ ...floatStyle(100), backgroundColor: accent, opacity: isHovered ? 0.5 : 0.3 }} />
+              <div className="w-[45%] h-[2px] bg-white/8" style={floatStyle(150)} />
+              <div className="w-[30%] h-[1px] bg-white/5 mt-4" style={floatStyle(200)} />
+            </div>
+
+            {/* Room cards — rise on hover */}
+            <div className="grid grid-cols-3 gap-3 mt-auto">
+              {[...Array(3)].map((_, i) => (
+                <div
+                  key={i}
+                  className="aspect-[3/4] border bg-white/[0.02]"
+                  style={{
+                    ...floatStyle(250 + i * 80),
+                    borderColor: isHovered && i === 0 ? `${accent}40` : 'rgba(255,255,255,0.05)',
+                  }}
+                >
+                  {/* Mini content inside cards */}
+                  <div className="p-2 h-full flex flex-col justify-end">
+                    <div className="w-[60%] h-[1px] bg-white/5 mb-1" />
+                    <div
+                      className="w-[40%] h-[1px]"
+                      style={{
+                        backgroundColor: accent,
+                        opacity: isHovered ? 0.3 : 0.1,
+                        transition: 'opacity 0.8s ease',
+                      }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'ecommerce':
+      return (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-[75%] h-[70%] relative">
+            {/* Search bar mockup */}
+            <div
+              className="w-full h-6 border border-white/5 bg-white/[0.02] mb-4 flex items-center px-3"
+              style={floatStyle(0)}
+            >
+              <div className="w-3 h-3 border border-white/10 rounded-full" />
+              <div className="w-[40%] h-[1px] bg-white/5 ml-2" />
+            </div>
+
+            {/* Product grid */}
+            <div className="grid grid-cols-2 gap-3">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="space-y-2" style={floatStyle(100 + i * 80)}>
+                  <div
+                    className="aspect-square bg-white/[0.03] border border-white/5 relative overflow-hidden"
+                    style={{
+                      borderColor: isHovered && i === 0 ? `${accent}25` : undefined,
+                    }}
+                  >
+                    {/* Price tag mockup */}
+                    <div className="absolute bottom-2 right-2">
+                      <div
+                        className="w-8 h-3 rounded-sm"
+                        style={{
+                          backgroundColor: accent,
+                          opacity: isHovered ? 0.2 : 0.08,
+                          transition: 'opacity 0.6s ease',
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="w-[70%] h-[1px] bg-white/8" />
+                  <div className="flex justify-between">
+                    <div className="w-[35%] h-[1px]" style={{ backgroundColor: accent, opacity: 0.15 }} />
+                    <div className="w-[20%] h-[1px] bg-white/5" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'brand':
+      return (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="relative">
+            {/* Geometric logo — rotates subtly on hover */}
+            <div
+              className="w-20 h-20 md:w-28 md:h-28 border"
+              style={{
+                borderColor: `${accent}30`,
+                transform: isHovered ? 'rotate(50deg) scale(1.05)' : 'rotate(45deg)',
+                transition: 'all 1.5s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            />
+            <div
+              className="absolute inset-0 w-20 h-20 md:w-28 md:h-28 border"
+              style={{
+                borderColor: `${accent}15`,
+                transform: isHovered ? 'rotate(28deg) scale(1.08)' : 'rotate(22.5deg)',
+                transition: 'all 1.8s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            />
+            <div
+              className="absolute inset-0 w-20 h-20 md:w-28 md:h-28 border"
+              style={{
+                borderColor: `${accent}08`,
+                transform: isHovered ? 'rotate(5deg) scale(1.12)' : 'rotate(0deg)',
+                transition: 'all 2s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            />
+            {/* Center dot — pulses on hover */}
+            <div
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
+              style={{
+                width: isHovered ? '6px' : '3px',
+                height: isHovered ? '6px' : '3px',
+                backgroundColor: accent,
+                opacity: isHovered ? 0.8 : 0.5,
+                transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+                boxShadow: isHovered ? `0 0 20px ${accent}40` : 'none',
+              }}
+            />
+          </div>
+
+          {/* Brand name lines — fade in on hover */}
+          <div className="absolute bottom-[18%] left-1/2 -translate-x-1/2 space-y-2 text-center">
+            <div
+              className="h-[1px] mx-auto"
+              style={{
+                width: isHovered ? '60px' : '40px',
+                backgroundColor: accent,
+                opacity: isHovered ? 0.4 : 0.2,
+                transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            />
+            <div
+              className="h-[1px] mx-auto bg-white/8"
+              style={{
+                width: isHovered ? '40px' : '30px',
+                transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 100ms',
+              }}
+            />
+          </div>
+        </div>
+      );
+
+    case 'corporate':
+      return (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-[75%] h-[65%] relative">
+            {/* Stats cards */}
+            <div className="flex gap-3 mb-4">
+              {[
+                { w: 'w-12', val: '84%' },
+                { w: 'w-10', val: '2.4k' },
+                { w: 'w-14', val: '$12M' },
+              ].map((stat, i) => (
+                <div
+                  key={i}
+                  className="flex-1 h-16 bg-white/[0.03] border border-white/5 p-3"
+                  style={floatStyle(i * 80)}
+                >
+                  <div className="w-8 h-[1px] bg-white/10 mb-2" />
+                  <div
+                    className={`${stat.w} h-[2px]`}
+                    style={{
+                      backgroundColor: i === 0 ? accent : 'rgba(255,255,255,0.08)',
+                      opacity: i === 0 ? (isHovered ? 0.5 : 0.25) : 1,
+                      transition: 'opacity 0.6s ease',
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Chart — bars animate on hover */}
+            <div
+              className="h-28 bg-white/[0.02] border border-white/5 p-3 flex items-end gap-[3px]"
+              style={floatStyle(250)}
+            >
+              {[40, 65, 45, 80, 55, 70, 90, 60, 75, 85, 50, 95, 70, 82].map((h, i) => (
+                <div
+                  key={i}
+                  className="flex-1 rounded-sm"
+                  style={{
+                    height: isHovered ? `${h}%` : `${h * 0.6}%`,
+                    backgroundColor: i >= 12 ? `${accent}50` : 'rgba(255,255,255,0.04)',
+                    transition: `height 1s cubic-bezier(0.16, 1, 0.3, 1) ${i * 40}ms`,
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Table rows mockup */}
+            <div className="mt-3 space-y-[2px]" style={floatStyle(350)}>
+              {[...Array(3)].map((_, i) => (
+                <div key={i} className="flex gap-3 py-1">
+                  <div className="w-[30%] h-[1px] bg-white/5" />
+                  <div className="w-[20%] h-[1px] bg-white/3" />
+                  <div className="flex-1" />
+                  <div
+                    className="w-[15%] h-[1px]"
+                    style={{
+                      backgroundColor: i === 0 ? accent : 'rgba(255,255,255,0.03)',
+                      opacity: i === 0 ? 0.2 : 1,
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'wellness':
+      return (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-[70%] h-[60%] relative flex items-center">
+            {/* Left: Text content mockup */}
+            <div className="flex-1 pr-6 space-y-4">
+              <div
+                className="h-[2px]"
+                style={{
+                  ...floatStyle(0),
+                  width: isHovered ? '85%' : '75%',
+                  backgroundColor: accent,
+                  opacity: isHovered ? 0.4 : 0.2,
+                }}
+              />
+              <div className="w-[60%] h-[2px] bg-white/8" style={floatStyle(80)} />
+              <div className="w-[40%] h-[1px] bg-white/5 mt-2" style={floatStyle(120)} />
+
+              {/* CTA mockup */}
+              <div className="pt-4" style={floatStyle(200)}>
+                <div
+                  className="inline-block border px-3 py-1"
+                  style={{
+                    borderColor: isHovered ? `${accent}40` : `${accent}15`,
+                    transition: 'border-color 0.6s ease',
+                  }}
+                >
+                  <div className="w-12 h-[1px]" style={{ backgroundColor: accent, opacity: 0.3 }} />
+                </div>
+              </div>
+            </div>
+
+            {/* Divider line */}
+            <div
+              className="w-px bg-white/5"
+              style={{
+                height: isHovered ? '100%' : '60%',
+                transition: 'height 1s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            />
+
+            {/* Right: Image placeholder */}
+            <div className="flex-1 pl-6" style={floatStyle(150)}>
+              <div
+                className="aspect-[4/5] bg-white/[0.02] border overflow-hidden relative"
+                style={{
+                  borderColor: isHovered ? `${accent}20` : 'rgba(255,255,255,0.05)',
+                  transition: 'border-color 0.8s ease',
+                }}
+              >
+                {/* Decorative circles inside */}
+                <div
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border"
+                  style={{
+                    width: isHovered ? '60%' : '40%',
+                    height: isHovered ? '60%' : '40%',
+                    borderColor: `${accent}10`,
+                    transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
+                />
+                <div
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border"
+                  style={{
+                    width: isHovered ? '35%' : '20%',
+                    height: isHovered ? '35%' : '20%',
+                    borderColor: `${accent}15`,
+                    transition: 'all 1.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+
+    default:
+      return null;
+  }
+}
+
+
+// ═══════════════════════════════════════
+// PORTFOLIO CARD — Prestige Edition
+// ═══════════════════════════════════════
+
 function PortfolioCard({ project, index }) {
   const cardRef = useRef(null);
+  const [isHovered, setIsHovered] = useState(false);
   const [transform, setTransform] = useState(
     'perspective(1000px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)'
   );
@@ -384,12 +738,15 @@ function PortfolioCard({ project, index }) {
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     setTransform(
-      `perspective(1000px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) scale3d(1.02, 1.02, 1.02)`
+      `perspective(1000px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) scale3d(1.02, 1.02, 1.02)`
     );
     setShine({ x: (x + 0.5) * 100, y: (y + 0.5) * 100 });
   };
 
+  const handleMouseEnter = () => setIsHovered(true);
+
   const handleMouseLeave = () => {
+    setIsHovered(false);
     setTransform('perspective(1000px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)');
     setShine({ x: 50, y: 50 });
   };
@@ -406,74 +763,150 @@ function PortfolioCard({ project, index }) {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      transition={{ duration: 0.8, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
     >
       <Link
         href={`/work/${project.slug}`}
         ref={cardRef}
-        className="relative block group overflow-hidden bg-ag-card border border-ag-border"
+        className="relative block group overflow-hidden"
         style={{
           transform,
-          transition: 'transform 0.3s ease-out',
-          aspectRatio: '16 / 10',
+          transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+          aspectRatio: project.size === 'full' ? '21 / 9' : '16 / 10',
         }}
         onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         data-cursor="view"
         data-testid={`portfolio-card-${project.slug}`}
       >
-        {/* Image */}
-        <div className="absolute inset-0 overflow-hidden bg-gradient-to-br from-ag-surface to-ag-card">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover scale-100 group-hover:scale-110 transition-transform duration-700"
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-            }}
-            loading="lazy"
-          />
-        </div>
+        {/* Base gradient */}
+        <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`} />
 
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-500" />
-
-        {/* Shine Effect */}
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+        {/* Subtle noise texture */}
+        <div className="absolute inset-0 opacity-[0.015]"
           style={{
-            background: `radial-gradient(circle at ${shine.x}% ${shine.y}%, rgba(255,255,255,0.08) 0%, transparent 60%)`,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
           }}
         />
 
-        {/* Content — visible on hover */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-          <span className="font-mono text-xs text-ag-accent uppercase tracking-wider">
+        {/* Grid overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            opacity: isHovered ? 0.04 : 0.02,
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundSize: '50px 50px',
+            transition: 'opacity 0.8s ease',
+          }}
+        />
+
+        {/* Animated Mock UI */}
+        <MockUI pattern={project.pattern} accent={project.accent} isHovered={isHovered} />
+
+        {/* Hover overlay */}
+        <div
+          className="absolute inset-0 transition-colors duration-700"
+          style={{
+            backgroundColor: isHovered ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0)',
+          }}
+        />
+
+        {/* Shine */}
+        <div
+          className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+          style={{
+            opacity: isHovered ? 1 : 0,
+            background: `radial-gradient(800px circle at ${shine.x}% ${shine.y}%, ${project.accent}08 0%, transparent 50%)`,
+          }}
+        />
+
+        {/* ═══ BOTTOM CONTENT ═══ */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+          {/* Accent line — grows on hover */}
+          <div
+            className="h-px mb-4"
+            style={{
+              width: isHovered ? '48px' : '0px',
+              backgroundColor: project.accent,
+              opacity: 0.6,
+              transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+            }}
+          />
+
+          {/* Category */}
+          <span
+            className="font-mono text-[10px] tracking-[0.2em] uppercase block mb-1.5"
+            style={{
+              color: project.accent,
+              opacity: isHovered ? 0.8 : 0.5,
+              transition: 'opacity 0.6s ease',
+            }}
+          >
             {project.category}
           </span>
-          <h3 className="font-heading text-xl md:text-2xl text-white mt-1">
+
+          {/* Title */}
+          <h3
+            className="font-heading text-lg md:text-xl"
+            style={{
+              color: isHovered ? '#ffffff' : 'rgba(255,255,255,0.85)',
+              transition: 'color 0.6s ease',
+            }}
+          >
             {project.title}
           </h3>
         </div>
 
-        {/* Always Visible Info */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 group-hover:opacity-0 transition-opacity duration-300">
-          <span className="font-mono text-xs text-ag-muted uppercase tracking-wider">
-            {project.category}
+        {/* ═══ TOP RIGHT — Year ═══ */}
+        <div className="absolute top-6 right-6 md:top-8 md:right-8">
+          <span
+            className="font-mono text-[10px] tracking-[0.15em]"
+            style={{
+              color: project.accent,
+              opacity: isHovered ? 0.5 : 0,
+              transform: isHovered ? 'translateY(0)' : 'translateY(-4px)',
+              transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+              display: 'block',
+            }}
+          >
+            {project.year}
           </span>
-          <h3 className="font-heading text-xl md:text-2xl text-white mt-1">
-            {project.title}
-          </h3>
         </div>
+
+        {/* ═══ TOP LEFT — Index ═══ */}
+        <div className="absolute top-6 left-6 md:top-8 md:left-8">
+          <span
+            className="font-mono text-[10px] tracking-[0.15em] text-white/20"
+            style={{
+              opacity: isHovered ? 0.4 : 0.15,
+              transition: 'opacity 0.6s ease',
+            }}
+          >
+            0{index + 1}
+          </span>
+        </div>
+
+        {/* ═══ BORDER GLOW ═══ */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            boxShadow: isHovered
+              ? `inset 0 0 0 1px ${project.accent}15, 0 0 40px ${project.accent}05`
+              : 'inset 0 0 0 1px rgba(255,255,255,0.04)',
+            transition: 'box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
+        />
       </Link>
     </motion.div>
   );
 }
+
+
+// ═══════════════════════════════════════
+// PORTFOLIO SECTION
+// ═══════════════════════════════════════
 
 function PortfolioSection({ showAll = false }) {
   const { t } = useTranslation();
@@ -487,7 +920,7 @@ function PortfolioSection({ showAll = false }) {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
               {t('portfolio.label')}
@@ -508,23 +941,25 @@ function PortfolioSection({ showAll = false }) {
 
         {!showAll && (
           <motion.div
-            className="mt-12 text-center"
+            className="mt-16 text-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             <Link
               href="/work"
-              className="inline-flex items-center gap-4 font-body text-ag-body hover:text-white transition-colors group"
+              className="inline-flex items-center gap-6 group"
               data-cursor="hover"
               data-testid="view-all-projects"
             >
-              <span className="relative">
+              <span className="relative font-body text-ag-body group-hover:text-white transition-colors duration-500">
                 {t('portfolio.viewAll')}
-                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-ag-accent group-hover:w-full transition-all duration-300" />
+                <span className="absolute -bottom-1 left-0 w-0 h-px bg-ag-accent group-hover:w-full transition-all duration-700 ease-out" />
               </span>
-              <span className="text-ag-muted">{t('portfolio.projectCount')}</span>
+              <span className="font-mono text-[11px] text-ag-muted/50 tracking-wider">
+                {t('portfolio.projectCount')}
+              </span>
             </Link>
           </motion.div>
         )}
