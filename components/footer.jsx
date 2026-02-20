@@ -13,7 +13,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
           <div>
             <Link href="/" className="inline-block">
-              <span className="font-heading font-bold text-3xl text-ag-accent">df.</span>
+              <span className="font-heading font-bold text-2xl text-ag-accent" style={logoStyle}>
+              [DF]</span>
             </Link>
             <p className="mt-4 text-ag-body text-sm leading-relaxed max-w-[280px]">{t('footer.tagline')}</p>
             <div className="flex gap-3 mt-6">
