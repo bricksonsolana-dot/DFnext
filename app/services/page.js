@@ -28,7 +28,7 @@ function CTASection() {
       <div className="relative max-w-[1800px] mx-auto px-4 md:px-8 text-center">
         <AnimatedHeadline
           text={`${t('cta.line1')}\n${t('cta.line2')}\n${t('cta.line3')}`}
-          className="font-heading text-h1 md:text-display text-white mb-8"
+          className="font-heading text-h1 md:text-display text-foreground mb-8"
         />
 
         <FadeUp delay={0.8}>
@@ -204,7 +204,7 @@ function ServiceBlock({ service, index }) {
 
   return (
     <section
-      className={`py-24 md:py-32 ${index % 2 === 0 ? 'bg-ag-bg' : 'bg-ag-card'}`}
+      className={`py-24 md:py-32 ${index % 2 === 0 ? 'bg-background' : 'bg-card'}`}
       data-testid={`service-${service.id}`}
     >
       <div className="max-w-[1800px] mx-auto px-4 md:px-8">
@@ -217,7 +217,7 @@ function ServiceBlock({ service, index }) {
               </span>
             </FadeUp>
             <FadeUp delay={0.1}>
-              <h2 className="font-heading text-h2 text-white mb-2">
+              <h2 className="font-heading text-h2 text-foreground mb-2">
                 {service.title}
               </h2>
             </FadeUp>
@@ -236,7 +236,7 @@ function ServiceBlock({ service, index }) {
                 {service.features.map((feature, i) => (
                   <li key={i} className="flex items-center gap-3">
                     <Check size={16} className="text-ag-accent shrink-0" />
-                    <span className="font-body text-white">{feature}</span>
+                    <span className="font-body text-foreground">{feature}</span>
                   </li>
                 ))}
               </ul>
@@ -282,7 +282,7 @@ export default function ServicesPage() {
   const { t } = useTranslation();
 
   return (
-    <main className="bg-ag-bg" data-testid="services-page">
+    <main className="bg-background" data-testid="services-page">
       {/* ─────────────────────────────────────────────────────
          HERO — matched to old project
          - pt-32 pb-24 md:pb-32
@@ -298,7 +298,7 @@ export default function ServicesPage() {
           </FadeUp>
           <AnimatedHeadline
             text="Υπηρεσίες."
-            className="font-heading text-h1 text-white mb-8"
+            className="font-heading text-h1 text-foreground mb-8"
           />
           <FadeUp delay={0.6}>
             <p className="font-body text-xl text-ag-body max-w-2xl">
@@ -311,7 +311,7 @@ export default function ServicesPage() {
 
       {/* ─────────────────────────────────────────────────────
          SERVICE BLOCKS — matched to old project
-         - Alternating backgrounds (bg-ag-bg / bg-ag-card)
+         - Alternating backgrounds (bg-background / bg-card)
          - Alternating content/image order
          ───────────────────────────────────────────────────── */}
       {services.map((service, index) => (
@@ -320,19 +320,19 @@ export default function ServicesPage() {
 
       {/* ─────────────────────────────────────────────────────
          PRICING — matched to old project
-         - bg-ag-card (old df-surface)
+         - bg-card (old df-surface)
          - Sharp border (no rounded-lg)
          - Check icon for features (size 14)
          - Sharp button (no rounded-full)
-         - highlighted tier: border-ag-accent bg-ag-bg
+         - highlighted tier: border-ag-accent bg-background
          ───────────────────────────────────────────────────── */}
-      <section className="py-24 md:py-32 bg-ag-card" data-testid="pricing-section">
+      <section className="py-24 md:py-32 bg-card" data-testid="pricing-section">
         <div className="max-w-[1800px] mx-auto px-4 md:px-8">
           <FadeUp>
             <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
               PRICING
             </span>
-            <h2 className="font-heading text-h2 text-white mb-4">
+            <h2 className="font-heading text-h2 text-foreground mb-4">
               Προσέγγιση τιμολόγησης.
             </h2>
             <p className="font-body text-ag-body max-w-2xl mb-16">
@@ -347,7 +347,7 @@ export default function ServicesPage() {
                 <div
                   className={`p-8 border transition-colors ${
                     tier.highlighted
-                      ? 'border-ag-accent bg-ag-bg'
+                      ? 'border-ag-accent bg-background'
                       : 'border-ag-border hover:border-ag-accent/30'
                   }`}
                 >
@@ -356,7 +356,7 @@ export default function ServicesPage() {
                       MOST POPULAR
                     </span>
                   )}
-                  <h3 className="font-heading text-2xl text-white mb-2">
+                  <h3 className="font-heading text-2xl text-foreground mb-2">
                     {tier.name}
                   </h3>
                   <p className="font-body text-sm text-ag-body mb-6">
@@ -366,7 +366,7 @@ export default function ServicesPage() {
                     {tier.features.map((feature, i) => (
                       <li key={i} className="flex items-center gap-3">
                         <Check size={14} className="text-ag-accent shrink-0" />
-                        <span className="font-body text-sm text-white">{feature}</span>
+                        <span className="font-body text-sm text-foreground">{feature}</span>
                       </li>
                     ))}
                   </ul>
@@ -376,7 +376,7 @@ export default function ServicesPage() {
                     className={`block text-center py-3 font-heading font-medium transition-all ${
                       tier.highlighted
                         ? 'bg-ag-accent text-ag-bg hover:opacity-90'
-                        : 'border border-ag-border text-white hover:bg-ag-accent hover:text-ag-bg hover:border-ag-accent'
+                        : 'border border-ag-border text-foreground hover:bg-ag-accent hover:text-ag-bg hover:border-ag-accent'
                     }`}
                     data-cursor="hover"
                   >

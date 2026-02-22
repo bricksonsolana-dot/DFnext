@@ -2,6 +2,7 @@ import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import ClientLayout from '@/components/client-layout';
 import SmoothScroll from '@/components/ui/SmoothScroll';
+import { ThemeProvider } from '@/components/ui/theme-provider';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -28,11 +29,17 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="el" className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-[#0A0A0A] text-white font-body antialiased">
-        <SmoothScroll>
-          <ClientLayout>{children}</ClientLayout>
-        </SmoothScroll>
+    <html 
+      lang="el" 
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
+      <body className="bg-background text-foreground font-body antialiased">
+        <ThemeProvider>
+          <SmoothScroll>
+            <ClientLayout>{children}</ClientLayout>
+          </SmoothScroll>
+        </ThemeProvider>
       </body>
     </html>
   );

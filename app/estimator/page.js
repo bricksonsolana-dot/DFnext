@@ -427,7 +427,7 @@ function StepIndicator({ current, onNavigate, canNavigateTo }) {
               className={`
                 flex items-center gap-2 text-xs font-mono tracking-wider whitespace-nowrap transition-colors
                 ${clickable ? "cursor-pointer" : "cursor-default"}
-                ${isActive ? "text-ag-text" : isCompleted ? "text-ag-accent" : "text-ag-muted"}
+                ${isActive ? "text-foreground" : isCompleted ? "text-ag-accent" : "text-ag-muted"}
               `}
             >
               <span
@@ -435,7 +435,7 @@ function StepIndicator({ current, onNavigate, canNavigateTo }) {
                   w-7 h-7 flex items-center justify-center text-xs font-bold flex-shrink-0 transition-all
                   ${isActive ? "bg-ag-accent text-ag-bg" : ""}
                   ${isCompleted ? "bg-ag-accent/20 text-ag-accent border border-ag-accent/30" : ""}
-                  ${!isActive && !isCompleted ? "bg-ag-card text-ag-muted border border-ag-border" : ""}
+                  ${!isActive && !isCompleted ? "bg-card text-ag-muted border border-ag-border" : ""}
                 `}
               >
                 {isCompleted ? <Check size={12} strokeWidth={3} /> : i + 1}
@@ -557,16 +557,16 @@ export default function EstimatorPage() {
   }, [selectedType, selectedFeatures]);
 
   return (
-    <div className="min-h-screen bg-ag-bg pt-24 relative" data-testid="estimator-page">
+    <div className="min-h-screen bg-background pt-24 relative" data-testid="estimator-page">
   <EstimatorBackground />
       {/* TOP BAR */}
       <div className="border-b border-ag-border relative z-10">
         <div className="max-w-6xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
-          <Link href="/services" className="flex items-center gap-2 text-ag-body hover:text-ag-text transition-colors text-sm" data-cursor="hover">
+          <Link href="/services" className="flex items-center gap-2 text-ag-body hover:text-foreground transition-colors text-sm" data-cursor="hover">
             <ArrowLeft size={16} />
             <span className="hidden sm:inline">Υπηρεσίες</span>
           </Link>
-          <div className="flex items-center gap-2 text-ag-text">
+          <div className="flex items-center gap-2 text-foreground">
             <Calculator size={18} className="text-ag-accent" />
             <span className="font-heading font-bold text-sm">Cost Estimator</span>
           </div>
@@ -592,13 +592,13 @@ export default function EstimatorPage() {
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-8 bg-ag-card border border-ag-border p-4 md:p-5"
+            className="mb-8 bg-card border border-ag-border p-4 md:p-5"
           >
             <div className="flex flex-wrap items-center justify-between gap-4">
               <div className="flex items-center gap-6">
                 <div>
                   <div className="font-mono text-xs text-ag-muted mb-1">ΕΚΤΙΜΗΣΗ ΚΟΣΤΟΥΣ</div>
-                  <div className="text-2xl md:text-3xl font-heading font-bold text-ag-text">
+                  <div className="text-2xl md:text-3xl font-heading font-bold text-foreground">
                     €{priceCalc.total.toLocaleString("el-GR")}
                   </div>
                 </div>
@@ -625,7 +625,7 @@ export default function EstimatorPage() {
         {step === 0 && (
           <FadeUp>
             <div className="mb-8">
-              <h1 className="font-heading text-2xl md:text-3xl font-bold text-ag-text mb-2">
+              <h1 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-2">
                 Τι τύπο site χρειάζεστε;
               </h1>
               <p className="font-body text-ag-body text-sm">
@@ -649,7 +649,7 @@ export default function EstimatorPage() {
                     className={`relative text-left p-5 border transition-all ${
                       isSelected
                         ? "border-ag-accent bg-ag-accent/5"
-                        : "border-ag-border bg-ag-card hover:border-ag-body"
+                        : "border-ag-border bg-card hover:border-ag-body"
                     }`}
                     data-cursor="hover"
                     data-testid={`type-${type.id}`}
@@ -660,7 +660,7 @@ export default function EstimatorPage() {
                       </span>
                     )}
                     <Icon size={22} className={isSelected ? "text-ag-accent" : "text-ag-body"} />
-                    <h3 className="font-heading text-ag-text font-semibold mt-3 mb-1">{type.name}</h3>
+                    <h3 className="font-heading text-foreground font-semibold mt-3 mb-1">{type.name}</h3>
                     <p className="font-body text-ag-body text-xs leading-relaxed mb-3">{type.desc}</p>
                     <div className="flex items-center justify-between pt-3 border-t border-ag-border">
                       <span className="text-ag-accent font-mono text-sm font-semibold">
@@ -683,9 +683,9 @@ export default function EstimatorPage() {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mt-8 bg-ag-card border border-ag-accent/20 p-5"
+                className="mt-8 bg-card border border-ag-accent/20 p-5"
               >
-                <h3 className="font-heading text-sm font-semibold text-ag-text mb-4 flex items-center gap-2">
+                <h3 className="font-heading text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
                   <Check size={16} className="text-ag-accent" />
                   Περιλαμβάνονται στο {selectedTypeData.name}:
                 </h3>
@@ -693,7 +693,7 @@ export default function EstimatorPage() {
                   {selectedTypeData.includedFeatures.map((f, i) => {
                     const FIcon = f.icon;
                     return (
-                      <div key={i} className="flex items-center gap-2.5 font-body text-sm text-ag-text/80 py-1.5 px-3 bg-ag-accent/5 border border-ag-accent/10">
+                      <div key={i} className="flex items-center gap-2.5 font-body text-sm text-foreground/80 py-1.5 px-3 bg-ag-accent/5 border border-ag-accent/10">
                         <div className="w-4 h-4 bg-ag-accent/20 border border-ag-accent/40 flex items-center justify-center flex-shrink-0">
                           <Check size={10} strokeWidth={3} className="text-ag-accent" />
                         </div>
@@ -712,7 +712,7 @@ export default function EstimatorPage() {
         {step === 1 && (
           <FadeUp>
             <div className="mb-6">
-              <h1 className="font-heading text-2xl md:text-3xl font-bold text-ag-text mb-1">Extra Features</h1>
+              <h1 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-1">Extra Features</h1>
               <p className="font-body text-ag-body text-sm">Προσθέστε ό,τι χρειάζεστε.</p>
             </div>
 
@@ -742,7 +742,7 @@ export default function EstimatorPage() {
                         className={`w-full text-left flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-body transition-all ${
                           isActive
                             ? "bg-ag-accent/10 text-ag-accent border-l-2 border-ag-accent"
-                            : "text-ag-body hover:text-ag-text hover:bg-ag-card border-l-2 border-transparent"
+                            : "text-ag-body hover:text-foreground hover:bg-card border-l-2 border-transparent"
                         }`}
                         data-cursor="hover"
                       >
@@ -772,7 +772,7 @@ export default function EstimatorPage() {
               <div className="flex-1 min-w-0">
                 {activeCatDef && (
                   <div className="mb-4 pb-4 border-b border-ag-border">
-                    <h2 className="font-heading text-ag-text font-semibold text-base mb-0.5">{activeCatDef.name}</h2>
+                    <h2 className="font-heading text-foreground font-semibold text-base mb-0.5">{activeCatDef.name}</h2>
                     {activeCatDef.description && <p className="font-body text-ag-muted text-xs">{activeCatDef.description}</p>}
                   </div>
                 )}
@@ -798,7 +798,7 @@ export default function EstimatorPage() {
                             ? "border-ag-accent/30 bg-ag-accent/5 cursor-default"
                             : isSelected
                             ? "border-ag-accent/40 bg-ag-accent/5 cursor-pointer"
-                            : "border-ag-border bg-ag-card hover:border-ag-body cursor-pointer"
+                            : "border-ag-border bg-card hover:border-ag-body cursor-pointer"
                         }`}
                         data-cursor={isIncluded ? "default" : "hover"}
                       >
@@ -812,7 +812,7 @@ export default function EstimatorPage() {
 
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="font-body text-sm text-ag-text font-medium">{feature.name}</span>
+                            <span className="font-body text-sm text-foreground font-medium">{feature.name}</span>
                             {isIncluded && (
                               <span className="font-mono text-[10px] bg-ag-accent/10 text-ag-accent border border-ag-accent/20 px-1.5 py-0.5">
                                 ΠΕΡΙΛΑΜΒΑΝΕΤΑΙ
@@ -841,7 +841,7 @@ export default function EstimatorPage() {
               </div>
             </div>
 
-            <div className="mt-6 p-4 bg-ag-card border border-ag-border">
+            <div className="mt-6 p-4 bg-card border border-ag-border">
               <div className="flex items-center justify-between font-mono text-sm">
                 <div className="flex items-center gap-4">
                   <span className="text-ag-accent">✓ {includedCount} included</span>
@@ -857,7 +857,7 @@ export default function EstimatorPage() {
         {step === 2 && (
           <FadeUp>
             <div className="mb-8">
-              <h1 className="font-heading text-2xl md:text-3xl font-bold text-ag-text mb-2">Μηνιαία Συντήρηση</h1>
+              <h1 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-2">Μηνιαία Συντήρηση</h1>
               <p className="font-body text-ag-body text-sm">Θέλετε ongoing υποστήριξη μετά την παράδοση;</p>
             </div>
 
@@ -871,7 +871,7 @@ export default function EstimatorPage() {
                     key={plan.id}
                     onClick={() => setSelectedSupport(plan.id)}
                     className={`relative text-left p-5 border transition-all flex flex-col ${
-                      isSelected ? "border-ag-accent bg-ag-accent/5" : "border-ag-border bg-ag-card hover:border-ag-body"
+                      isSelected ? "border-ag-accent bg-ag-accent/5" : "border-ag-border bg-card hover:border-ag-body"
                     }`}
                     data-cursor="hover"
                     data-testid={`support-${plan.id}`}
@@ -882,7 +882,7 @@ export default function EstimatorPage() {
                       </span>
                     )}
                     <PlanIcon size={20} className={isSelected ? "text-ag-accent" : "text-ag-body"} />
-                    <h3 className="font-heading text-ag-text font-semibold mt-3 mb-1">{plan.name}</h3>
+                    <h3 className="font-heading text-foreground font-semibold mt-3 mb-1">{plan.name}</h3>
                     <p className="font-body text-ag-body text-xs leading-relaxed mb-4">{plan.desc}</p>
                     <ul className="space-y-1.5 mb-4 flex-1">
                       {plan.features.map((f, i) => (
@@ -918,19 +918,19 @@ export default function EstimatorPage() {
         {step === 3 && !isSubmitted && (
           <FadeUp>
             <div className="mb-8">
-              <h1 className="font-heading text-2xl md:text-3xl font-bold text-ag-text mb-2">Σύνοψη & Αποστολή</h1>
+              <h1 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-2">Σύνοψη & Αποστολή</h1>
               <p className="font-body text-ag-body text-sm">Ελέγξτε τις επιλογές σας.</p>
             </div>
 
             <div className="grid lg:grid-cols-5 gap-6">
               {/* Summary */}
               <div className="lg:col-span-2 space-y-4">
-                <div className="bg-ag-card border border-ag-border p-5">
-                  <h3 className="font-heading text-sm font-semibold text-ag-text mb-4">Οι επιλογές σας</h3>
+                <div className="bg-card border border-ag-border p-5">
+                  <h3 className="font-heading text-sm font-semibold text-foreground mb-4">Οι επιλογές σας</h3>
                   <div className="space-y-3 font-body text-sm">
                     <div className="flex justify-between py-2 border-b border-ag-border">
                       <span className="text-ag-body">Τύπος</span>
-                      <span className="text-ag-text font-medium">{selectedTypeData?.name || "—"}</span>
+                      <span className="text-foreground font-medium">{selectedTypeData?.name || "—"}</span>
                     </div>
                     <div className="py-2 border-b border-ag-border">
                       <div className="flex justify-between mb-1">
@@ -942,18 +942,18 @@ export default function EstimatorPage() {
                     </div>
                     <div className="flex justify-between py-2 border-b border-ag-border">
                       <span className="text-ag-body">Συντήρηση</span>
-                      <span className="text-ag-text font-medium">{supportPlans.find((s) => s.id === selectedSupport)?.name || "—"}</span>
+                      <span className="text-foreground font-medium">{supportPlans.find((s) => s.id === selectedSupport)?.name || "—"}</span>
                     </div>
                     <div className="flex justify-between py-2">
                       <span className="text-ag-body">Εκτ. Χρόνος</span>
-                      <span className="text-ag-text font-medium">{selectedTypeData?.timeEstimate || "—"}</span>
+                      <span className="text-foreground font-medium">{selectedTypeData?.timeEstimate || "—"}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-ag-card border border-ag-accent/20 p-5 text-center">
+                <div className="bg-card border border-ag-accent/20 p-5 text-center">
                   <div className="font-mono text-xs text-ag-muted mb-1">ΕΚΤΙΜΩΜΕΝΟ ΚΟΣΤΟΣ</div>
-                  <div className="font-heading text-3xl font-bold text-ag-text mb-1">
+                  <div className="font-heading text-3xl font-bold text-foreground mb-1">
                     €{priceCalc.total.toLocaleString("el-GR")}
                   </div>
                   {priceCalc.monthly > 0 && (
@@ -969,8 +969,8 @@ export default function EstimatorPage() {
               </div>
 
               {/* Contact Form */}
-              <div className="lg:col-span-3 bg-ag-card border border-ag-border p-5">
-                <h3 className="font-heading text-sm font-semibold text-ag-text mb-4">Στοιχεία Επικοινωνίας</h3>
+              <div className="lg:col-span-3 bg-card border border-ag-border p-5">
+                <h3 className="font-heading text-sm font-semibold text-foreground mb-4">Στοιχεία Επικοινωνίας</h3>
                 <div className="space-y-4">
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
@@ -982,7 +982,7 @@ export default function EstimatorPage() {
                           value={contactForm.name}
                           onChange={(e) => setContactForm((p) => ({ ...p, name: e.target.value }))}
                           placeholder="Γιώργος Παπαδόπουλος"
-                          className="w-full bg-ag-bg border border-ag-border pl-9 pr-3 py-2.5 text-ag-text placeholder:text-ag-muted focus:border-ag-accent focus:outline-none font-body text-sm"
+                          className="w-full bg-background border border-ag-border pl-9 pr-3 py-2.5 text-foreground placeholder:text-ag-muted focus:border-ag-accent focus:outline-none font-body text-sm"
                           data-testid="input-name"
                         />
                       </div>
@@ -996,7 +996,7 @@ export default function EstimatorPage() {
                           value={contactForm.email}
                           onChange={(e) => setContactForm((p) => ({ ...p, email: e.target.value }))}
                           placeholder="email@example.com"
-                          className="w-full bg-ag-bg border border-ag-border pl-9 pr-3 py-2.5 text-ag-text placeholder:text-ag-muted focus:border-ag-accent focus:outline-none font-body text-sm"
+                          className="w-full bg-background border border-ag-border pl-9 pr-3 py-2.5 text-foreground placeholder:text-ag-muted focus:border-ag-accent focus:outline-none font-body text-sm"
                           data-testid="input-email"
                         />
                       </div>
@@ -1012,7 +1012,7 @@ export default function EstimatorPage() {
                           value={contactForm.phone}
                           onChange={(e) => setContactForm((p) => ({ ...p, phone: e.target.value }))}
                           placeholder="69xxxxxxxx"
-                          className="w-full bg-ag-bg border border-ag-border pl-9 pr-3 py-2.5 text-ag-text placeholder:text-ag-muted focus:border-ag-accent focus:outline-none font-body text-sm"
+                          className="w-full bg-background border border-ag-border pl-9 pr-3 py-2.5 text-foreground placeholder:text-ag-muted focus:border-ag-accent focus:outline-none font-body text-sm"
                         />
                       </div>
                     </div>
@@ -1025,7 +1025,7 @@ export default function EstimatorPage() {
                           value={contactForm.company}
                           onChange={(e) => setContactForm((p) => ({ ...p, company: e.target.value }))}
                           placeholder="Προαιρετικό"
-                          className="w-full bg-ag-bg border border-ag-border pl-9 pr-3 py-2.5 text-ag-text placeholder:text-ag-muted focus:border-ag-accent focus:outline-none font-body text-sm"
+                          className="w-full bg-background border border-ag-border pl-9 pr-3 py-2.5 text-foreground placeholder:text-ag-muted focus:border-ag-accent focus:outline-none font-body text-sm"
                         />
                       </div>
                     </div>
@@ -1037,7 +1037,7 @@ export default function EstimatorPage() {
                       onChange={(e) => setContactForm((p) => ({ ...p, notes: e.target.value }))}
                       rows={4}
                       placeholder="Πείτε μας λίγα λόγια για το project σας..."
-                      className="w-full bg-ag-bg border border-ag-border px-3 py-2.5 text-ag-text placeholder:text-ag-muted focus:border-ag-accent focus:outline-none font-body text-sm resize-none"
+                      className="w-full bg-background border border-ag-border px-3 py-2.5 text-foreground placeholder:text-ag-muted focus:border-ag-accent focus:outline-none font-body text-sm resize-none"
                     />
                   </div>
                   <button
@@ -1080,23 +1080,23 @@ export default function EstimatorPage() {
               >
                 <Check size={28} className="text-ag-accent" />
               </motion.div>
-              <h2 className="font-heading text-2xl font-bold text-ag-text mb-3">Το αίτημά σας καταχωρήθηκε</h2>
+              <h2 className="font-heading text-2xl font-bold text-foreground mb-3">Το αίτημά σας καταχωρήθηκε</h2>
               <p className="font-body text-ag-body text-sm mb-2">
                 Θα επικοινωνήσουμε στο <span className="text-ag-accent">{contactForm.email}</span> εντός 24 ωρών.
               </p>
-              <div className="bg-ag-card border border-ag-border p-4 my-6 inline-block">
+              <div className="bg-card border border-ag-border p-4 my-6 inline-block">
                 <span className="font-mono text-ag-muted text-xs block mb-1">ΕΚΤΙΜΗΣΗ BUDGET</span>
-                <span className="font-heading text-2xl font-bold text-ag-text">€{priceCalc.total.toLocaleString("el-GR")}</span>
+                <span className="font-heading text-2xl font-bold text-foreground">€{priceCalc.total.toLocaleString("el-GR")}</span>
                 {priceCalc.monthly > 0 && (
                   <span className="font-body text-ag-accent text-xs block mt-1">+ €{priceCalc.monthly}/μήνα</span>
                 )}
               </div>
               <div className="flex items-center justify-center gap-4 mt-6">
-                <button onClick={handleReset} className="font-body text-ag-body hover:text-ag-text transition-colors text-sm flex items-center gap-1.5" data-cursor="hover">
+                <button onClick={handleReset} className="font-body text-ag-body hover:text-foreground transition-colors text-sm flex items-center gap-1.5" data-cursor="hover">
                   <RefreshCw size={14} />
                   Νέα εκτίμηση
                 </button>
-                <Link href="/" className="font-body text-ag-accent hover:text-ag-text transition-colors text-sm flex items-center gap-1.5" data-cursor="hover">
+                <Link href="/" className="font-body text-ag-accent hover:text-foreground transition-colors text-sm flex items-center gap-1.5" data-cursor="hover">
                   Αρχική
                   <ArrowUpRight size={14} />
                 </Link>
@@ -1111,7 +1111,7 @@ export default function EstimatorPage() {
             <button
               onClick={goBack}
               disabled={step === 0}
-              className="flex items-center gap-2 font-body text-ag-body hover:text-ag-text transition-colors disabled:opacity-20 disabled:cursor-default text-sm"
+              className="flex items-center gap-2 font-body text-ag-body hover:text-foreground transition-colors disabled:opacity-20 disabled:cursor-default text-sm"
               data-cursor="hover"
             >
               <ArrowLeft size={16} />
@@ -1143,7 +1143,7 @@ export default function EstimatorPage() {
           <p className="font-body text-[11px] text-ag-muted">
             * Ενδεικτικές τιμές χωρίς ΦΠΑ. Η τελική τιμή εξαρτάται από τις ακριβείς απαιτήσεις.
           </p>
-          <Link href="/" className="font-mono text-xs text-ag-body hover:text-ag-text transition-colors flex items-center gap-1" data-cursor="hover">
+          <Link href="/" className="font-mono text-xs text-ag-body hover:text-foreground transition-colors flex items-center gap-1" data-cursor="hover">
             DigitalFootprint
             <ArrowUpRight size={10} />
           </Link>

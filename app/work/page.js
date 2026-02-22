@@ -277,7 +277,7 @@ function WorkCard({ project, viewText }) {
         <div
           ref={cardRef}
           data-cursor="view"
-          className="relative overflow-hidden bg-ag-card border border-ag-border"
+          className="relative overflow-hidden bg-card border border-ag-border"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           onMouseEnter={handleMouseEnter}
@@ -325,7 +325,7 @@ function WorkCard({ project, viewText }) {
                 isHovered ? 'opacity-100' : 'opacity-0'
               }`}
             >
-              <span className="font-mono text-xs text-white tracking-wider uppercase">
+              <span className="font-mono text-xs text-foreground tracking-wider uppercase">
                 {viewText}
               </span>
             </div>
@@ -412,12 +412,12 @@ export default function WorkPage() {
   const filtered = filterKey === 'All' ? allProjects : allProjects.filter((p) => p.category === filterKey);
 
   return (
-    <div className="pt-24 min-h-screen bg-ag-bg">
+    <div className="pt-24 min-h-screen bg-background">
       <section className="max-w-[1400px] mx-auto px-6 lg:px-12 py-16 md:py-24">
         {/* Header */}
         <motion.h1
           key={`title-${langKey}`}
-          className="font-heading font-bold text-[44px] md:text-h1 lg:text-display text-white mb-8"
+          className="font-heading font-bold text-[44px] md:text-h1 lg:text-display text-foreground mb-8"
           initial={{ y: 60, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
@@ -436,7 +436,7 @@ export default function WorkPage() {
         </motion.p>
 
         {/* Filter Bar — same structure as original */}
-        <div className="flex flex-wrap gap-3 mb-12 sticky top-20 z-50 bg-ag-bg/90 backdrop-blur-md py-4 -mx-6 px-6">
+        <div className="flex flex-wrap gap-3 mb-12 sticky top-20 z-50 bg-background/90 backdrop-blur-md py-4 -mx-6 px-6">
           {categories.map((cat, idx) => (
             <button
               key={idx}
@@ -444,7 +444,7 @@ export default function WorkPage() {
               className={`px-5 py-2 text-sm font-mono transition-all duration-300 border ${
                 activeFilter === idx
                   ? 'bg-ag-accent text-ag-bg border-ag-accent'
-                  : 'border-ag-border text-ag-body hover:text-white hover:border-ag-body'
+                  : 'border-ag-border text-ag-body hover:text-foreground hover:border-ag-body'
               }`}
               data-cursor="hover"
             >

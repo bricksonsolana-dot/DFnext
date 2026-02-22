@@ -1,19 +1,22 @@
 // components/navigation.js
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, Sun, Moon } from 'lucide-react';
 import { useTranslation } from './language-provider';
+import { useTheme } from 'next-themes';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [phase, setPhase] = useState('visible'); // 'visible' | 'fading' | 'hidden' | 'building'
+  const [phase, setPhase] = useState('visible');
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const { scrollY } = useScroll();
-  const { lang, toggleLang, t, langKey } = useTranslation();
+  const { lang, toggleLang, t } = useTranslation();
+  const { theme, setTheme } = useTheme();
 
   const navBg = useTransform(
     scrollY,
@@ -28,6 +31,10 @@ export default function Navigation() {
   );
 
   useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -39,23 +46,18 @@ export default function Navigation() {
     setIsOpen(false);
   }, [pathname]);
 
-  // ✅ Luxury language swap sequence
   const handleLangSwap = () => {
-    if (phase !== 'visible') return; // prevent double-click
+    if (phase !== 'visible') return;
 
-    // Phase 1: Fade everything out
     setPhase('fading');
 
-    // Phase 2: Hidden — swap language
     setTimeout(() => {
       setPhase('hidden');
       toggleLang();
 
-      // Phase 3: Rebuild — stagger in
       setTimeout(() => {
         setPhase('building');
 
-        // Phase 4: Fully visible
         setTimeout(() => {
           setPhase('visible');
         }, 800);
@@ -71,10 +73,9 @@ export default function Navigation() {
     { name: t('nav.contact'), path: '/contact' },
   ];
 
-  // ✅ Get element style based on phase with individual delays
-  const getItemStyle = (index, total) => {
-    const fadeDelay = index * 40; // stagger out
-    const buildDelay = index * 80; // stagger in (slower = more luxurious)
+  const getItemStyle = (index) => {
+    const fadeDelay = index * 40;
+    const buildDelay = index * 80;
 
     switch (phase) {
       case 'visible':
@@ -106,8 +107,7 @@ export default function Navigation() {
     }
   };
 
-  // ✅ Logo style — first to disappear, first to reappear
-  const logoStyle = (() => {
+  const getLogoStyle = (delayOffset = 0) => {
     switch (phase) {
       case 'visible':
         return {
@@ -131,17 +131,16 @@ export default function Navigation() {
         return {
           opacity: 1,
           transform: 'translateX(0)',
-          transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+          transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${delayOffset}ms`,
         };
       default:
         return { opacity: 1 };
     }
-  })();
+  };
 
-  // ✅ Right side style — buttons fade from right
   const getRightStyle = (index) => {
     const fadeDelay = index * 60;
-    const buildDelay = 300 + index * 100; // appear after nav links
+    const buildDelay = 300 + index * 100;
 
     switch (phase) {
       case 'visible':
@@ -173,8 +172,7 @@ export default function Navigation() {
     }
   };
 
-  // ✅ Divider line style
-  const dividerStyle = (() => {
+  const getDividerStyle = () => {
     switch (phase) {
       case 'visible':
         return {
@@ -203,7 +201,7 @@ export default function Navigation() {
       default:
         return {};
     }
-  })();
+  };
 
   return (
     <>
@@ -216,10 +214,9 @@ export default function Navigation() {
         }}
         data-testid="main-navigation"
       >
-        {/* Bottom border line */}
         <div
           className="absolute bottom-0 left-0 right-0 h-px bg-ag-border origin-center"
-          style={dividerStyle}
+          style={getDividerStyle()}
         />
 
         <div className="max-w-[1800px] mx-auto flex items-center justify-between">
@@ -230,15 +227,15 @@ export default function Navigation() {
             data-cursor="hover"
             data-testid="logo-link"
           >
-            <span className="font-heading font-bold text-2xl text-ag-accent" style={logoStyle}>
+            <span 
+              className="font-heading font-bold text-2xl text-ag-accent" 
+              style={getLogoStyle(0)}
+            >
               [DF]
             </span>
             <span
-              className="hidden md:inline font-heading font-medium text-white"
-              style={{
-                ...logoStyle,
-                transitionDelay: phase === 'building' ? '100ms' : '0ms',
-              }}
+              className="hidden md:inline font-heading font-medium text-foreground"
+              style={getLogoStyle(100)}
             >
               DigitalFootprint
             </span>
@@ -250,12 +247,12 @@ export default function Navigation() {
               <Link
                 key={`${link.path}-${index}`}
                 href={link.path}
-                className="relative group font-body text-sm text-ag-body hover:text-white"
+                className="relative group font-body text-sm text-ag-body hover:text-foreground"
                 data-cursor="hover"
               >
                 <span
                   className="inline-block"
-                  style={getItemStyle(index, navLinks.length)}
+                  style={getItemStyle(index)}
                 >
                   {link.name}
                 </span>
@@ -264,17 +261,31 @@ export default function Navigation() {
             ))}
           </div>
 
-          {/* Right Side */}
+          {/* Right Side - Desktop */}
           <div className="hidden lg:flex items-center gap-4">
+            {/* Theme Toggle */}
+            {mounted && (
+              <button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className="p-3 border border-ag-border text-ag-body hover:text-foreground hover:border-ag-accent transition-colors duration-300"
+                data-cursor="hover"
+                aria-label="Toggle theme"
+              >
+                <span className="inline-block" style={getRightStyle(0)}>
+                  {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+                </span>
+              </button>
+            )}
+
             {/* Language Toggle */}
             <button
               onClick={handleLangSwap}
               disabled={phase !== 'visible'}
-              className="px-4 py-3 border border-ag-border text-sm font-mono text-ag-body hover:text-white hover:border-ag-accent transition-colors duration-300 min-w-14 text-center disabled:pointer-events-none"
+              className="px-4 py-3 border border-ag-border text-sm font-mono text-ag-body hover:text-foreground hover:border-ag-accent transition-colors duration-300 min-w-14 text-center disabled:pointer-events-none"
               data-cursor="hover"
               data-testid="language-toggle"
             >
-              <span className="inline-block" style={getRightStyle(0)}>
+              <span className="inline-block" style={getRightStyle(1)}>
                 {lang === 'el' ? 'EN' : 'GR'}
               </span>
             </button>
@@ -282,14 +293,14 @@ export default function Navigation() {
             {/* CTA Button */}
             <Link
               href="/contact"
-              className="flex items-center gap-2 px-6 py-3 border border-ag-border text-sm font-medium text-white hover:bg-ag-accent hover:text-ag-bg hover:border-ag-accent transition-colors duration-300"
+              className="flex items-center gap-2 px-6 py-3 border border-ag-border text-sm font-medium text-foreground hover:bg-ag-accent hover:text-ag-bg hover:border-ag-accent transition-colors duration-300"
               data-cursor="hover"
               data-testid="nav-cta-button"
             >
-              <span className="inline-block whitespace-nowrap" style={getRightStyle(1)}>
+              <span className="inline-block whitespace-nowrap" style={getRightStyle(2)}>
                 {t('nav.cta')}
               </span>
-              <span style={getRightStyle(2)}>
+              <span style={getRightStyle(3)}>
                 <ArrowRight size={16} />
               </span>
             </Link>
@@ -297,10 +308,23 @@ export default function Navigation() {
 
           {/* Mobile */}
           <div className="lg:hidden flex items-center gap-3">
+            {/* Theme Toggle - Mobile */}
+            {mounted && (
+              <button
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                className="p-2 border border-ag-border text-ag-body hover:text-foreground transition-colors"
+                data-cursor="hover"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
+            )}
+
+            {/* Language Toggle - Mobile */}
             <button
               onClick={handleLangSwap}
               disabled={phase !== 'visible'}
-              className="px-3 py-2 border border-ag-border text-xs font-mono text-ag-body hover:text-white transition-colors min-w-10 text-center disabled:pointer-events-none"
+              className="px-3 py-2 border border-ag-border text-xs font-mono text-ag-body hover:text-foreground transition-colors min-w-10 text-center disabled:pointer-events-none"
               data-cursor="hover"
             >
               <span className="inline-block" style={getRightStyle(0)}>
@@ -308,6 +332,7 @@ export default function Navigation() {
               </span>
             </button>
 
+            {/* Menu Toggle */}
             <button
               className="p-2"
               onClick={() => setIsOpen(!isOpen)}
@@ -324,7 +349,7 @@ export default function Navigation() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed inset-0 z-[99] bg-ag-bg flex flex-col items-center justify-center lg:hidden"
+            className="fixed inset-0 z-[99] bg-background flex flex-col items-center justify-center lg:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -342,7 +367,7 @@ export default function Navigation() {
                 >
                   <Link
                     href={link.path}
-                    className="font-heading text-3xl text-white hover:text-ag-accent transition-colors"
+                    className="font-heading text-3xl text-foreground hover:text-ag-accent transition-colors"
                     data-cursor="hover"
                     onClick={() => setIsOpen(false)}
                   >

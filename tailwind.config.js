@@ -16,33 +16,56 @@ module.exports = {
     },
     extend: {
       colors: {
-        'ag-bg': '#0A0A0A',
-        'ag-card': '#111111',      // = old df-surface
-        'ag-surface': '#1A1A1A',   // = old df-elevated
-        'ag-border': '#2A2A2A',    // = old df-border
-        'ag-accent': '#E8FF3D',    // = old df-accent
-        'ag-text': '#FFFFFF',      // = old df-text
-        'ag-body': '#888888',      // = old df-muted
-        'ag-muted': '#444444',     // = old df-subtle
+        /* ═══ Theme-aware custom colors ═══ */
+        'ag-bg': 'hsl(var(--background))',
+        'ag-card': 'hsl(var(--card))',
+        'ag-surface': 'hsl(var(--ag-surface))',
+        'ag-border': 'hsl(var(--border))',
+        'ag-accent': 'hsl(var(--ag-accent))',
+        'ag-text': 'hsl(var(--foreground))',
+        'ag-body': 'hsl(var(--ag-body))',
+        'ag-muted': 'hsl(var(--ag-muted))',
+        
+        /* ═══ Shadcn/ui colors ═══ */
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        primary: { DEFAULT: 'hsl(var(--primary))', foreground: 'hsl(var(--primary-foreground))' },
-        secondary: { DEFAULT: 'hsl(var(--secondary))', foreground: 'hsl(var(--secondary-foreground))' },
-        destructive: { DEFAULT: 'hsl(var(--destructive))', foreground: 'hsl(var(--destructive-foreground))' },
-        muted: { DEFAULT: 'hsl(var(--muted))', foreground: 'hsl(var(--muted-foreground))' },
-        accent: { DEFAULT: 'hsl(var(--accent))', foreground: 'hsl(var(--accent-foreground))' },
-        popover: { DEFAULT: 'hsl(var(--popover))', foreground: 'hsl(var(--popover-foreground))' },
-        card: { DEFAULT: 'hsl(var(--card))', foreground: 'hsl(var(--card-foreground))' },
+        primary: { 
+          DEFAULT: 'hsl(var(--primary))', 
+          foreground: 'hsl(var(--primary-foreground))' 
+        },
+        secondary: { 
+          DEFAULT: 'hsl(var(--secondary))', 
+          foreground: 'hsl(var(--secondary-foreground))' 
+        },
+        destructive: { 
+          DEFAULT: 'hsl(var(--destructive))', 
+          foreground: 'hsl(var(--destructive-foreground))' 
+        },
+        muted: { 
+          DEFAULT: 'hsl(var(--muted))', 
+          foreground: 'hsl(var(--muted-foreground))' 
+        },
+        accent: { 
+          DEFAULT: 'hsl(var(--accent))', 
+          foreground: 'hsl(var(--accent-foreground))' 
+        },
+        popover: { 
+          DEFAULT: 'hsl(var(--popover))', 
+          foreground: 'hsl(var(--popover-foreground))' 
+        },
+        card: { 
+          DEFAULT: 'hsl(var(--card))', 
+          foreground: 'hsl(var(--card-foreground))' 
+        },
       },
       fontFamily: {
         heading: ['var(--font-space-grotesk)', 'sans-serif'],
         body: ['var(--font-inter)', 'sans-serif'],
         mono: ['var(--font-jetbrains)', 'monospace'],
       },
-      // ✅ Changed: clamp-based responsive sizing to match old project
       fontSize: {
         'display': ['clamp(3rem, 10vw, 6rem)', { lineHeight: '0.9', letterSpacing: '-0.04em' }],
         'h1': ['clamp(2.5rem, 8vw, 4.5rem)', { lineHeight: '1.0', letterSpacing: '-0.03em' }],
@@ -56,7 +79,6 @@ module.exports = {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
         },
-        // ✅ Added: scroll indicator animation from old project
         'scroll-indicator': {
           '0%, 100%': { transform: 'translateY(0)', opacity: '0.3' },
           '50%': { transform: 'translateY(20px)', opacity: '1' },
@@ -71,7 +93,6 @@ module.exports = {
         },
       },
       animation: {
-        // ✅ Changed: 20s to match old project (was 25s)
         marquee: 'marquee 20s linear infinite',
         'scroll-indicator': 'scroll-indicator 2s ease-in-out infinite',
         'accordion-down': 'accordion-down 0.2s ease-out',

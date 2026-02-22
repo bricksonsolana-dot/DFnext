@@ -181,7 +181,7 @@ function CTASection() {
             { text: t('cta.line2'), accent: false },
             { text: t('cta.line3'), accent: false },
           ]}
-          className="font-heading text-h1 md:text-display text-white mb-8"
+          className="font-heading text-h1 md:text-display text-foreground mb-8"
         />
 
         <FadeUp delay={0.8}>
@@ -223,7 +223,7 @@ export default function AboutPage() {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   return (
-    <main className="bg-ag-bg" data-testid="about-page">
+    <main className="bg-background" data-testid="about-page">
       {/* ═══════════════════════════════════════════════════════
           HERO — matched to old project
           - min-h-[80vh], pt-24
@@ -250,7 +250,7 @@ export default function AboutPage() {
                   { text: 'Ποιοι', accent: false },
                   { text: 'Είμαστε.', accent: false },
                 ]}
-                className="font-heading text-h1 text-white mb-8"
+                className="font-heading text-h1 text-foreground mb-8"
               />
 
               <FadeUp delay={0.6}>
@@ -279,16 +279,16 @@ export default function AboutPage() {
 
       {/* ═══════════════════════════════════════════════════════
           MISSION — matched to old project
-          - bg-ag-card (= old df-surface)
+          - bg-card (= old df-surface)
           - Large blockquote
           ═══════════════════════════════════════════════════════ */}
       <section
-        className="py-24 md:py-32 bg-ag-card"
+        className="py-24 md:py-32 bg-card"
         data-testid="mission-section"
       >
         <div className="max-w-[1800px] mx-auto px-4 md:px-8">
           <FadeUp>
-            <blockquote className="font-heading text-2xl md:text-4xl lg:text-5xl text-white leading-tight max-w-4xl">
+            <blockquote className="font-heading text-2xl md:text-4xl lg:text-5xl text-foreground leading-tight max-w-4xl">
               "Πιστεύουμε ότι το web δεν πρέπει να είναι boring. Κάθε project
               είναι μια ευκαιρία να δημιουργήσουμε κάτι που θα θυμούνται οι
               άνθρωποι."
@@ -303,7 +303,7 @@ export default function AboutPage() {
           - year in accent, large font-mono
           ═══════════════════════════════════════════════════════ */}
       <section
-        className="py-24 md:py-32 bg-ag-bg"
+        className="py-24 md:py-32 bg-background"
         data-testid="story-section"
       >
         <div className="max-w-[1800px] mx-auto px-4 md:px-8">
@@ -311,7 +311,7 @@ export default function AboutPage() {
             <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
               OUR STORY
             </span>
-            <h2 className="font-heading text-h2 text-white mb-16">
+            <h2 className="font-heading text-h2 text-foreground mb-16">
               Η ιστορία μας.
             </h2>
           </FadeUp>
@@ -338,7 +338,7 @@ export default function AboutPage() {
           - Title hover turns accent
           ═══════════════════════════════════════════════════════ */}
       <section
-        className="py-24 md:py-32 bg-ag-card"
+        className="py-24 md:py-32 bg-card"
         data-testid="values-section"
       >
         <div className="max-w-[1800px] mx-auto px-4 md:px-8">
@@ -346,7 +346,7 @@ export default function AboutPage() {
             <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
               OUR VALUES
             </span>
-            <h2 className="font-heading text-h2 text-white mb-16">
+            <h2 className="font-heading text-h2 text-foreground mb-16">
               Τι πιστεύουμε.
             </h2>
           </FadeUp>
@@ -355,7 +355,7 @@ export default function AboutPage() {
             {values.map((value, index) => (
               <FadeUp key={value.title} delay={index * 0.1}>
                 <div className="p-8 border border-ag-border hover:border-ag-accent/30 transition-colors group">
-                  <h3 className="font-heading text-2xl text-white mb-4 group-hover:text-ag-accent transition-colors">
+                  <h3 className="font-heading text-2xl text-foreground mb-4 group-hover:text-ag-accent transition-colors">
                     {value.title}
                   </h3>
                   <p className="font-body text-ag-body">{value.description}</p>
@@ -373,13 +373,13 @@ export default function AboutPage() {
           - grayscale → color on hover
           - accent overlay on hover
           ═══════════════════════════════════════════════════════ */}
-      <section className="py-24 md:py-32 bg-ag-bg" data-testid="team-section">
+      <section className="py-24 md:py-32 bg-background" data-testid="team-section">
         <div className="max-w-[1800px] mx-auto px-4 md:px-8">
           <FadeUp>
             <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
               THE TEAM
             </span>
-            <h2 className="font-heading text-h2 text-white mb-16">
+            <h2 className="font-heading text-h2 text-foreground mb-16">
               Οι άνθρωποί μας.
             </h2>
           </FadeUp>
@@ -397,7 +397,7 @@ export default function AboutPage() {
                     />
                     <div className="absolute inset-0 bg-ag-accent/0 group-hover:bg-ag-accent/10 transition-colors" />
                   </div>
-                  <h3 className="font-heading text-lg text-white">
+                  <h3 className="font-heading text-lg text-foreground">
                     {member.name}
                   </h3>
                   <p className="font-mono text-xs text-ag-muted tracking-wider">
@@ -416,7 +416,7 @@ export default function AboutPage() {
           - Large text hover effect
           ═══════════════════════════════════════════════════════ */}
       <section
-        className="py-24 md:py-32 bg-ag-card"
+        className="py-24 md:py-32 bg-card"
         data-testid="clients-section"
       >
         <div className="max-w-[1800px] mx-auto px-4 md:px-8">
@@ -424,7 +424,7 @@ export default function AboutPage() {
             <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
               CLIENTS
             </span>
-            <h2 className="font-heading text-h2 text-white mb-16">
+            <h2 className="font-heading text-h2 text-foreground mb-16">
               Με ποιους συνεργαστήκαμε.
             </h2>
           </FadeUp>
@@ -433,7 +433,7 @@ export default function AboutPage() {
             {clients.map((client, index) => (
               <FadeUp key={client} delay={index * 0.05}>
                 <span
-                  className="font-heading text-2xl md:text-3xl text-ag-body/40 hover:text-white transition-colors cursor-pointer"
+                  className="font-heading text-2xl md:text-3xl text-ag-body/40 hover:text-foreground transition-colors cursor-pointer"
                   data-cursor="hover"
                 >
                   {client}

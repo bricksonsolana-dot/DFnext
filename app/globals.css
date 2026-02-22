@@ -4,27 +4,83 @@
 
 @layer base {
   :root {
-    --background: 0 0% 4%;
-    --foreground: 0 0% 100%;
-    --card: 0 0% 7%;
+    /* ═══════════════════════════════════════
+       DARK MODE (Default) — Electric & Bold
+       ═══════════════════════════════════════ */
+    --background: 0 0% 4%;           /* #0A0A0A */
+    --foreground: 0 0% 100%;         /* #FFFFFF */
+    
+    --card: 0 0% 7%;                 /* #121212 */
     --card-foreground: 0 0% 100%;
+    
     --popover: 0 0% 7%;
     --popover-foreground: 0 0% 100%;
-    --primary: 68 100% 61%;
+    
+    --primary: 68 100% 61%;          /* #E8FF3D - Electric Lime */
     --primary-foreground: 0 0% 4%;
+    
     --secondary: 0 0% 10%;
     --secondary-foreground: 0 0% 100%;
+    
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 53%;
-    --accent: 68 100% 61%;
+    
+    --accent: 68 100% 61%;           /* #E8FF3D - Electric Lime */
     --accent-foreground: 0 0% 4%;
+    
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
+    
     --border: 0 0% 16%;
     --input: 0 0% 16%;
     --ring: 68 100% 61%;
-    /* ✅ Changed: 0rem to match old project (was 0.5rem) — sharp corners */
+    
     --radius: 0rem;
+    
+    /* Custom brand colors for dark */
+    --ag-accent: 68 100% 61%;        /* #E8FF3D */
+    --ag-body: 0 0% 53%;             /* #888888 */
+    --ag-muted: 0 0% 27%;            /* #444444 */
+    --ag-surface: 0 0% 10%;          /* #1A1A1A */
+  }
+
+  /* ═══════════════════════════════════════
+     LIGHT MODE — Warm & Sophisticated
+     ═══════════════════════════════════════ */
+  .light {
+    --background: 40 20% 97%;        /* #F8F7F4 - Warm off-white */
+    --foreground: 0 0% 10%;          /* #1A1A1A - Deep charcoal */
+    
+    --card: 40 15% 95%;              /* #F3F2EF - Warm gray */
+    --card-foreground: 0 0% 10%;
+    
+    --popover: 40 15% 95%;
+    --popover-foreground: 0 0% 10%;
+    
+    --primary: 145 32% 28%;          /* #2D5A3D - Forest green */
+    --primary-foreground: 40 20% 97%;
+    
+    --secondary: 40 10% 90%;
+    --secondary-foreground: 0 0% 10%;
+    
+    --muted: 40 10% 88%;
+    --muted-foreground: 0 0% 40%;
+    
+    --accent: 145 32% 28%;           /* #2D5A3D - Forest green */
+    --accent-foreground: 40 20% 97%;
+    
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 40 10% 85%;
+    --input: 40 10% 85%;
+    --ring: 145 32% 28%;
+    
+    /* Custom brand colors for light */
+    --ag-accent: 145 32% 28%;        /* #2D5A3D */
+    --ag-body: 0 0% 40%;             /* #666666 */
+    --ag-muted: 0 0% 60%;            /* #999999 */
+    --ag-surface: 40 10% 92%;        /* #ECEAE6 */
   }
 
   * {
@@ -56,33 +112,37 @@
   }
 
   body {
-    background-color: #0a0a0a;
-    color: #ffffff;
+    @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 }
 
-/* ✅ Added: Scrollbar styles from old project */
+/* ═══════════════════════════════════════
+   SCROLLBAR — Theme Aware
+   ═══════════════════════════════════════ */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: hsl(var(--background));
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2a;
-  border-radius: 2px;
+  background: hsl(var(--muted));
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #444444;
+  background: hsl(var(--muted-foreground));
 }
 
-/* ✅ Added: Custom cursor — matched old project */
+/* ═══════════════════════════════════════
+   CUSTOM CURSOR
+   ═══════════════════════════════════════ */
 @media (min-width: 768px) {
   html,
   body,
@@ -93,12 +153,13 @@
   }
 }
 
-/* ✅ Added: Perspective utility from old project */
+/* ═══════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════ */
 .perspective-1000 {
   perspective: 1000px;
 }
 
-/* ✅ Added: Gradient border for footer from old project */
 .gradient-border-top {
   position: relative;
 }
@@ -110,29 +171,35 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #e8ff3d, transparent);
+  background: linear-gradient(90deg, transparent, hsl(var(--accent)), transparent);
 }
 
-/* Selection */
+/* ═══════════════════════════════════════
+   SELECTION — Theme Aware
+   ═══════════════════════════════════════ */
 ::selection {
-  background-color: rgba(232, 255, 61, 0.3);
-  color: #ffffff;
+  background-color: hsl(var(--accent) / 0.25);
+  color: hsl(var(--foreground));
 }
 
-/* Marquee pause on hover */
+/* Marquee */
 .marquee-container:hover .marquee-track {
   animation-play-state: paused;
 }
-/* ✅ Fix: Prevent descenders from being clipped */
+
+/* Descender fix */
 .perspective-1000 > div {
   overflow: visible;
 }
 
 .perspective-1000 {
   overflow: visible;
-  padding-bottom: 0.1em; /* Extra space for descenders */
+  padding-bottom: 0.1em;
 }
-/* Reduced motion */
+
+/* ═══════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

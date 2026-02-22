@@ -60,22 +60,19 @@ export default function CTASection() {
 
   return (
     <section
-      className="relative py-32 md:py-48 overflow-hidden"
-      style={{
-        background: 'radial-gradient(circle at center, #111111 0%, #0A0A0A 70%)',
-      }}
+      className="relative py-32 md:py-48 overflow-hidden bg-gradient-to-b from-card to-background"
       data-testid="cta-section"
     >
       {/* Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 border border-ag-border/20 rotate-45 opacity-30" />
-        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 border border-ag-border/20 rotate-12 opacity-20" />
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 border border-border/20 rotate-45 opacity-30" />
+        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 border border-border/20 rotate-12 opacity-20" />
       </div>
 
       <div className="relative max-w-[1800px] mx-auto px-4 md:px-8 text-center">
         <AnimatedHeadline
           text={`${t('cta.line1')}\n${t('cta.line2')}\n${t('cta.line3')}`}
-          className="font-heading text-h1 md:text-display text-white mb-8"
+          className="font-heading text-h1 md:text-display text-foreground mb-8"
         />
 
         <FadeUp delay={0.8}>
@@ -87,7 +84,7 @@ export default function CTASection() {
         <FadeUp delay={1}>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-ag-accent text-ag-bg font-heading font-semibold text-lg hover:scale-105 transition-transform group"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-ag-accent text-background font-heading font-semibold text-lg hover:scale-105 transition-transform group"
             data-cursor="hover"
             data-testid="cta-button"
           >

@@ -226,7 +226,7 @@ function HeroSection() {
                 {/* Secondary CTA — underline reveal */}
                 <Link
                   href="/about"
-                  className="inline-flex items-center gap-2 px-8 py-4 font-body text-white group"
+                  className="inline-flex items-center gap-2 px-8 py-4 font-body text-foreground group"
                   data-cursor="hover"
                   data-testid="hero-cta-secondary"
                 >
@@ -301,9 +301,9 @@ function MarqueeSection() {
       className="relative w-full py-5 bg-transparent border-y border-ag-border/30 overflow-hidden"
       data-testid="marquee-section"
     >
-      {/* Luxury edge fades */}
-      <div className="absolute inset-y-0 left-0 w-24 md:w-40 bg-gradient-to-r from-ag-bg to-transparent z-10 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-24 md:w-40 bg-gradient-to-l from-ag-bg to-transparent z-10 pointer-events-none" />
+      {/* ✅ FIXED: Theme-aware edge fades */}
+      <div className="absolute inset-y-0 left-0 w-24 md:w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-24 md:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
       {/* Subtle top highlight */}
       <div className="absolute top-0 left-[20%] right-[20%] h-px bg-gradient-to-r from-transparent via-ag-accent/10 to-transparent" />
@@ -878,7 +878,7 @@ function PortfolioCard({ project, index }) {
         {/* ═══ TOP LEFT — Index ═══ */}
         <div className="absolute top-6 left-6 md:top-8 md:left-8">
           <span
-            className="font-mono text-[10px] tracking-[0.15em] text-white/20"
+            className="font-mono text-[10px] tracking-[0.15em] text-foreground/20"
             style={{
               opacity: isHovered ? 0.4 : 0.15,
               transition: 'opacity 0.6s ease',
@@ -913,7 +913,7 @@ function PortfolioSection({ showAll = false }) {
   const displayedProjects = showAll ? portfolioProjects : portfolioProjects.slice(0, 5);
 
   return (
-    <section className="py-24 md:py-32 bg-ag-bg" data-testid="portfolio-section">
+    <section className="py-24 md:py-32 bg-background" data-testid="portfolio-section">
       <div className="max-w-[1800px] mx-auto px-4 md:px-8">
         {!showAll && (
           <motion.div
@@ -925,7 +925,7 @@ function PortfolioSection({ showAll = false }) {
             <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
               {t('portfolio.label')}
             </span>
-            <h2 className="font-heading text-h2 text-white mb-12 md:mb-16">
+            <h2 className="font-heading text-h2 text-foreground mb-12 md:mb-16">
               {t('portfolio.heading1')}
               <br />
               {t('portfolio.heading2')}
@@ -953,7 +953,7 @@ function PortfolioSection({ showAll = false }) {
               data-cursor="hover"
               data-testid="view-all-projects"
             >
-              <span className="relative font-body text-ag-body group-hover:text-white transition-colors duration-500">
+              <span className="relative font-body text-ag-body group-hover:text-foreground transition-colors duration-500">
                 {t('portfolio.viewAll')}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-ag-accent group-hover:w-full transition-all duration-700 ease-out" />
               </span>
@@ -1055,13 +1055,13 @@ function ServicesSection() {
   const servicesData = t('services.items');
 
   return (
-    <section className="py-24 md:py-32 bg-ag-card" data-testid="services-section">
+    <section className="py-24 md:py-32 bg-card" data-testid="services-section">
       <div className="max-w-[1800px] mx-auto px-4 md:px-8">
         <FadeUp>
           <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
             {t('services.label')}
           </span>
-          <h2 className="font-heading text-h2 text-white mb-12 md:mb-16">
+          <h2 className="font-heading text-h2 text-foreground mb-12 md:mb-16">
             {t('services.heading1')}
             <br />
             {t('services.heading2')}
@@ -1100,7 +1100,7 @@ function AboutTeaser() {
   const imageY = useTransform(scrollYProgress, [0, 1], [-50, 50]);
 
 return (
-  <section ref={sectionRef} className="py-32 md:py-48 bg-ag-bg overflow-hidden" data-testid="about-teaser">
+  <section ref={sectionRef} className="py-32 md:py-48 bg-background overflow-hidden" data-testid="about-teaser">
     <div className="max-w-[1800px] mx-auto px-4 md:px-8">
       
       {/* Top decorative line */}
@@ -1119,7 +1119,7 @@ return (
           </FadeUp>
 
           <FadeUp delay={0.1}>
-            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white leading-[1.1]">
+            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-foreground leading-[1.1]">
               {t('aboutTeaser.heading1')}
               <br />
               <span className="text-ag-accent">{t('aboutTeaser.heading2')}</span>
@@ -1140,7 +1140,7 @@ return (
           <FadeUp delay={0.3}>
             <Link
               href="/about"
-              className="inline-flex items-center gap-3 font-body text-white group"
+              className="inline-flex items-center gap-3 font-body text-foreground group"
               data-cursor="hover"
               data-testid="about-learn-more"
             >
@@ -1173,7 +1173,7 @@ return (
 
 /* ═══════════════════════════════════════════════════════
    STATS — matched to old project
-   - bg-ag-bg, NO border-y
+   - bg-background, NO border-y
    - Counter with suffix separated via span
    ═══════════════════════════════════════════════════════ */
 
@@ -1182,14 +1182,14 @@ function StatsSection() {
   const statsData = t('stats');
 
   return (
-    <section className="py-24 md:py-32 bg-ag-bg" data-testid="stats-section">
+    <section className="py-24 md:py-32 bg-background" data-testid="stats-section">
       <div className="max-w-[1800px] mx-auto px-4 md:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {Array.isArray(statsData) &&
             statsData.map((stat, i) => (
               <FadeUp key={i} delay={i * 0.1}>
                 <div className="text-center md:text-left">
-                  <div className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-white">
+                  <div className="font-heading text-5xl md:text-7xl lg:text-8xl font-bold text-foreground">
                     <Counter from={0} to={stat.value} duration={2} />
                     {stat.suffix && (
                       <span className="text-ag-accent">{stat.suffix}</span>
@@ -1225,7 +1225,7 @@ function ProcessSection() {
   return (
     <section
       ref={sectionRef}
-      className="py-24 md:py-32 bg-ag-card overflow-hidden"
+      className="py-24 md:py-32 bg-card overflow-hidden"
       data-testid="process-section"
     >
       <div className="max-w-[1800px] mx-auto px-4 md:px-8">
@@ -1233,7 +1233,7 @@ function ProcessSection() {
           <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
             {t('process.label')}
           </span>
-          <h2 className="font-heading text-h2 text-white mb-12 md:mb-16">
+          <h2 className="font-heading text-h2 text-foreground mb-12 md:mb-16">
             {t('process.heading')}
           </h2>
         </FadeUp>
@@ -1262,7 +1262,7 @@ function ProcessSection() {
                 >
                   {/* Circle with inner dot */}
                   <motion.div
-                    className="absolute top-[38px] left-1/2 -translate-x-1/2 w-6 h-6 rounded-full border-2 border-ag-border bg-ag-card flex items-center justify-center"
+                    className="absolute top-[38px] left-1/2 -translate-x-1/2 w-6 h-6 rounded-full border-2 border-ag-border bg-card flex items-center justify-center"
                     initial={{ scale: 0 }}
                     animate={isInView ? { scale: 1 } : { scale: 0 }}
                     transition={{ delay: 0.5 + index * 0.15, duration: 0.3 }}
@@ -1275,7 +1275,7 @@ function ProcessSection() {
                     <span className="font-mono text-xs text-ag-accent block mb-2">
                       {step.num}
                     </span>
-                    <h3 className="font-heading text-lg text-white mb-2 group-hover:text-ag-accent transition-colors">
+                    <h3 className="font-heading text-lg text-foreground mb-2 group-hover:text-ag-accent transition-colors">
                       {step.title}
                     </h3>
                     <p className="font-body text-sm text-ag-body">{step.desc}</p>
@@ -1295,7 +1295,7 @@ function ProcessSection() {
                     {step.num}
                   </span>
                   <div>
-                    <h3 className="font-heading text-xl text-white mb-2">
+                    <h3 className="font-heading text-xl text-foreground mb-2">
                       {step.title}
                     </h3>
                     <p className="font-body text-sm text-ag-body">{step.desc}</p>
@@ -1359,7 +1359,7 @@ function TestimonialsSection() {
 
   return (
     <section
-      className="py-24 md:py-32 bg-ag-card overflow-hidden"
+      className="py-24 md:py-32 bg-card overflow-hidden"
       data-testid="testimonials-section"
     >
       <div className="max-w-[1800px] mx-auto px-4 md:px-8">
@@ -1367,7 +1367,7 @@ function TestimonialsSection() {
           <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
             {t('testimonials.label')}
           </span>
-          <h2 className="font-heading text-h2 text-white mb-12 md:mb-16">
+          <h2 className="font-heading text-h2 text-foreground mb-12 md:mb-16">
             {t('testimonials.heading1')}
             <br />
             {t('testimonials.heading2')}
@@ -1398,13 +1398,13 @@ function TestimonialsSection() {
                   </span>
 
                   {/* Quote — larger text to match old project */}
-                  <blockquote className="relative z-10 font-body text-xl md:text-2xl lg:text-3xl text-white/90 italic leading-relaxed mb-8 pl-8 md:pl-12">
+                  <blockquote className="relative z-10 font-body text-xl md:text-2xl lg:text-3xl text-foreground/90 italic leading-relaxed mb-8 pl-8 md:pl-12">
                     {testimonial.quote}
                   </blockquote>
 
                   {/* Author */}
                   <div className="pl-8 md:pl-12">
-                    <p className="font-heading text-lg text-white">
+                    <p className="font-heading text-lg text-foreground">
                       {testimonial.name}
                     </p>
                     <p className="font-mono text-xs text-ag-muted tracking-wider uppercase">
@@ -1451,16 +1451,13 @@ function CTASection() {
 
   return (
     <section
-      className="relative py-32 md:py-48 overflow-hidden"
-      style={{
-        background: 'radial-gradient(circle at center, #111111 0%, #0A0A0A 70%)',
-      }}
+      className="relative py-32 md:py-48 overflow-hidden bg-gradient-to-b from-card to-background"
       data-testid="cta-section"
     >
-      {/* Decorative Elements — from old project */}
+      {/* Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 border border-ag-border/20 rotate-45 opacity-30" />
-        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 border border-ag-border/20 rotate-12 opacity-20" />
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 border border-border/20 rotate-45 opacity-30" />
+        <div className="absolute bottom-1/4 right-1/4 w-48 h-48 border border-border/20 rotate-12 opacity-20" />
       </div>
 
       <div className="relative max-w-[1800px] mx-auto px-4 md:px-8 text-center">
@@ -1470,7 +1467,7 @@ function CTASection() {
             { text: t('cta.line2'), accent: false },
             { text: t('cta.line3'), accent: false },
           ]}
-          className="font-heading text-h1 md:text-display text-white mb-8"
+          className="font-heading text-h1 md:text-display text-foreground mb-8"
         />
 
         <FadeUp delay={0.8}>
@@ -1480,10 +1477,9 @@ function CTASection() {
         </FadeUp>
 
         <FadeUp delay={1}>
-          {/* Sharp rectangle — NO rounded-full */}
           <Link
             href="/contact"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-ag-accent text-ag-bg font-heading font-semibold text-lg hover:scale-105 transition-transform group"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-ag-accent text-background font-heading font-semibold text-lg hover:scale-105 transition-transform group"
             data-cursor="hover"
             data-testid="cta-button"
           >

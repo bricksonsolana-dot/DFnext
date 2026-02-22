@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useTheme } from 'next-themes';
 
 export default function CustomCursor() {
   const cursorX = useMotionValue(-100);
@@ -14,6 +15,13 @@ export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(true);
   const [isClicking, setIsClicking] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -63,20 +71,34 @@ export default function CustomCursor() {
   if (isTouchDevice) return null;
 
   const ringSize = cursorState === 'view' ? 80 : cursorState === 'hover' ? 64 : 40;
-  const ringColor = cursorState === 'hover' || cursorState === 'view' ? '#E8FF3D' : 'rgba(255,255,255,0.4)';
+  
+  // Theme-aware colors
+  const isLight = mounted && theme === 'light';
+  
+  // Accent colors per theme
+  const accentColor = isLight ? '#2D5A3D' : '#E8FF3D';
+  const defaultRingColor = isLight ? 'rgba(45,90,61,0.3)' : 'rgba(255,255,255,0.4)';
+  const dotColor = isLight ? 'rgba(26,26,26,0.8)' : 'rgba(255,255,255,0.9)';
+  
+  const ringColor = cursorState === 'hover' || cursorState === 'view' ? accentColor : defaultRingColor;
   const showDot = cursorState === 'default';
 
   return (
     <>
+      {/* Dot cursor */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{ x: cursorX, y: cursorY }}
         animate={{ opacity: isVisible && showDot ? 1 : 0, scale: isClicking ? 0.5 : 1 }}
         transition={{ duration: 0.15 }}
       >
-        <div className="w-2 h-2 bg-white rounded-full -translate-x-1/2 -translate-y-1/2" />
+        <div 
+          className="w-2 h-2 rounded-full -translate-x-1/2 -translate-y-1/2"
+          style={{ backgroundColor: dotColor }}
+        />
       </motion.div>
 
+      {/* Ring cursor */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{ x: ringX, y: ringY }}
@@ -92,7 +114,8 @@ export default function CustomCursor() {
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-white text-[11px] font-mono tracking-wider"
+              className="text-[11px] font-mono tracking-wider"
+              style={{ color: isLight ? '#1A1A1A' : '#FFFFFF' }}
             >
               VIEW
             </motion.span>
