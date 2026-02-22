@@ -3,85 +3,86 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    /* ═══════════════════════════════════════
-       DARK MODE (Default) — Electric & Bold
-       ═══════════════════════════════════════ */
-    --background: 0 0% 4%;           /* #0A0A0A */
-    --foreground: 0 0% 100%;         /* #FFFFFF */
-    
-    --card: 0 0% 7%;                 /* #121212 */
-    --card-foreground: 0 0% 100%;
-    
-    --popover: 0 0% 7%;
-    --popover-foreground: 0 0% 100%;
-    
-    --primary: 68 100% 61%;          /* #E8FF3D - Electric Lime */
-    --primary-foreground: 0 0% 4%;
-    
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 100%;
-    
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 53%;
-    
-    --accent: 68 100% 61%;           /* #E8FF3D - Electric Lime */
-    --accent-foreground: 0 0% 4%;
-    
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    
-    --border: 0 0% 16%;
-    --input: 0 0% 16%;
-    --ring: 68 100% 61%;
-    
-    --radius: 0rem;
-    
-    /* Custom brand colors for dark */
-    --ag-accent: 68 100% 61%;        /* #E8FF3D */
-    --ag-body: 0 0% 53%;             /* #888888 */
-    --ag-muted: 0 0% 27%;            /* #444444 */
-    --ag-surface: 0 0% 10%;          /* #1A1A1A */
-  }
-
+:root {
   /* ═══════════════════════════════════════
-     LIGHT MODE — Warm & Sophisticated
+     DARK MODE — Classic Emerald
      ═══════════════════════════════════════ */
-  .light {
-    --background: 40 20% 97%;        /* #F8F7F4 - Warm off-white */
-    --foreground: 0 0% 10%;          /* #1A1A1A - Deep charcoal */
-    
-    --card: 40 15% 95%;              /* #F3F2EF - Warm gray */
-    --card-foreground: 0 0% 10%;
-    
-    --popover: 40 15% 95%;
-    --popover-foreground: 0 0% 10%;
-    
-    --primary: 145 32% 28%;          /* #2D5A3D - Forest green */
-    --primary-foreground: 40 20% 97%;
-    
-    --secondary: 40 10% 90%;
-    --secondary-foreground: 0 0% 10%;
-    
-    --muted: 40 10% 88%;
-    --muted-foreground: 0 0% 40%;
-    
-    --accent: 145 32% 28%;           /* #2D5A3D - Forest green */
-    --accent-foreground: 40 20% 97%;
-    
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 98%;
-    
-    --border: 40 10% 85%;
-    --input: 40 10% 85%;
-    --ring: 145 32% 28%;
-    
-    /* Custom brand colors for light */
-    --ag-accent: 145 32% 28%;        /* #2D5A3D */
-    --ag-body: 0 0% 40%;             /* #666666 */
-    --ag-muted: 0 0% 60%;            /* #999999 */
-    --ag-surface: 40 10% 92%;        /* #ECEAE6 */
-  }
+  --background: 0 0% 4%;
+  --foreground: 0 0% 100%;
+  
+  --card: 0 0% 7%;
+  --card-foreground: 0 0% 100%;
+  
+  --popover: 0 0% 7%;
+  --popover-foreground: 0 0% 100%;
+  
+  --primary: 160 84% 39%;
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 0 0% 10%;
+  --secondary-foreground: 0 0% 100%;
+  
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 53%;
+  
+  --accent: 180 70% 40%;
+  --accent-foreground: 0 0% 100%;
+  
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  
+  --border: 0 0% 16%;
+  --input: 0 0% 16%;
+  --ring: 160 84% 39%;
+  
+  --radius: 0rem;
+  
+  /* Custom brand colors for dark */
+  --ag-accent: 160 84% 39%;
+  --ag-body: 0 0% 53%;
+  --ag-muted: 0 0% 27%;
+  --ag-surface: 0 0% 10%;
+}
+
+
+.light {
+  /* ═══════════════════════════════════════
+     LIGHT MODE — Teal
+     ═══════════════════════════════════════ */
+  --background: 0 0% 88%;
+  --foreground: 0 0% 8%;
+  
+  --card: 0 0% 78%;
+  --card-foreground: 0 0% 8%;
+  
+  --popover: 0 0% 88%;
+  --popover-foreground: 0 0% 8%;
+  
+  --primary: 170 70% 32%;
+  --primary-foreground: 0 0% 100%;
+  
+  --secondary: 0 0% 72%;
+  --secondary-foreground: 0 0% 8%;
+  
+  --muted: 0 0% 68%;
+  --muted-foreground: 0 0% 30%;
+  
+  --accent: 170 70% 32%;
+  --accent-foreground: 0 0% 100%;
+  
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+  
+  --border: 0 0% 65%;
+  --input: 0 0% 75%;
+  --ring: 170 70% 32%;
+  
+  /* Custom brand colors for light */
+  --ag-accent: 170 70% 32%;
+  --ag-body: 0 0% 40%;
+  --ag-muted: 0 0% 60%;
+  --ag-surface: 0 0% 72%;
+}
 
   * {
     @apply border-border;

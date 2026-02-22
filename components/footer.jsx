@@ -61,7 +61,7 @@ export default function Footer() {
               {t('footer.contactTitle')}
             </h4>
             <div className="flex flex-col gap-3 text-sm text-ag-body">
-              <p>hello@digitalfootprint.gr</p>
+              <p>info@digitalfootprint.gr</p>
               <p>+30 210 1234 567</p>
               <p>{t('contactPage.location')}</p>
             </div>
