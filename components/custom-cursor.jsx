@@ -16,12 +16,38 @@ export default function CustomCursor() {
   const [isTouchDevice, setIsTouchDevice] = useState(true);
   const [isClicking, setIsClicking] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [accentColor, setAccentColor] = useState('hsl(220 85% 65%)');
   
   const { theme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Διαβάζει το accent color από το CSS variable
+  useEffect(() => {
+    if (mounted && typeof window !== 'undefined') {
+      const updateAccentColor = () => {
+        const root = document.documentElement;
+        const computedStyle = getComputedStyle(root);
+        const accent = computedStyle.getPropertyValue('--accent').trim();
+        if (accent) {
+          setAccentColor(`hsl(${accent})`);
+        }
+      };
+      
+      updateAccentColor();
+      
+      // Ξανά-διάβασε όταν αλλάζει το theme
+      const observer = new MutationObserver(updateAccentColor);
+      observer.observe(document.documentElement, { 
+        attributes: true, 
+        attributeFilter: ['class'] 
+      });
+      
+      return () => observer.disconnect();
+    }
+  }, [mounted, theme]);
 
   useEffect(() => {
     const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
@@ -72,30 +98,29 @@ export default function CustomCursor() {
 
   const ringSize = cursorState === 'view' ? 80 : cursorState === 'hover' ? 64 : 40;
   
-  // Theme-aware colors
   const isLight = mounted && theme === 'light';
   
-  // Accent colors per theme
-  const accentColor = isLight ? '#2D5A3D' : '#E8FF3D';
-  const defaultRingColor = isLight ? 'rgba(45,90,61,0.3)' : 'rgba(255,255,255,0.4)';
-  const dotColor = isLight ? 'rgba(26,26,26,0.8)' : 'rgba(255,255,255,0.9)';
+  // Όλα βασισμένα στο theme - ΚΑΝΕΝΑ hardcoded color!
+  const defaultRingColor = isLight 
+    ? accentColor.replace('hsl(', 'hsla(').replace(')', ', 0.3)')
+    : 'rgba(255,255,255,0.4)';
   
-  const ringColor = cursorState === 'hover' || cursorState === 'view' ? accentColor : defaultRingColor;
+  const ringColor = cursorState === 'hover' || cursorState === 'view' 
+    ? accentColor 
+    : defaultRingColor;
+  
   const showDot = cursorState === 'default';
 
   return (
     <>
-      {/* Dot cursor */}
+      {/* Dot cursor - χρησιμοποιεί Tailwind class */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{ x: cursorX, y: cursorY }}
         animate={{ opacity: isVisible && showDot ? 1 : 0, scale: isClicking ? 0.5 : 1 }}
         transition={{ duration: 0.15 }}
       >
-        <div 
-          className="w-2 h-2 rounded-full -translate-x-1/2 -translate-y-1/2"
-          style={{ backgroundColor: dotColor }}
-        />
+        <div className="w-2 h-2 rounded-full -translate-x-1/2 -translate-y-1/2 bg-foreground/80" />
       </motion.div>
 
       {/* Ring cursor */}
@@ -114,8 +139,7 @@ export default function CustomCursor() {
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-[11px] font-mono tracking-wider"
-              style={{ color: isLight ? '#1A1A1A' : '#FFFFFF' }}
+              className="text-[11px] font-mono tracking-wider text-foreground"
             >
               VIEW
             </motion.span>

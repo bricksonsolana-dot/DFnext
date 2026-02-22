@@ -45,7 +45,7 @@ function AnimatedHeadline({ lines, className = '', delay = 0.3 }) {
                 <motion.span
                   key={wordIndex}
                   className={`inline-block mr-[0.25em] ${
-                    line.accent ? 'text-ag-accent italic' : ''
+                    line.accent ? 'text-accent italic' : ''
                   }`}
                   initial={{ y: 80, opacity: 0, rotateX: -15 }}
                   animate={
@@ -162,10 +162,7 @@ function CTASection() {
 
   return (
     <section
-      className="relative py-32 md:py-48 overflow-hidden"
-      style={{
-        background: 'radial-gradient(circle at center, #111111 0%, #0A0A0A 70%)',
-      }}
+className="relative py-32 md:py-48 overflow-hidden bg-gradient-to-b from-card to-background"
       data-testid="cta-section"
     >
       {/* Decorative Elements */}

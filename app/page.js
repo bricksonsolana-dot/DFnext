@@ -849,11 +849,7 @@ function PortfolioCard({ project, index }) {
 
           {/* Title */}
           <h3
-            className="font-heading text-lg md:text-xl"
-            style={{
-              color: isHovered ? '#ffffff' : 'rgba(255,255,255,0.85)',
-              transition: 'color 0.6s ease',
-            }}
+          className={`transition-colors duration-300 ${isHovered ? 'text-foreground' : 'text-foreground/85'}`}
           >
             {project.title}
           </h3>
@@ -992,8 +988,9 @@ function ServiceRow({ service, index }) {
 
         {/* Title */}
         <motion.h3
-          className="font-heading text-2xl md:text-4xl flex-1 md:ml-8"
-          animate={{ color: isHovered ? '#E8FF3D' : '#FFFFFF' }}
+          className={`font-heading text-2xl md:text-4xl flex-1 md:ml-8 transition-colors duration-300 ${
+              isHovered ? 'text-accent' : 'text-foreground'
+            }`}
           transition={{ duration: 0.3 }}
         >
           {service.name}
@@ -1058,7 +1055,7 @@ function ServicesSection() {
     <section className="py-24 md:py-32 bg-card" data-testid="services-section">
       <div className="max-w-[1800px] mx-auto px-4 md:px-8">
         <FadeUp>
-          <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
+          <span className="font-mono text-xs text-muted-foreground tracking-wider block mb-4">
             {t('services.label')}
           </span>
           <h2 className="font-heading text-h2 text-foreground mb-12 md:mb-16">
@@ -1068,8 +1065,7 @@ function ServicesSection() {
           </h2>
         </FadeUp>
 
-        {/* ✅ Added: border-t on container — from old project */}
-        <div className="border-t border-ag-border">
+        <div className="border-t border-border">
           {Array.isArray(servicesData) &&
             servicesData.map((service, i) => (
               <FadeUp key={i} delay={i * 0.05}>

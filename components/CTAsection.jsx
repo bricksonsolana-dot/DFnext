@@ -76,7 +76,7 @@ export default function CTASection() {
         />
 
         <FadeUp delay={0.8}>
-          <p className="font-body text-lg text-ag-body max-w-xl mx-auto mb-12">
+          <p className="font-body text-lg text-muted-foreground max-w-xl mx-auto mb-12">
             {t('cta.subtitle')}
           </p>
         </FadeUp>

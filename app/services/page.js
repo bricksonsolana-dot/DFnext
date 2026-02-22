@@ -13,10 +13,7 @@ function CTASection() {
 
   return (
     <section
-      className="relative py-32 md:py-48 overflow-hidden"
-      style={{
-        background: 'radial-gradient(circle at center, #111111 0%, #0A0A0A 70%)',
-      }}
+      className="relative py-32 md:py-48 overflow-hidden bg-gradient-to-b from-card to-background"
       data-testid="cta-section"
     >
       {/* Decorative Elements */}
@@ -212,7 +209,7 @@ function ServiceBlock({ service, index }) {
           {/* Content */}
           <div className={`order-2 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
             <FadeUp>
-              <span className="font-mono text-xs text-ag-accent tracking-wider block mb-4">
+              <span className="font-mono text-xs text-accent tracking-wider block mb-4">
                 {service.number}
               </span>
             </FadeUp>
@@ -222,7 +219,7 @@ function ServiceBlock({ service, index }) {
               </h2>
             </FadeUp>
             <FadeUp delay={0.2}>
-              <p className="font-body text-xl text-ag-accent mb-6">
+              <p className="font-body text-xl text-accent mb-6">
                 {service.subtitle}
               </p>
             </FadeUp>
@@ -235,7 +232,7 @@ function ServiceBlock({ service, index }) {
               <ul className="space-y-3 mb-8">
                 {service.features.map((feature, i) => (
                   <li key={i} className="flex items-center gap-3">
-                    <Check size={16} className="text-ag-accent shrink-0" />
+                    <Check size={16} className="text-accent shrink-0" />
                     <span className="font-body text-foreground">{feature}</span>
                   </li>
                 ))}
@@ -244,7 +241,7 @@ function ServiceBlock({ service, index }) {
             <FadeUp delay={0.5}>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 font-body text-ag-accent group"
+                className="inline-flex items-center gap-2 font-body text-accent group"
                 data-cursor="hover"
               >
                 <span className="relative">
@@ -352,7 +349,7 @@ export default function ServicesPage() {
                   }`}
                 >
                   {tier.highlighted && (
-                    <span className="font-mono text-xs text-ag-accent tracking-wider block mb-4">
+                    <span className="font-mono text-xs text-accent tracking-wider block mb-4">
                       MOST POPULAR
                     </span>
                   )}
@@ -365,7 +362,7 @@ export default function ServicesPage() {
                   <ul className="space-y-3 mb-8">
                     {tier.features.map((feature, i) => (
                       <li key={i} className="flex items-center gap-3">
-                        <Check size={14} className="text-ag-accent shrink-0" />
+                        <Check size={14} className="text-accent shrink-0" />
                         <span className="font-body text-sm text-foreground">{feature}</span>
                       </li>
                     ))}

@@ -17,7 +17,7 @@ const allProjects = [
   },
   {
     id: 2, slug: 'techstart-platform', name: 'TechStart Platform', category: 'E-Commerce',
-    gradient: 'from-[#0a0a1a] via-[#141428] to-[#0a0a1a]', accent: '#E8FF3D', pattern: 'ecommerce', year: '2024', scope: 'Full-Stack Development',
+    gradient: 'from-[#0a0a1a] via-[#141428] to-[#0a0a1a]', accent: '#5B8DEF', pattern: 'ecommerce', year: '2024', scope: 'Full-Stack Development',
   },
   {
     id: 3, slug: 'artisan-coffee', name: 'Artisan Coffee Co.', category: 'Brand Identity',
@@ -277,7 +277,7 @@ function WorkCard({ project, viewText }) {
         <div
           ref={cardRef}
           data-cursor="view"
-          className="relative overflow-hidden bg-card border border-ag-border"
+          className="relative overflow-hidden bg-card border border-border"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           onMouseEnter={handleMouseEnter}
@@ -360,11 +360,9 @@ function WorkCard({ project, viewText }) {
           {/* Info — like original structure */}
           <div className="p-5">
             <h3
-              className="font-heading font-medium text-lg"
-              style={{
-                color: isHovered ? '#ffffff' : 'rgba(255,255,255,0.85)',
-                transition: 'color 0.4s ease',
-              }}
+            className={`font-heading font-medium text-lg transition-colors duration-300 ${
+              isHovered ? 'text-foreground' : 'text-foreground/85'
+            }`}
             >
               {project.name}
             </h3>
@@ -444,7 +442,7 @@ export default function WorkPage() {
               className={`px-5 py-2 text-sm font-mono transition-all duration-300 border ${
                 activeFilter === idx
                   ? 'bg-ag-accent text-ag-bg border-ag-accent'
-                  : 'border-ag-border text-ag-body hover:text-foreground hover:border-ag-body'
+                  : 'border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground'
               }`}
               data-cursor="hover"
             >

@@ -16,17 +16,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        /* ═══ Theme-aware custom colors ═══ */
-        'ag-bg': 'hsl(var(--background))',
-        'ag-card': 'hsl(var(--card))',
-        'ag-surface': 'hsl(var(--ag-surface))',
-        'ag-border': 'hsl(var(--border))',
-        'ag-accent': 'hsl(var(--ag-accent))',
-        'ag-text': 'hsl(var(--foreground))',
-        'ag-body': 'hsl(var(--ag-body))',
-        'ag-muted': 'hsl(var(--ag-muted))',
-        
-        /* ═══ Shadcn/ui colors ═══ */
+        /* ═══ Theme-aware colors (USE THESE!) ═══ */
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
@@ -60,6 +50,16 @@ module.exports = {
           DEFAULT: 'hsl(var(--card))', 
           foreground: 'hsl(var(--card-foreground))' 
         },
+        
+        /* ═══ ag-* NOW USE CSS VARIABLES! ═══ */
+        'ag-bg': 'hsl(var(--background))',
+        'ag-card': 'hsl(var(--card))',
+        'ag-surface': 'hsl(var(--secondary))',
+        'ag-border': 'hsl(var(--border))',
+        'ag-accent': 'hsl(var(--accent))',
+        'ag-text': 'hsl(var(--foreground))',
+        'ag-body': 'hsl(var(--muted-foreground))',
+        'ag-muted': 'hsl(var(--muted-foreground))',
       },
       fontFamily: {
         heading: ['var(--font-space-grotesk)', 'sans-serif'],

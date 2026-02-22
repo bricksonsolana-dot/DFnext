@@ -1,7 +1,7 @@
 // components/navigation.js
 'use client';
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useScroll } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowRight, Sun, Moon } from 'lucide-react';
@@ -17,18 +17,6 @@ export default function Navigation() {
   const { scrollY } = useScroll();
   const { lang, toggleLang, t } = useTranslation();
   const { theme, setTheme } = useTheme();
-
-  const navBg = useTransform(
-    scrollY,
-    [0, 50],
-    ['rgba(10, 10, 10, 0)', 'rgba(10, 10, 10, 0.85)']
-  );
-
-  const navBlur = useTransform(
-    scrollY,
-    [0, 50],
-    ['blur(0px)', 'blur(20px)']
-  );
 
   useEffect(() => {
     setMounted(true);
@@ -203,22 +191,21 @@ export default function Navigation() {
     }
   };
 
+  // Theme-aware check
+  const isLight = mounted && theme === 'light';
+
   return (
     <>
-      <motion.nav
-        className="fixed top-0 left-0 right-0 z-[100] px-4 md:px-8 py-4"
-        style={{
-          backgroundColor: navBg,
-          backdropFilter: navBlur,
-          WebkitBackdropFilter: navBlur,
-        }}
+      <nav
+        className={`fixed top-0 left-0 right-0 z-[100] px-4 md:px-8 py-4 transition-all duration-300 ${
+          isScrolled 
+            ? isLight 
+              ? 'bg-background/90 backdrop-blur-xl border-b border-border' 
+              : 'bg-background/80 backdrop-blur-xl border-b border-border'
+            : 'bg-transparent'
+        }`}
         data-testid="main-navigation"
       >
-        <div
-          className="absolute bottom-0 left-0 right-0 h-px bg-ag-border origin-center"
-          style={getDividerStyle()}
-        />
-
         <div className="max-w-[1800px] mx-auto flex items-center justify-between">
           {/* Logo */}
           <Link
@@ -228,7 +215,7 @@ export default function Navigation() {
             data-testid="logo-link"
           >
             <span 
-              className="font-heading font-bold text-2xl text-ag-accent" 
+              className="font-heading font-bold text-2xl text-accent" 
               style={getLogoStyle(0)}
             >
               [DF]
@@ -247,7 +234,7 @@ export default function Navigation() {
               <Link
                 key={`${link.path}-${index}`}
                 href={link.path}
-                className="relative group font-body text-sm text-ag-body hover:text-foreground"
+                className="relative group font-body text-sm text-muted-foreground hover:text-foreground transition-colors"
                 data-cursor="hover"
               >
                 <span
@@ -256,7 +243,7 @@ export default function Navigation() {
                 >
                   {link.name}
                 </span>
-                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-ag-accent group-hover:w-full transition-all duration-300" />
+                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-accent group-hover:w-full transition-all duration-300" />
               </Link>
             ))}
           </div>
@@ -267,7 +254,7 @@ export default function Navigation() {
             {mounted && (
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-3 border border-ag-border text-ag-body hover:text-foreground hover:border-ag-accent transition-colors duration-300"
+                className="p-3 border border-border text-muted-foreground hover:text-foreground hover:border-accent transition-colors duration-300"
                 data-cursor="hover"
                 aria-label="Toggle theme"
               >
@@ -281,7 +268,7 @@ export default function Navigation() {
             <button
               onClick={handleLangSwap}
               disabled={phase !== 'visible'}
-              className="px-4 py-3 border border-ag-border text-sm font-mono text-ag-body hover:text-foreground hover:border-ag-accent transition-colors duration-300 min-w-14 text-center disabled:pointer-events-none"
+              className="px-4 py-3 border border-border text-sm font-mono text-muted-foreground hover:text-foreground hover:border-accent transition-colors duration-300 min-w-14 text-center disabled:pointer-events-none"
               data-cursor="hover"
               data-testid="language-toggle"
             >
@@ -293,7 +280,7 @@ export default function Navigation() {
             {/* CTA Button */}
             <Link
               href="/contact"
-              className="flex items-center gap-2 px-6 py-3 border border-ag-border text-sm font-medium text-foreground hover:bg-ag-accent hover:text-ag-bg hover:border-ag-accent transition-colors duration-300"
+              className="flex items-center gap-2 px-6 py-3 border border-border text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent transition-colors duration-300"
               data-cursor="hover"
               data-testid="nav-cta-button"
             >
@@ -312,7 +299,7 @@ export default function Navigation() {
             {mounted && (
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-2 border border-ag-border text-ag-body hover:text-foreground transition-colors"
+                className="p-2 border border-border text-muted-foreground hover:text-foreground transition-colors"
                 data-cursor="hover"
                 aria-label="Toggle theme"
               >
@@ -324,7 +311,7 @@ export default function Navigation() {
             <button
               onClick={handleLangSwap}
               disabled={phase !== 'visible'}
-              className="px-3 py-2 border border-ag-border text-xs font-mono text-ag-body hover:text-foreground transition-colors min-w-10 text-center disabled:pointer-events-none"
+              className="px-3 py-2 border border-border text-xs font-mono text-muted-foreground hover:text-foreground transition-colors min-w-10 text-center disabled:pointer-events-none"
               data-cursor="hover"
             >
               <span className="inline-block" style={getRightStyle(0)}>
@@ -334,7 +321,7 @@ export default function Navigation() {
 
             {/* Menu Toggle */}
             <button
-              className="p-2"
+              className="p-2 text-foreground"
               onClick={() => setIsOpen(!isOpen)}
               data-cursor="hover"
               data-testid="mobile-menu-toggle"
@@ -343,7 +330,7 @@ export default function Navigation() {
             </button>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile Menu */}
       <AnimatePresence>
@@ -367,7 +354,7 @@ export default function Navigation() {
                 >
                   <Link
                     href={link.path}
-                    className="font-heading text-3xl text-foreground hover:text-ag-accent transition-colors"
+                    className="font-heading text-3xl text-foreground hover:text-accent transition-colors"
                     data-cursor="hover"
                     onClick={() => setIsOpen(false)}
                   >
@@ -382,7 +369,7 @@ export default function Navigation() {
               >
                 <Link
                   href="/contact"
-                  className="mt-8 inline-flex items-center gap-2 px-8 py-4 bg-ag-accent text-ag-bg font-semibold"
+                  className="mt-8 inline-flex items-center gap-2 px-8 py-4 bg-accent text-accent-foreground font-semibold"
                   data-cursor="hover"
                   onClick={() => setIsOpen(false)}
                 >

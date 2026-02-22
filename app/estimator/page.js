@@ -158,7 +158,7 @@ function EstimatorBackground() {
         style={{
           top: '10%',
           right: '5%',
-          background: 'radial-gradient(circle, #E8FF3D 0%, transparent 70%)',
+          background: 'radial-gradient(circle, hsl(220 85% 65%) 0%, transparent 70%)',
         }}
       />
       <div
@@ -166,7 +166,7 @@ function EstimatorBackground() {
         style={{
           bottom: '20%',
           left: '0%',
-          background: 'radial-gradient(circle, #E8FF3D 0%, transparent 70%)',
+          background: 'radial-gradient(circle, hsl(220 85% 65%) 0%, transparent 70%)',
         }}
       />
     </div>
