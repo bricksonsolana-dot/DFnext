@@ -46,12 +46,31 @@ export default function ContactPage() {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     setSubmitError('');
+    const payload = {
+      access_key: '418a01f6-fb93-43bd-a1f1-9f808aa3815a',
+      subject: 'New Contact Form Submission - DigitalFootprint',
+      from_name: data.name,
+      name: data.name,
+      email: data.email,
+      phone: data.phone || 'Not provided',
+      budget: data.budget || 'Not specified',
+      message: data.message,
+    };
+    console.log('Web3Forms payload:', payload);
     try {
-      const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-      if (res.ok) { setIsSubmitted(true); } else { const err = await res.json(); setSubmitError(err.error || 'Something went wrong.'); }
-    } catch (error) { setSubmitError('Network error. Please try again.'); } finally { setIsSubmitting(false); }
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const result = await res.json();
+      console.log('Web3Forms response:', res.status, result);
+      if (result.success) { setIsSubmitted(true); } else { setSubmitError(result.message || 'Something went wrong.'); }
+    } catch (error) {
+      console.error('Web3Forms error:', error);
+      setSubmitError('Network error. Please try again.');
+    } finally { setIsSubmitting(false); }
   };
-//o giorgos thelei poutsa ston kolo
   return (
     <div className="pt-24">
       <section className="max-w-[1400px] mx-auto px-6 lg:px-12 py-16 md:py-24">
@@ -98,6 +117,7 @@ export default function ContactPage() {
                   <FloatingInput label={t('contactPage.form.name')} error={errors.name} registration={register('name')} />
                   <FloatingInput label={t('contactPage.form.email')} error={errors.email} registration={register('email')} type="email" />
                   <FloatingInput label={t('contactPage.form.phone')} error={errors.phone} registration={register('phone')} type="tel" />
+                  <FloatingInput label={t('contactPage.form.message')} error={errors.message} registration={register('message')} as="textarea" />
             <div className="relative">
               <label className="block text-xs text-ag-accent mb-2 font-body">
                 {t('contactPage.form.budget')}

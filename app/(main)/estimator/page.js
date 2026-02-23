@@ -530,9 +530,57 @@ export default function EstimatorPage() {
   const handleSubmit = async () => {
     if (!contactForm.name || !contactForm.email) return;
     setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+
+    const typeData = websiteTypes.find((t) => t.id === selectedType);
+    const supportData = supportPlans.find((s) => s.id === selectedSupport);
+
+    const selectedFeatureNames = selectedFeatures
+      .map((fId) => {
+        const f = allFeatures.find((x) => x.id === fId);
+        if (!f) return null;
+        const isIncluded = f.includedIn?.includes(selectedType || "");
+        return isIncluded ? `${f.name} (included)` : `${f.name} (+€${f.price})`;
+      })
+      .filter(Boolean);
+
+    const includedFeatureNames = allFeatures
+      .filter((f) => f.showFor.includes(selectedType) && f.includedIn?.includes(selectedType) && !selectedFeatures.includes(f.id))
+      .map((f) => `${f.name} (included)`);
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: '418a01f6-fb93-43bd-a1f1-9f808aa3815a',
+          subject: `New Estimator Request - ${typeData?.name || 'Unknown'} - DigitalFootprint`,
+          from_name: contactForm.name,
+          name: contactForm.name,
+          email: contactForm.email,
+          phone: contactForm.phone || 'Not provided',
+          company: contactForm.company || 'Not provided',
+          notes: contactForm.notes || 'None',
+          'Website Type': typeData?.name || 'Not selected',
+          'Base Price': `€${typeData?.basePrice?.toLocaleString("el-GR") || 0}`,
+          'Time Estimate': typeData?.timeEstimate || 'N/A',
+          'Included Features': includedFeatureNames.length > 0 ? includedFeatureNames.join(', ') : 'Default package only',
+          'Selected Extra Features': selectedFeatureNames.length > 0 ? selectedFeatureNames.join(', ') : 'None',
+          'Features Cost': `€${priceCalc.featuresCost.toLocaleString("el-GR")}`,
+          'Support Plan': supportData?.name || 'None',
+          'Monthly Support Cost': supportData?.monthlyPrice ? `€${supportData.monthlyPrice}/month` : '€0',
+          'Total Estimated Cost': `€${priceCalc.total.toLocaleString("el-GR")}`,
+          'Monthly Cost': priceCalc.monthly > 0 ? `€${priceCalc.monthly}/month` : '€0',
+        }),
+      });
+      const result = await res.json();
+      if (result.success) {
+        setIsSubmitted(true);
+      }
+    } catch (error) {
+      // silently fail — user sees no change
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const featurePriceLabel = (f) => {
