@@ -552,7 +552,7 @@ export default function EstimatorPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          access_key: '418a01f6-fb93-43bd-a1f1-9f808aa3815a',
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
           subject: `New Estimator Request - ${typeData?.name || 'Unknown'} - DigitalFootprint`,
           from_name: contactForm.name,
           name: contactForm.name,
