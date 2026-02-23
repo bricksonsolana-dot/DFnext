@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Check } from 'lucide-react';
 import { useTranslation } from '@/components/language-provider';
+import { useScroll, useTransform } from 'framer-motion';
 
 /* ═══════════════════════════════════════════════════════
    HELPERS — matched to old project's Animations.js
@@ -119,7 +120,7 @@ const services = [
     subtitle: 'Custom websites με focus στο UX και την απόδοση',
     description: 'Δημιουργούμε websites που δεν είναι απλά όμορφα — είναι γρήγορα, accessible, και optimized για conversions. Από single-page apps έως complex web platforms.',
     features: ['Custom React/Next.js Development', 'Performance Optimization', 'SEO-First Architecture', 'CMS Integration', 'API Development'],
-    image: 'https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/images/services/WebsiteDevelopment.jpg',
   },
   {
     id: 'ecommerce',
@@ -128,7 +129,7 @@ const services = [
     subtitle: 'Online shops που πουλάνε',
     description: 'Δεν φτιάχνουμε απλά e-shops — φτιάχνουμε πωλητικές μηχανές. WooCommerce, Shopify, ή custom solutions ανάλογα με τις ανάγκες σου.',
     features: ['Shopify / WooCommerce Setup', 'Custom E-Commerce Development', 'Payment Gateway Integration', 'Inventory Management', 'Conversion Optimization'],
-    image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/images/services/E-Commerce.png',
   },
   {
     id: 'ui-ux-design',
@@ -146,7 +147,7 @@ const services = [
     subtitle: 'Cohesive brand presence σε κάθε touchpoint',
     description: 'Logos, visual systems, και guidelines που κάνουν το brand σου αναγνωρίσιμο. Από το business card μέχρι το website.',
     features: ['Logo Design', 'Visual Identity System', 'Brand Guidelines', 'Marketing Collateral', 'Social Media Templates'],
-    image: 'https://images.pexels.com/photos/1779487/pexels-photo-1779487.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/images/services/BrandIdentity.jpg',
   },
   {
     id: 'digital-marketing',
@@ -161,10 +162,10 @@ const services = [
     id: 'support',
     number: '06',
     title: 'Ongoing Support',
-    subtitle: 'Δεν εξαφανιζόμαστε μετά το launch',
+    subtitle: 'Μαζί σου μέχρι το τέλος',
     description: 'Maintenance, updates, και continuous improvement. Είμαστε partners, όχι vendors.',
     features: ['24/7 Monitoring', 'Security Updates', 'Performance Optimization', 'Content Updates', 'Technical Support'],
-    image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
+    image: '/images/services/OngoingSupport.jpg',
   },
 ];
 
@@ -198,9 +199,19 @@ const pricingTiers = [
 
 function ServiceBlock({ service, index }) {
   const isEven = index % 2 === 0;
+  const ref = useRef(null);
+  
+  // Parallax effect
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+  
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   return (
     <section
+      ref={ref}
       className={`py-24 md:py-32 ${index % 2 === 0 ? 'bg-background' : 'bg-card'}`}
       data-testid={`service-${service.id}`}
     >
@@ -253,16 +264,17 @@ function ServiceBlock({ service, index }) {
             </FadeUp>
           </div>
 
-          {/* Image — real image with gradient overlay */}
+          {/* Image με Parallax */}
           <FadeUp delay={0.2} className={`order-1 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
             <div className="relative aspect-[4/3] overflow-hidden">
-              <img
+              <motion.img
                 src={service.image}
                 alt={service.title}
-                className="w-full h-full object-cover"
+                className="w-full h-[120%] object-cover"
+                style={{ y: imageY }}
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-ag-bg/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ag-bg/30 to-transparent pointer-events-none" />
             </div>
           </FadeUp>
         </div>
