@@ -75,16 +75,16 @@ function AnimatedHeadline({ lines, className = '', delay = 0.3 }) {
 
 const team = [
   {
-    name: 'Αλέξανδρος Κ.',
-    role: 'Founder & Creative Director',
+    name: 'Οδυσσέας Σ.',
+    role: 'Co-Founder & Lead Developer',
     image:
-      'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400',
+      'images/about/ody.jpg',
   },
   {
-    name: 'Μαρία Π.',
-    role: 'Lead Developer',
+    name: 'Γιώργος Σ.',
+    role: 'Co-Founder & Lead Developer',
     image:
-      'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=400',
+      'images/about/george.jpg',
   },
   {
     name: 'Γιώργος Α.',
@@ -263,7 +263,7 @@ export default function AboutPage() {
             {/* Parallax Image */}
             <FadeUp delay={0.3} className="relative aspect-[4/3] overflow-hidden">
               <motion.img
-                src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                src='images\about\About.jpg'
                 alt="DigitalFootprint team"
                 className="w-full h-full object-cover"
                 style={{ y: heroY }}
@@ -309,7 +309,7 @@ export default function AboutPage() {
               OUR STORY
             </span>
             <h2 className="font-heading text-h2 text-foreground mb-16">
-              Η ιστορία μας.
+              Η ιστορία μας
             </h2>
           </FadeUp>
 
@@ -344,7 +344,7 @@ export default function AboutPage() {
               OUR VALUES
             </span>
             <h2 className="font-heading text-h2 text-foreground mb-16">
-              Τι πιστεύουμε.
+              Τι πιστεύουμε
             </h2>
           </FadeUp>
 
@@ -377,7 +377,7 @@ export default function AboutPage() {
               THE TEAM
             </span>
             <h2 className="font-heading text-h2 text-foreground mb-16">
-              Οι άνθρωποί μας.
+              Οι άνθρωποί μας
             </h2>
           </FadeUp>
 
