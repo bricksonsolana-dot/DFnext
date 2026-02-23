@@ -111,7 +111,7 @@ const allProjects = [
 
 
 // ═══════════════════════════════════════
-// WORK CARD — ΚΑΘΑΡΟ ΜΕ ΕΙΚΟΝΑ
+// WORK CARD
 // ═══════════════════════════════════════
 
 function WorkCard({ project, viewText }) {
@@ -161,12 +161,10 @@ function WorkCard({ project, viewText }) {
           style={{ transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)' }}
         >
           
-          {/* ═══════════════════════════════════════════════════════════ */}
-          {/* IMAGE AREA - ΚΑΘΑΡΟ */}
-          {/* ═══════════════════════════════════════════════════════════ */}
-          <div className="relative aspect-[4/3] overflow-hidden bg-neutral-900">
+          {/* IMAGE AREA - 16:9 aspect ratio για 1920x1080 */}
+          <div className="relative aspect-video overflow-hidden bg-neutral-900">
             
-            {/* Η εικόνα */}
+            {/* Image */}
             <Image
               src={project.image}
               alt={project.name}
@@ -178,9 +176,9 @@ function WorkCard({ project, viewText }) {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
 
-            {/* Dark overlay στο hover */}
+            {/* Dark overlay on hover */}
             <div 
-              className="absolute inset-0 bg-black/0 transition-all duration-500"
+              className="absolute inset-0 transition-all duration-500 pointer-events-none"
               style={{
                 backgroundColor: isHovered ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0)',
               }}
@@ -195,9 +193,9 @@ function WorkCard({ project, viewText }) {
               }}
             />
 
-            {/* Year badge - πάνω αριστερά */}
+            {/* Year badge - top left */}
             <div 
-              className="absolute top-4 left-4 transition-all duration-500"
+              className="absolute top-4 left-4 transition-all duration-500 pointer-events-none"
               style={{
                 opacity: isHovered ? 1 : 0,
                 transform: isHovered ? 'translateY(0)' : 'translateY(-10px)',
@@ -215,9 +213,9 @@ function WorkCard({ project, viewText }) {
               </span>
             </div>
 
-            {/* View Project - κέντρο */}
+            {/* View Project - center */}
             <div 
-              className="absolute inset-0 flex items-center justify-center transition-all duration-500"
+              className="absolute inset-0 flex items-center justify-center transition-all duration-500 pointer-events-none"
               style={{
                 opacity: isHovered ? 1 : 0,
                 transform: isHovered ? 'translateY(0)' : 'translateY(10px)',
@@ -245,7 +243,6 @@ function WorkCard({ project, viewText }) {
               }}
             />
           </div>
-          {/* ═══════════════════════════════════════════════════════════ */}
 
           {/* Info section */}
           <div className="p-5 relative">
@@ -258,9 +255,7 @@ function WorkCard({ project, viewText }) {
               }}
             />
             
-            <h3
-              className="font-heading font-medium text-lg text-foreground transition-colors duration-300 mt-1"
-            >
+            <h3 className="font-heading font-medium text-lg text-foreground transition-colors duration-300 mt-1">
               {project.name}
             </h3>
             
@@ -301,13 +296,23 @@ export default function WorkPage() {
 
   const categoriesData = t('work.categories');
   const categories = Array.isArray(categoriesData) ? categoriesData : ['All'];
-  const categoryMap = { 0: 'All', 1: 'Web Design', 2: 'E-Commerce', 3: 'Brand Identity', 4: 'Corporate', 5: 'Hotel' };
+  const categoryMap = { 
+    0: 'All', 
+    1: 'Web Design', 
+    2: 'E-Commerce', 
+    3: 'Brand Identity', 
+    4: 'Corporate', 
+    5: 'Hotel' 
+  };
   const filterKey = categoryMap[activeFilter] || 'All';
-  const filtered = filterKey === 'All' ? allProjects : allProjects.filter((p) => p.category === filterKey);
+  const filtered = filterKey === 'All' 
+    ? allProjects 
+    : allProjects.filter((p) => p.category === filterKey);
 
   return (
     <div className="pt-24 min-h-screen bg-background">
       <section className="max-w-[1400px] mx-auto px-6 lg:px-12 py-16 md:py-24">
+        
         {/* Header */}
         <motion.h1
           key={`title-${langKey}`}
@@ -347,8 +352,11 @@ export default function WorkPage() {
           ))}
         </div>
 
-        {/* Grid */}
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Projects Grid */}
+        <motion.div 
+          layout 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           <AnimatePresence mode="popLayout">
             {filtered.map((project) => (
               <WorkCard
@@ -359,6 +367,7 @@ export default function WorkPage() {
             ))}
           </AnimatePresence>
         </motion.div>
+        
       </section>
     </div>
   );
