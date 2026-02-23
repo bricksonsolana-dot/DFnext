@@ -530,9 +530,45 @@ export default function EstimatorPage() {
   const handleSubmit = async () => {
     if (!contactForm.name || !contactForm.email) return;
     setIsSubmitting(true);
-    await new Promise((r) => setTimeout(r, 1500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+
+    try {
+      const typeData = websiteTypes.find((t) => t.id === selectedType);
+      const supportData = supportPlans.find((s) => s.id === selectedSupport);
+
+      // Resolve extra feature IDs to names (exclude features already included in base type)
+      const extraFeatureNames = selectedFeatures
+        .map((fId) => allFeatures.find((f) => f.id === fId))
+        .filter(Boolean)
+        .filter((f) => !f.includedIn?.includes(selectedType))
+        .map((f) => f.name);
+
+      const payload = {
+        name: contactForm.name,
+        email: contactForm.email,
+        phone: contactForm.phone || '',
+        company: contactForm.company || '',
+        notes: contactForm.notes || '',
+        formType: 'estimator',
+        websiteType: selectedType,
+        websiteTypeName: typeData?.name || '',
+        selectedFeatures: extraFeatureNames,
+        supportPlan: selectedSupport,
+        supportPlanName: supportData?.name || '',
+        estimatedCost: priceCalc.total,
+        monthlyCost: priceCalc.monthly,
+      };
+
+      await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+    } catch (error) {
+      console.error('Submit error:', error);
+    } finally {
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    }
   };
 
   const featurePriceLabel = (f) => {
