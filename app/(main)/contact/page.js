@@ -46,24 +46,30 @@ export default function ContactPage() {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     setSubmitError('');
+    const payload = {
+      access_key: '418a01f6-fb93-43bd-a1f1-9f808aa3815a',
+      subject: 'New Contact Form Submission - DigitalFootprint',
+      from_name: data.name,
+      name: data.name,
+      email: data.email,
+      phone: data.phone || 'Not provided',
+      budget: data.budget || 'Not specified',
+      message: data.message,
+    };
+    console.log('Web3Forms payload:', payload);
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          access_key: '418a01f6-fb93-43bd-a1f1-9f808aa3815a',
-          subject: 'New Contact Form Submission - DigitalFootprint',
-          from_name: data.name,
-          name: data.name,
-          email: data.email,
-          phone: data.phone || 'Not provided',
-          budget: data.budget || 'Not specified',
-          message: data.message,
-        }),
+        body: JSON.stringify(payload),
       });
       const result = await res.json();
+      console.log('Web3Forms response:', res.status, result);
       if (result.success) { setIsSubmitted(true); } else { setSubmitError(result.message || 'Something went wrong.'); }
-    } catch (error) { setSubmitError('Network error. Please try again.'); } finally { setIsSubmitting(false); }
+    } catch (error) {
+      console.error('Web3Forms error:', error);
+      setSubmitError('Network error. Please try again.');
+    } finally { setIsSubmitting(false); }
   };
   return (
     <div className="pt-24">
