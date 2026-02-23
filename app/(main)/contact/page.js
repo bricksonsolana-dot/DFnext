@@ -117,6 +117,7 @@ export default function ContactPage() {
                   <FloatingInput label={t('contactPage.form.name')} error={errors.name} registration={register('name')} />
                   <FloatingInput label={t('contactPage.form.email')} error={errors.email} registration={register('email')} type="email" />
                   <FloatingInput label={t('contactPage.form.phone')} error={errors.phone} registration={register('phone')} type="tel" />
+                  <FloatingInput label={t('contactPage.form.message')} error={errors.message} registration={register('message')} as="textarea" />
             <div className="relative">
               <label className="block text-xs text-ag-accent mb-2 font-body">
                 {t('contactPage.form.budget')}
