@@ -12,16 +12,43 @@ import { ArrowUpRight } from 'lucide-react';
 
 const allProjects = [
   {
-    id: 1, slug: 'flavor-restaurant', name: 'Flavor Restaurant', category: 'Web Design',
-    gradient: 'from-[#1a0a00] via-[#2d1a0a] to-[#1a0f05]', accent: '#e8a04a', pattern: 'restaurant', year: '2024', scope: 'Design & Development',
+    id: 1,
+    slug: 'kaiser-omnia',
+    name: 'Kaiser Omnia',
+    category: 'Web Design',
+    gradient: 'from-[#1a0a00] via-[#2d1a0a] to-[#1a0f05]',
+    accent: '#e8a04a',
+    pattern: 'restaurant',
+    year: '2024',
+    scope: 'Design & Development',
+    isDemo: true,
+    demoUrl: '/kaiser-omnia',  // ← Πρόσθεσε αυτό
   },
   {
-    id: 2, slug: 'techstart-platform', name: 'TechStart Platform', category: 'E-Commerce',
-    gradient: 'from-[#0a0a1a] via-[#141428] to-[#0a0a1a]', accent: '#5B8DEF', pattern: 'ecommerce', year: '2024', scope: 'Full-Stack Development',
+    id: 2,
+    slug: 'kaiser-omnia-tm',
+    name: 'Kaiser Omnia TM',
+    category: 'Brand Identity',
+    gradient: 'from-[#0a0a1a] via-[#141428] to-[#0a0a1a]',
+    accent: '#5B8DEF',
+    pattern: 'brand',
+    year: '2024',
+    scope: 'Full Branding',
+    isDemo: true,
+    demoUrl: '/kaiser-omnia-tm',  // ← Πρόσθεσε αυτό
   },
   {
-    id: 3, slug: 'artisan-coffee', name: 'Artisan Coffee Co.', category: 'Brand Identity',
-    gradient: 'from-[#1a1410] via-[#221a12] to-[#14100a]', accent: '#d4a574', pattern: 'brand', year: '2024', scope: 'Branding & Web',
+    id: 3,
+    slug: 'escape-room',
+    name: 'Escape Room - No Signal',
+    category: 'Web Design',
+    gradient: 'from-[#0d1b2a] via-[#1b2838] to-[#0d1520]',
+    accent: '#ff4d4d',
+    pattern: 'corporate',
+    year: '2024',
+    scope: 'Design & Development',
+    isDemo: true,
+    demoUrl: '/escape-room',  // ← Πρόσθεσε αυτό
   },
   {
     id: 4, slug: 'urban-hotel', name: 'Urban Hotel Athens', category: 'Hotel',
@@ -273,7 +300,7 @@ function WorkCard({ project, viewText }) {
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.4 }}
     >
-      <Link href={`/work/${project.slug}`}>
+      <Link href={project.demoUrl || `/work/${project.slug}`}>
         <div
           ref={cardRef}
           data-cursor="view"

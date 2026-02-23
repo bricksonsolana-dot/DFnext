@@ -210,3 +210,13 @@
     transition-duration: 0.01ms !important;
   }
 }
+/* Demo viewer - κανονικό cursor */
+.demo-viewer-wrapper,
+.demo-viewer-wrapper * {
+  cursor: auto !important;
+}
+
+.demo-viewer-wrapper a,
+.demo-viewer-wrapper button {
+  cursor: pointer !important;
+}
