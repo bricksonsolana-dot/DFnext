@@ -341,7 +341,7 @@ const portfolioProjects = [
     image: '/images/projects/UltraChamp.jpg',  // ← ΠΡΟΣΘΗΚΗ
     accent: '#ffffff',
     year: '2024',
-    demoUrl: 'UltraChamp',  // ← ΠΡΟΣΘΗΚΗ
+    demoUrl: '/UltraChamp',  // ← ΠΡΟΣΘΗΚΗ
   },
 
   {

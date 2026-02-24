@@ -403,6 +403,7 @@ const supportPlans = [
 ];
 
 const steps = [
+
   { label: "Τύπος Site", shortLabel: "Τύπος" },
   { label: "Extra Features", shortLabel: "Features" },
   { label: "Συντήρηση", shortLabel: "Support" },
@@ -499,17 +500,18 @@ export default function EstimatorPage() {
   }, [selectedType, selectedFeatures, selectedSupport]);
 
   const canProceed = useCallback(() => {
-    switch (step) {
-      case 0: return !!selectedType;
-      case 1: return true;
-      case 2: return !!selectedSupport;
-      case 3: return !!(contactForm.name && contactForm.email);
-      default: return false;
-    }
-  }, [step, selectedType, selectedSupport, contactForm]);
+  switch (step) {
+    case 0: return true; // intro: πάντα μπορεί
+    case 1: return !!selectedType;
+    case 2: return true;
+    case 3: return !!selectedSupport;
+    case 4: return !!(contactForm.name && contactForm.email);
+    default: return false;
+  }
+}, [step, selectedType, selectedSupport, contactForm]);
 
   const canNavigateTo = useCallback((targetStep) => targetStep < step, [step]);
-  const goNext = () => { if (canProceed() && step < 3) setStep(step + 1); };
+  const goNext = () => { if (canProceed() && step < 4) setStep(step + 1); };
   const goBack = () => { if (step > 0) setStep(step - 1); };
 
   const handleReset = () => {
@@ -606,7 +608,7 @@ export default function EstimatorPage() {
   }, [selectedType, selectedFeatures]);
 
   return (
-    <div className="min-h-screen bg-background pt-24 relative" data-testid="estimator-page">
+    <div className="min-h-screen bg-background pt-24 relative flex flex-col" data-testid="estimator-page">
   <EstimatorBackground />
       {/* TOP BAR */}
       <div className="border-b border-ag-border relative z-10">
@@ -631,13 +633,15 @@ export default function EstimatorPage() {
       </div>
 
       <main className="max-w-6xl mx-auto px-4 md:px-8 py-8 md:py-12 relative z-10">
-        {/* STEP INDICATOR */}
-        <div className="mb-10">
-          <StepIndicator current={step} onNavigate={setStep} canNavigateTo={canNavigateTo} />
-        </div>
+       {/* STEP INDICATOR */}
+        {step > 0 && (
+          <div className="mb-10">
+            <StepIndicator current={step} onNavigate={setStep} canNavigateTo={canNavigateTo} />
+          </div>
+        )}
 
         {/* LIVE PRICE BAR */}
-        {step >= 1 && !isSubmitted && (
+        {step >= 2 && !isSubmitted && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -671,7 +675,7 @@ export default function EstimatorPage() {
         )}
 
         {/* STEP 0 — WEBSITE TYPE */}
-        {step === 0 && (
+        {step === 1 && (
           <FadeUp>
             <div className="mb-8">
               <h1 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-2">
@@ -756,9 +760,61 @@ export default function EstimatorPage() {
             )}
           </FadeUp>
         )}
+        {/* STEP 0 — INTRO LANDING */}
+{step === 0 && (
+  <FadeUp>
+    <div className="max-w-4xl mx-auto">
+      <h1 className="font-heading text-4xl md:text-6xl font-bold text-foreground mb-5 leading-[1.05]">
+        Εκτίμηση Κόστους Website
+      </h1>
+
+      <p className="font-body text-ag-body text-lg md:text-2xl mb-10 leading-relaxed">
+        Απαντήστε σε 4 σύντομα βήματα για να πάρετε μια ενδεικτική εκτίμηση budget και χρόνου.
+        Η τελική προσφορά οριστικοποιείται μετά από σύντομη επικοινωνία και ανάλυση απαιτήσεων.
+      </p>
+
+      <div className="bg-card border border-ag-border p-7 md:p-8 space-y-4">
+        <div className="font-mono text-sm md:text-base text-ag-muted tracking-wider">
+          ΤΙ ΝΑ ΠΕΡΙΜΕΝΕΤΕ
+        </div>
+
+        <ul className="space-y-3 font-body text-base md:text-lg text-ag-body leading-relaxed">
+          <li>• Οι τιμές είναι <span className="text-foreground font-semibold">ενδεικτικές (±15%)</span> και δεν περιλαμβάνουν ΦΠΑ.</li>
+          <li>• Κάποια features έχουν εύρος τιμής (π.χ. €200–€500) γιατί εξαρτώνται από πολυπλοκότητα.</li>
+          <li>• Η εκτίμηση χρόνου αφορά υλοποίηση αφού έχουμε υλικό (κείμενα/φωτογραφίες) και τελικό scope.</li>
+          <li>• Δεν συμπεριλαμβάνονται κόστη τρίτων υπηρεσιών (hosting, domains, paid plugins, διαφημιστικό budget), εκτός αν αναφέρεται.</li>
+        </ul>
+      </div>
+
+      <div className="mt-10 flex flex-col sm:flex-row gap-4">
+        <button
+          onClick={() => setStep(1)}
+          className="bg-ag-accent text-ag-bg px-8 py-4 font-heading font-semibold text-base md:text-lg transition-opacity hover:opacity-90 flex items-center justify-center gap-2"
+          data-cursor="hover"
+        >
+          Ξεκινάμε την εκτίμηση
+          <ChevronRight size={18} />
+        </button>
+
+        <Link
+          href="/services"
+          className="px-8 py-4 border border-ag-border text-ag-body hover:text-foreground hover:border-ag-body transition-colors text-base md:text-lg font-body flex items-center justify-center gap-2"
+          data-cursor="hover"
+        >
+          Δείτε υπηρεσίες
+          <ArrowUpRight size={18} />
+        </Link>
+      </div>
+
+      <p className="mt-6 font-body text-sm md:text-base text-ag-muted">
+        Με την υποβολή στοιχείων επικοινωνίας δεν δημιουργείται καμία δέσμευση αγοράς υπηρεσίας.
+      </p>
+    </div>
+  </FadeUp>
+)}
 
         {/* STEP 1 — FEATURES */}
-        {step === 1 && (
+        {step === 2 && (
           <FadeUp>
             <div className="mb-6">
               <h1 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-1">Extra Features</h1>
@@ -902,8 +958,8 @@ export default function EstimatorPage() {
           </FadeUp>
         )}
 
-        {/* STEP 2 — SUPPORT */}
-        {step === 2 && (
+        {/* STEP 3 — SUPPORT */}
+        {step === 3 && (
           <FadeUp>
             <div className="mb-8">
               <h1 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-2">Μηνιαία Συντήρηση</h1>
@@ -963,8 +1019,8 @@ export default function EstimatorPage() {
           </FadeUp>
         )}
 
-        {/* STEP 3 — SUMMARY & CONTACT */}
-        {step === 3 && !isSubmitted && (
+        {/* STEP 4 — SUMMARY & CONTACT */}
+        {step === 4 && !isSubmitted && (
           <FadeUp>
             <div className="mb-8">
               <h1 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-2">Σύνοψη & Αποστολή</h1>
@@ -1155,7 +1211,7 @@ export default function EstimatorPage() {
         )}
 
         {/* NAVIGATION BUTTONS */}
-        {!isSubmitted && (
+        {!isSubmitted && step > 0 && (
           <div className="flex items-center justify-between mt-10 pt-6 border-t border-ag-border">
             <button
               onClick={goBack}
@@ -1167,37 +1223,42 @@ export default function EstimatorPage() {
               Πίσω
             </button>
 
-            <div className="font-mono text-xs text-ag-muted">Βήμα {step + 1} / 4</div>
+            <div className="font-mono text-xs text-ag-muted">
+  Βήμα {step} / 4
+</div>
 
-            {step < 3 && (
+            {step < 4 && (
               <button
                 onClick={goNext}
                 disabled={!canProceed()}
                 className="flex items-center gap-2 bg-ag-accent text-ag-bg px-5 py-2.5 font-heading font-semibold text-sm transition-opacity hover:opacity-90 disabled:opacity-30 disabled:cursor-not-allowed"
                 data-cursor="hover"
               >
-                {step === 2 ? "Σύνοψη" : "Επόμενο"}
+                {step === 3 ? "Σύνοψη" : "Επόμενο"}
                 <ChevronRight size={16} />
               </button>
             )}
 
-            {step === 3 && <div className="w-20" />}
+            {step === 4 && <div className="w-20" />}
           </div>
         )}
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-ag-border mt-8">
-        <div className="max-w-6xl mx-auto px-4 md:px-8 py-6 flex items-center justify-between">
-          <p className="font-body text-[11px] text-ag-muted">
-            * Ενδεικτικές τιμές χωρίς ΦΠΑ. Η τελική τιμή εξαρτάται από τις ακριβείς απαιτήσεις.
-          </p>
-          <Link href="/" className="font-mono text-xs text-ag-body hover:text-foreground transition-colors flex items-center gap-1" data-cursor="hover">
-            DigitalFootprint
-            <ArrowUpRight size={10} />
-          </Link>
-        </div>
-      </footer>
+      <footer className="border-t border-ag-border mt-auto py-4 text-sm"> {/* ← εδώ ελέγχεις το ύψος */}
+  <div className="max-w-6xl mx-auto px-4 md:px-8 flex items-center justify-between h-12"> {/* ← εδώ το fixed ύψος */}
+    <p className="font-body text-ag-muted leading-none">
+      * Ενδεικτικές τιμές χωρίς ΦΠΑ. Η τελική τιμή εξαρτάται από τις ακριβείς απαιτήσεις.
+    </p>
+    <Link 
+      href="/" 
+      className="font-mono text-ag-body hover:text-foreground transition-colors flex items-center gap-1.5 leading-none" 
+      data-cursor="hover"
+    >
+      DigitalFootprint
+      <ArrowUpRight size={14} /> {/* ← εδώ το μέγεθος του βελάκι */}
+    </Link>
+  </div>
+</footer>
     </div>
   );
 }
