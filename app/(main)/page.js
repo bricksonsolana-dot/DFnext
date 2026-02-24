@@ -711,77 +711,120 @@ function PortfolioSection({ showAll = false }) {
 
 function ServiceRow({ service, index }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobileExpanded, setIsMobileExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const handleClick = () => {
+    if (isMobile) {
+      setIsMobileExpanded((prev) => !prev);
+    }
+  };
 
   return (
-    <motion.div
+    <div
       className="relative border-b border-ag-border cursor-pointer"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
+      onMouseLeave={() => !isMobile && setIsHovered(false)}
+      onClick={handleClick}
       data-cursor="hover"
       data-testid={`service-row-${service.num}`}
     >
-      <div className="py-6 md:py-8 px-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        {/* Number */}
-        <span className="font-mono text-xs text-ag-muted">{service.num}</span>
+      {/* ── MOBILE LAYOUT ── */}
+      <div className="md:hidden">
+        <div className="py-5 px-4 flex items-center gap-4">
+          {/* Number */}
+          <span className="font-mono text-[11px] text-ag-muted flex-shrink-0 w-6">
+            {service.num}
+          </span>
 
-        {/* Title */}
-        <motion.h3
-          className={`font-heading text-2xl md:text-4xl flex-1 md:ml-8 transition-colors duration-300 ${
-              isHovered ? 'text-accent' : 'text-foreground'
-            }`}
-          transition={{ duration: 0.3 }}
-        >
-          {service.name}
-        </motion.h3>
+          {/* Title */}
+          <h3 className="font-heading text-lg flex-1 text-foreground">
+            {service.name}
+          </h3>
 
-        {/* Description + Arrow */}
-        <div className="flex items-center gap-8">
-          <AnimatePresence>
-            {isHovered && (
-              <motion.p
-                className="hidden md:block font-body text-sm text-ag-body max-w-xs"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                {service.desc}
-              </motion.p>
-            )}
-          </AnimatePresence>
-
-          <motion.div
-            animate={{ x: isHovered ? 8 : 0 }}
-            transition={{ duration: 0.3 }}
+          {/* Arrow — smooth rotate */}
+          <div
+            className="flex-shrink-0 text-ag-body"
+            style={{
+              transform: isMobileExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
+              transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+            }}
           >
-            <ArrowRight className="text-ag-body" size={20} />
-          </motion.div>
+            <ArrowRight size={16} />
+          </div>
+        </div>
+
+        {/* Expandable description — CSS transition via grid trick */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateRows: isMobileExpanded ? '1fr' : '0fr',
+            transition: 'grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
+        >
+          <div className="overflow-hidden">
+            <div className="px-4 pb-5 pl-[52px]">
+              <p className="font-body text-sm text-ag-body leading-relaxed">
+                {service.desc}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Description */}
-      <AnimatePresence>
-        {isHovered && (
-          <motion.div
-            className="md:hidden px-4 pb-6"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-          >
-            <p className="font-body text-sm text-ag-body">{service.desc}</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* ── DESKTOP LAYOUT ── */}
+      <div className="hidden md:block">
+        <div className="py-8 px-4 flex flex-row items-center justify-between gap-4">
+          <span className="font-mono text-xs text-ag-muted">{service.num}</span>
 
-      {/* Hover Line */}
-      <motion.div
-        className="absolute bottom-0 left-0 h-[1px] bg-ag-accent"
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: isHovered ? 1 : 0 }}
-        style={{ originX: 0 }}
-        transition={{ duration: 0.3 }}
-      />
-    </motion.div>
+          <motion.h3
+            className={`font-heading text-4xl flex-1 ml-8 transition-colors duration-300 ${
+              isHovered ? 'text-accent' : 'text-foreground'
+            }`}
+          >
+            {service.name}
+          </motion.h3>
+
+          <div className="flex items-center gap-8">
+            <AnimatePresence>
+              {isHovered && (
+                <motion.p
+                  className="font-body text-sm text-ag-body max-w-xs"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {service.desc}
+                </motion.p>
+              )}
+            </AnimatePresence>
+
+            <motion.div
+              animate={{ x: isHovered ? 8 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ArrowRight className="text-ag-body" size={20} />
+            </motion.div>
+          </div>
+        </div>
+
+        <motion.div
+          className="absolute bottom-0 left-0 h-[1px] bg-ag-accent"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: isHovered ? 1 : 0 }}
+          style={{ originX: 0 }}
+          transition={{ duration: 0.3 }}
+        />
+      </div>
+    </div>
   );
 }
 
@@ -790,13 +833,13 @@ function ServicesSection() {
   const servicesData = t('services.items');
 
   return (
-    <section className="py-24 md:py-32 bg-card" data-testid="services-section">
+    <section className="py-16 md:py-24 lg:py-32 bg-card" data-testid="services-section">
       <div className="max-w-[1800px] mx-auto px-4 md:px-8">
         <FadeUp>
-          <span className="font-mono text-xs text-muted-foreground tracking-wider block mb-4">
+          <span className="font-mono text-xs text-muted-foreground tracking-wider block mb-3 md:mb-4">
             {t('services.label')}
           </span>
-          <h2 className="font-heading text-h2 text-foreground mb-12 md:mb-16">
+          <h2 className="font-heading text-2xl md:text-h2 text-foreground mb-8 md:mb-16">
             {t('services.heading1')}
             <br />
             {t('services.heading2')}
