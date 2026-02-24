@@ -7,10 +7,10 @@ import {
   useInView,
   useMotionValue,
   useSpring,
-  AnimatePresence,
+  AnimatePresence, 
 } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight , ArrowUpRight} from 'lucide-react';
 import { useTranslation } from '@/components/language-provider';
 import Image from 'next/image';
 
@@ -323,60 +323,53 @@ function MarqueeSection() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   PORTFOLIO — matched to old project
-   - Card wraps with <Link> to /work/slug
-   - 3D tilt + shine effect
-   - Always-visible info + hover overlay info
-   - showAll prop
+   PORTFOLIO — Prestige Edition with Mobile-First Design
    ═══════════════════════════════════════════════════════ */
 
-// ✅ Portfolio Projects Data — κάθε project είναι ένα μοναδικό visual world
 const portfolioProjects = [
-    {
+  {
     id: 1,
     slug: 'UltraChamp',
     title: 'UltraChamp',
     category: 'SPORTS',
     size: 'large',
-    image: '/images/projects/UltraChamp.jpg',  // ← ΠΡΟΣΘΗΚΗ
+    image: '/images/projects/UltraChamp.jpg',
     accent: '#ffffff',
     year: '2024',
-    demoUrl: '/UltraChamp',  // ← ΠΡΟΣΘΗΚΗ
+    demoUrl: '/UltraChamp',
   },
-
   {
     id: 2,
     slug: 'kaiser-omnia',
     title: 'Kaiser Omnia',
     category: 'Construction / Brand Identity',
     size: 'small',
-    image: '/images/projects/kaiser-omnia.jpg',  // ← ΠΡΟΣΘΗΚΗ
+    image: '/images/projects/kaiser-omnia.jpg',
     accent: '#c4a35a',
     year: '2024',
-    demoUrl: '/kaiser-omnia',  // ← ΠΡΟΣΘΗΚΗ
+    demoUrl: '/kaiser-omnia',
   },
-
   {
     id: 3,
     slug: 'EatPlay',
     title: 'Foxhouse Restaurant',
     category: 'Web Design',
     size: 'small',
-    image: '/images/projects/EatPlay.jpg',  // ← ΠΡΟΣΘΗΚΗ
+    image: '/images/projects/EatPlay.jpg',
     accent: '#64b5f6',
     year: '2026',
-    demoUrl: '/EatPlay',  // ← ΠΡΟΣΘΗΚΗ
+    demoUrl: '/EatPlay',
   },
-      {
+  {
     id: 4,
     slug: 'Clothing',
     title: 'Maison Noire',
     category: 'E-Commerce / Brand Identity',
     size: 'large',
-    image: '/images/projects/clothing.jpg',  // ← ΠΡΟΣΘΗΚΗ
+    image: '/images/projects/clothing.jpg',
     accent: '#a35617',
     year: '2025',
-    demoUrl: '/Clothing',  // ← ΠΡΟΣΘΗΚΗ
+    demoUrl: '/Clothing',
   },
   {
     id: 5,
@@ -384,14 +377,12 @@ const portfolioProjects = [
     title: 'Kaiser-Omnia',
     category: 'Web Design',
     size: 'full',
-    image: '/images/projects/construction.jpg',  // ← ΠΡΟΣΘΗΚΗ
+    image: '/images/projects/construction.jpg',
     accent: '#a78bfa',
     year: '2023',
-    demoUrl: '/kaiser-omnia-tm',  // ← ΠΡΟΣΘΗΚΗ
+    demoUrl: '/kaiser-omnia-tm',
   },
 ];
-
-
 
 // ═══════════════════════════════════════
 // PORTFOLIO CARD — Prestige Edition
@@ -401,53 +392,63 @@ function PortfolioCard({ project, index }) {
   const cardRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const [shine, setShine] = useState({ x: 50, y: 50 });
+  const [isMobile, setIsMobile] = useState(false);
   const { t } = useTranslation();
 
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
   const handleMouseMove = useCallback((e) => {
-    if (!cardRef.current) return;
+    if (isMobile || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     cardRef.current.style.transform = `perspective(1000px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg) scale3d(1.02, 1.02, 1.02)`;
     setShine({ x: (x + 0.5) * 100, y: (y + 0.5) * 100 });
-  }, []);
+  }, [isMobile]);
 
   const handleMouseLeave = useCallback(() => {
+    if (isMobile) return;
     if (cardRef.current) {
       cardRef.current.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
       cardRef.current.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) scale3d(1,1,1)';
     }
     setIsHovered(false);
     setShine({ x: 50, y: 50 });
-  }, []);
+  }, [isMobile]);
 
   const handleMouseEnter = useCallback(() => {
+    if (isMobile) return;
     if (cardRef.current) cardRef.current.style.transition = 'none';
     setIsHovered(true);
-  }, []);
+  }, [isMobile]);
 
+  // Desktop grid sizing
   const sizeClasses = {
-    large: 'col-span-12 md:col-span-7',
-    small: 'col-span-12 md:col-span-5',
-    full: 'col-span-12',
+    large: 'md:col-span-7',
+    small: 'md:col-span-5',
+    full: 'md:col-span-12',
   };
 
   return (
     <motion.div
-      className={sizeClasses[project.size]}
+      className={`col-span-12 ${sizeClasses[project.size]}`}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.8, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
     >
       <Link
         href={project.demoUrl || `/work/${project.slug}`}
         ref={cardRef}
         className="relative block group overflow-hidden"
         style={{
-          transform: 'perspective(1000px) rotateY(0) rotateX(0) scale3d(1,1,1)',
-          transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
-          aspectRatio: project.size === 'full' ? '21 / 9' : '16 / 10',
+          transform: isMobile ? 'none' : 'perspective(1000px) rotateY(0) rotateX(0) scale3d(1,1,1)',
+          transition: isMobile ? 'none' : 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
@@ -455,8 +456,18 @@ function PortfolioCard({ project, index }) {
         data-cursor="view"
         data-testid={`portfolio-card-${project.slug}`}
       >
-        {/* IMAGE AREA - 16:9 aspect για screenshots */}
-        <div className="absolute inset-0 bg-neutral-900">
+        {/* ── IMAGE CONTAINER ── */}
+        <div
+          className="relative w-full bg-neutral-900"
+          style={{
+            // Mobile: tall cards for impact. Desktop: original ratios
+            aspectRatio: isMobile
+              ? '3 / 4'
+              : project.size === 'full'
+                ? '21 / 9'
+                : '16 / 10',
+          }}
+        >
           <Image
             src={project.image}
             alt={project.title}
@@ -466,25 +477,33 @@ function PortfolioCard({ project, index }) {
               transform: isHovered ? 'scale(1.05)' : 'scale(1)',
             }}
             sizes={
-              project.size === 'full' 
-                ? '100vw' 
-                : project.size === 'large' 
-                  ? '(max-width: 768px) 100vw, 66vw' 
+              project.size === 'full'
+                ? '100vw'
+                : project.size === 'large'
+                  ? '(max-width: 768px) 100vw, 66vw'
                   : '(max-width: 768px) 100vw, 33vw'
             }
           />
 
-          {/* Dark overlay on hover */}
-          <div 
-            className="absolute inset-0 transition-all duration-500 pointer-events-none"
+          {/* ── Mobile gradient overlay — always visible, bottom fade ── */}
+          <div
+            className="absolute inset-0 pointer-events-none md:hidden"
+            style={{
+              background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.05) 70%, transparent 100%)',
+            }}
+          />
+
+          {/* ── Desktop hover overlay ── */}
+          <div
+            className="absolute inset-0 transition-all duration-500 pointer-events-none hidden md:block"
             style={{
               backgroundColor: isHovered ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0)',
             }}
           />
 
-          {/* Shine effect */}
+          {/* ── Desktop shine effect ── */}
           <div
-            className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+            className="absolute inset-0 pointer-events-none transition-opacity duration-500 hidden md:block"
             style={{
               opacity: isHovered ? 0.6 : 0,
               background: `radial-gradient(600px circle at ${shine.x}% ${shine.y}%, ${project.accent}12 0%, transparent 60%)`,
@@ -492,77 +511,130 @@ function PortfolioCard({ project, index }) {
           />
         </div>
 
-        {/* Year badge - top right */}
-        <div 
-          className="absolute top-6 right-6 md:top-8 md:right-8 transition-all duration-500 pointer-events-none z-10"
+        {/* ── Year badge — top right ── */}
+        {/* Mobile: always visible. Desktop: hover only */}
+        <div
+          className="absolute top-4 right-4 md:top-8 md:right-8 z-10 pointer-events-none"
           style={{
-            opacity: isHovered ? 1 : 0,
-            transform: isHovered ? 'translateY(0)' : 'translateY(-10px)',
+            opacity: isMobile ? 1 : isHovered ? 1 : 0,
+            transform: isMobile ? 'none' : isHovered ? 'translateY(0)' : 'translateY(-10px)',
+            transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         >
-          <span 
-            className="font-mono text-[10px] tracking-[0.2em] px-2 py-1 backdrop-blur-sm"
+          <span
+            className="font-mono text-[10px] tracking-[0.2em] px-2.5 py-1 backdrop-blur-md"
             style={{
               color: project.accent,
-              backgroundColor: 'rgba(0,0,0,0.6)',
-              border: `1px solid ${project.accent}40`,
+              backgroundColor: 'rgba(0,0,0,0.5)',
+              border: `1px solid ${project.accent}30`,
             }}
           >
             {project.year}
           </span>
         </div>
 
-
-        {/* Bottom content */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-10">
-          {/* Accent line */}
-          <div
-            className="h-px mb-4"
-            style={{
-              width: isHovered ? '48px' : '0px',
-              backgroundColor: project.accent,
-              opacity: 0.6,
-              transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-            }}
-          />
-
-          {/* Category - πάνω από τον τίτλο */}
+        {/* ── Category badge — top left (mobile only) ── */}
+        <div className="absolute top-4 left-4 z-10 pointer-events-none md:hidden">
           <span
-            className="font-mono text-[10px] tracking-[0.2em] uppercase block mb-1.5"
+            className="font-mono text-[9px] tracking-[0.15em] uppercase px-2 py-1 backdrop-blur-md"
             style={{
               color: project.accent,
-              opacity: isHovered ? 0.8 : 0.5,
-              transition: 'opacity 0.6s ease',
+              backgroundColor: 'rgba(0,0,0,0.4)',
+              border: `1px solid ${project.accent}20`,
             }}
           >
             {project.category}
           </span>
-
-          {/* Title */}
-          <h3
-            className="font-heading text-2xl md:text-3xl transition-colors duration-300"
-            style={{
-              color: isHovered ? '#fff' : 'rgba(255,255,255,0.85)',
-            }}
-          >
-            {project.title}
-          </h3>
         </div>
 
-        {/* Border glow */}
+        {/* ── Bottom content ── */}
+        <div className="absolute bottom-0 left-0 right-0 z-10">
+          {/* Mobile bottom content — always visible, spacious */}
+          <div className="md:hidden p-5 pb-6">
+            {/* Accent line */}
+            <div
+              className="h-px w-8 mb-3"
+              style={{
+                backgroundColor: project.accent,
+                opacity: 0.5,
+              }}
+            />
+
+            {/* Title */}
+            <h3
+              className="font-heading text-xl font-semibold text-white mb-2 leading-tight"
+            >
+              {project.title}
+            </h3>
+
+            {/* View project indicator */}
+            <div className="flex items-center gap-2 mt-3">
+              <span
+                className="font-mono text-[10px] tracking-[0.15em] uppercase"
+                style={{ color: project.accent, opacity: 0.7 }}
+              >
+                View Project
+              </span>
+              <ArrowUpRight
+                size={12}
+                style={{ color: project.accent, opacity: 0.5 }}
+              />
+            </div>
+          </div>
+
+          {/* Desktop bottom content — hover reveal */}
+          <div className="hidden md:block p-6 md:p-8">
+            <div
+              className="h-px mb-4"
+              style={{
+                width: isHovered ? '48px' : '0px',
+                backgroundColor: project.accent,
+                opacity: 0.6,
+                transition: 'width 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            />
+            <span
+              className="font-mono text-[10px] tracking-[0.2em] uppercase block mb-1.5"
+              style={{
+                color: project.accent,
+                opacity: isHovered ? 0.8 : 0.5,
+                transition: 'opacity 0.6s ease',
+              }}
+            >
+              {project.category}
+            </span>
+            <h3
+              className="font-heading text-2xl md:text-3xl transition-colors duration-300"
+              style={{
+                color: isHovered ? '#fff' : 'rgba(255,255,255,0.85)',
+              }}
+            >
+              {project.title}
+            </h3>
+          </div>
+        </div>
+
+        {/* ── Border glow (desktop only) ── */}
         <div
-          className="absolute inset-0 pointer-events-none transition-all duration-500"
+          className="absolute inset-0 pointer-events-none transition-all duration-500 hidden md:block"
           style={{
             boxShadow: isHovered
               ? `inset 0 0 0 1px ${project.accent}40`
               : 'inset 0 0 0 1px transparent',
           }}
         />
+
+        {/* ── Subtle border (mobile) ── */}
+        <div
+          className="absolute inset-0 pointer-events-none md:hidden"
+          style={{
+            boxShadow: `inset 0 0 0 1px ${project.accent}15`,
+          }}
+        />
       </Link>
     </motion.div>
   );
 }
-
 
 // ═══════════════════════════════════════
 // PORTFOLIO SECTION
@@ -573,7 +645,7 @@ function PortfolioSection({ showAll = false }) {
   const displayedProjects = showAll ? portfolioProjects : portfolioProjects.slice(0, 5);
 
   return (
-    <section className="py-24 md:py-32 bg-background" data-testid="portfolio-section">
+    <section className="py-16 md:py-24 lg:py-32 bg-background" data-testid="portfolio-section">
       <div className="max-w-[1800px] mx-auto px-4 md:px-8">
         {!showAll && (
           <motion.div
@@ -581,11 +653,12 @@ function PortfolioSection({ showAll = false }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-10 md:mb-16"
           >
-            <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
+            <span className="font-mono text-xs text-ag-muted tracking-wider block mb-3 md:mb-4">
               {t('portfolio.label')}
             </span>
-            <h2 className="font-heading text-h2 text-foreground mb-12 md:mb-16">
+            <h2 className="font-heading text-2xl md:text-h2 text-foreground">
               {t('portfolio.heading1')}
               <br />
               {t('portfolio.heading2')}
@@ -593,6 +666,7 @@ function PortfolioSection({ showAll = false }) {
           </motion.div>
         )}
 
+        {/* Mobile: stacked full-width cards. Desktop: original 12-col grid */}
         <div className="grid grid-cols-12 gap-4 md:gap-6">
           {displayedProjects.map((project, index) => (
             <PortfolioCard key={project.id} project={project} index={index} />
@@ -601,7 +675,7 @@ function PortfolioSection({ showAll = false }) {
 
         {!showAll && (
           <motion.div
-            className="mt-16 text-center"
+            className="mt-12 md:mt-16 text-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -609,7 +683,7 @@ function PortfolioSection({ showAll = false }) {
           >
             <Link
               href="/work"
-              className="inline-flex items-center gap-6 group"
+              className="inline-flex items-center gap-4 md:gap-6 group"
               data-cursor="hover"
               data-testid="view-all-projects"
             >
