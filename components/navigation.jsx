@@ -361,7 +361,7 @@ export default function Navigation() {
                 transition={{ delay: 0.5 }}
               >
                 <Link
-                  href="/contact"
+                  href="/estimator"
                   className="mt-8 inline-flex items-center gap-2 px-8 py-4 bg-accent text-accent-foreground font-semibold"
                   data-cursor="hover"
                   onClick={() => setIsOpen(false)}
