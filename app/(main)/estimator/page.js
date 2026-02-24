@@ -309,6 +309,7 @@ const allFeatures = [
   { id: "multilang", name: "Πολύγλωσσο Site (GR, EN, +)", price: 300, priceMax: 500, icon: Globe, desc: "Site σε πολλές γλώσσες", category: "appearance", showFor: ["onepage", "multipage", "eshop-small", "eshop-large", "webapp"] },
   { id: "gallery", name: "Gallery / Portfolio", price: 150, priceMax: 300, icon: Image, desc: "Παρουσίαση εικόνων με φίλτρα", category: "appearance", showFor: ["onepage", "multipage", "eshop-small", "eshop-large"] },
   { id: "copywriting", name: "Συγγραφή Κειμένων", price: 50, priceMax: 150, icon: FileText, desc: "Επαγγελματικά κείμενα ανά σελίδα", category: "appearance", showFor: ["onepage", "multipage", "eshop-small", "eshop-large"] },
+  { id: "Light/Dark Mode", name: "Light/Dark Mode", price: 150, priceMax: 200, icon: FileText, desc: "Επιλογή χρωμάτων με επιλογή του χρήστη", category: "appearance", showFor: ["onepage", "multipage", "eshop-small", "eshop-large"] },
 
   // Marketing
   { id: "seo-basic", name: "Basic On-Page SEO", price: 100, priceMax: 200, icon: Search, desc: "Meta tags, sitemap, alt texts", category: "marketing", showFor: ["onepage", "multipage", "eshop-small", "eshop-large", "webapp"], includedIn: ["multipage", "eshop-small"] },
