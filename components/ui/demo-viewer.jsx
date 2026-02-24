@@ -19,12 +19,12 @@ export default function DemoViewer({ url, title }) {
     <div className="demo-viewer-wrapper h-screen flex flex-col bg-[#0a0a0a]">
       {/* ── Toolbar ── */}
       {showBar && (
-        <div className="flex-shrink-0 bg-[#111] border-b border-white/10 px-4 py-2.5">
+        <div className="flex-shrink-0 bg-[#111] border-b border-white/10 px-4 py-2.5 select-none">
           <div className="flex items-center justify-between gap-4">
             {/* Πίσω */}
             <Link
               href="/#work"
-              className="flex items-center gap-2 text-white/70 hover:text-white text-sm transition-colors"
+              className="flex items-center gap-2 text-white/70 hover:text-white text-sm transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span className="hidden sm:inline">Πίσω στα έργα</span>
@@ -34,7 +34,7 @@ export default function DemoViewer({ url, title }) {
             <div className="hidden md:flex items-center gap-2">
               <Eye className="w-4 h-4 text-emerald-400" />
               <span className="text-sm text-white/50">
-                Live Demo: <strong className="text-white">{title}</strong>
+                Live : <strong className="text-white">{title}</strong>
               </span>
             </div>
 
@@ -48,7 +48,7 @@ export default function DemoViewer({ url, title }) {
                 <button
                   key={key}
                   onClick={() => setDevice(key)}
-                  className={`p-2 rounded-md transition-all ${
+                  className={`p-2 rounded-md transition-all cursor-pointer ${
                     device === key
                       ? 'bg-emerald-600 text-white'
                       : 'text-white/30 hover:text-white/60'
@@ -65,14 +65,14 @@ export default function DemoViewer({ url, title }) {
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-white/50 hover:text-white text-sm transition-colors"
+                className="flex items-center gap-2 text-white/50 hover:text-white text-sm transition-colors cursor-pointer"
               >
                 <ExternalLink className="w-4 h-4" />
                 <span className="hidden sm:inline">Νέα καρτέλα</span>
               </a>
               <button
                 onClick={() => setShowBar(false)}
-                className="text-white/20 hover:text-white/60 ml-2 transition-colors"
+                className="text-white/20 hover:text-white/60 ml-2 transition-colors cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -85,7 +85,7 @@ export default function DemoViewer({ url, title }) {
       {!showBar && (
         <button
           onClick={() => setShowBar(true)}
-          className="fixed top-4 left-4 z-50 bg-emerald-600 hover:bg-emerald-700 text-white p-3 rounded-full shadow-lg transition-all hover:scale-110"
+          className="fixed top-4 left-4 z-50 bg-emerald-600 hover:bg-emerald-700 text-white p-3 rounded-full shadow-lg transition-all hover:scale-110 cursor-pointer"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>

@@ -380,14 +380,14 @@ const portfolioProjects = [
   },
   {
     id: 5,
-    slug: 'kaiser-omnia',
+    slug: 'kaiser-omnia-tm',
     title: 'Kaiser-Omnia',
     category: 'Web Design',
     size: 'full',
     image: '/images/projects/construction.jpg',  // ← ΠΡΟΣΘΗΚΗ
     accent: '#a78bfa',
     year: '2023',
-    demoUrl: 'https://kaiseromniatm.vercel.app/',  // ← ΠΡΟΣΘΗΚΗ
+    demoUrl: '/kaiser-omnia-tm',  // ← ΠΡΟΣΘΗΚΗ
   },
 ];
 

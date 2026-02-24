@@ -210,13 +210,40 @@
     transition-duration: 0.01ms !important;
   }
 }
-/* Demo viewer - κανονικό cursor */
-.demo-viewer-wrapper,
-.demo-viewer-wrapper * {
-  cursor: auto !important;
+/* ═══════════════════════════════════════
+   DEMO VIEWER - Override custom cursor
+   ═══════════════════════════════════════ */
+.demo-viewer-wrapper *,
+.demo-viewer-wrapper *:hover,
+.demo-viewer-wrapper a,
+.demo-viewer-wrapper a:hover,
+.demo-viewer-wrapper button,
+.demo-viewer-wrapper button:hover {
+  cursor: default !important;
 }
 
 .demo-viewer-wrapper a,
-.demo-viewer-wrapper button {
+.demo-viewer-wrapper a:hover,
+.demo-viewer-wrapper a *,
+.demo-viewer-wrapper button,
+.demo-viewer-wrapper button:hover,
+.demo-viewer-wrapper button * {
   cursor: pointer !important;
+}
+
+@media (min-width: 768px) {
+  .demo-viewer-wrapper,
+  .demo-viewer-wrapper *,
+  .demo-viewer-wrapper a,
+  .demo-viewer-wrapper button,
+  .demo-viewer-wrapper [data-cursor] {
+    cursor: default !important;
+  }
+
+  .demo-viewer-wrapper a,
+  .demo-viewer-wrapper a *,
+  .demo-viewer-wrapper button,
+  .demo-viewer-wrapper button * {
+    cursor: pointer !important;
+  }
 }

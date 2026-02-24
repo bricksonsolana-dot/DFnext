@@ -57,7 +57,6 @@ export default function Navigation() {
     { name: t('nav.work'), path: '/work' },
     { name: t('nav.services'), path: '/services' },
     { name: t('nav.about'), path: '/about' },
-    { name: 'Prices', path: '/estimator' },
     { name: t('nav.contact'), path: '/contact' },
   ];
 
@@ -273,7 +272,7 @@ export default function Navigation() {
 
             {/* CTA Button */}
             <Link
-              href="/contact"
+              href="/estimator"
               className="flex items-center gap-2 px-6 py-3 border border-border text-sm font-medium text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent transition-colors duration-300"
               data-cursor="hover"
               data-testid="nav-cta-button"
