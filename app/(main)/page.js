@@ -12,6 +12,7 @@ import {
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from '@/components/language-provider';
+import Image from 'next/image';
 
 /* ═══════════════════════════════════════════════════════
    HELPERS — matched to old project's Animations.js
@@ -336,388 +337,65 @@ function MarqueeSection() {
 
 // ✅ Portfolio Projects Data — κάθε project είναι ένα μοναδικό visual world
 const portfolioProjects = [
-  {
+    {
     id: 1,
-    slug: 'aurion-hotel',
-    title: 'Aurion Hotel & Spa',
-    category: 'Hotel / Web Design',
+    slug: 'UltraChamp',
+    title: 'UltraChamp',
+    category: 'SPORTS',
     size: 'large',
-    gradient: 'from-[#1a1a2e] via-[#16213e] to-[#0f3460]',
-    accent: '#c4a35a',
-    pattern: 'hotel',
+    image: '/images/projects/UltraChamp.jpg',  // ← ΠΡΟΣΘΗΚΗ
+    accent: '#ffffff',
     year: '2024',
+    demoUrl: 'UltraChamp',  // ← ΠΡΟΣΘΗΚΗ
   },
+
   {
     id: 2,
-    slug: 'nova-commerce',
-    title: 'Nova Commerce',
-    category: 'E-Commerce',
+    slug: 'kaiser-omnia',
+    title: 'Kaiser Omnia',
+    category: 'Construction / Brand Identity',
     size: 'small',
-    gradient: 'from-[#1a1a1a] via-[#2d2d2d] to-[#1a1a1a]',
-    accent: '#E8FF3D',
-    pattern: 'ecommerce',
+    image: '/images/projects/kaiser-omnia.jpg',  // ← ΠΡΟΣΘΗΚΗ
+    accent: '#c4a35a',
     year: '2024',
+    demoUrl: '/kaiser-omnia',  // ← ΠΡΟΣΘΗΚΗ
   },
+
   {
     id: 3,
-    slug: 'kyma-restaurant',
-    title: 'Kyma Restaurant',
-    category: 'Brand Identity',
+    slug: 'EatPlay',
+    title: 'Foxhouse Restaurant',
+    category: 'Web Design',
     size: 'small',
-    gradient: 'from-[#0d1b2a] via-[#1b2838] to-[#1d3044]',
+    image: '/images/projects/EatPlay.jpg',  // ← ΠΡΟΣΘΗΚΗ
     accent: '#64b5f6',
-    pattern: 'brand',
-    year: '2023',
+    year: '2026',
+    demoUrl: '/EatPlay',  // ← ΠΡΟΣΘΗΚΗ
   },
-  {
+      {
     id: 4,
-    slug: 'atlas-consulting',
-    title: 'Atlas Consulting',
-    category: 'Corporate',
+    slug: 'Clothing',
+    title: 'Maison Noire',
+    category: 'E-Commerce / Brand Identity',
     size: 'large',
-    gradient: 'from-[#1c1c1c] via-[#262626] to-[#1c1c1c]',
-    accent: '#ffffff',
-    pattern: 'corporate',
-    year: '2024',
+    image: '/images/projects/clothing.jpg',  // ← ΠΡΟΣΘΗΚΗ
+    accent: '#a35617',
+    year: '2025',
+    demoUrl: '/Clothing',  // ← ΠΡΟΣΘΗΚΗ
   },
   {
     id: 5,
-    slug: 'elixir-wellness',
-    title: 'Elixir Wellness',
+    slug: 'kaiser-omnia',
+    title: 'Kaiser-Omnia',
     category: 'Web Design',
     size: 'full',
-    gradient: 'from-[#1a1a2e] via-[#1f1f3a] to-[#0a0a1a]',
+    image: '/images/projects/construction.jpg',  // ← ΠΡΟΣΘΗΚΗ
     accent: '#a78bfa',
-    pattern: 'wellness',
     year: '2023',
+    demoUrl: 'https://kaiseromniatm.vercel.app/',  // ← ΠΡΟΣΘΗΚΗ
   },
 ];
 
-
-// ═══════════════════════════════════════
-// ANIMATED MOCK UI — κάθε pattern ζωντανεύει
-// ═══════════════════════════════════════
-
-function MockUI({ pattern, accent, isHovered }) {
-  // Shared floating animation style
-  const floatStyle = (delay = 0) => ({
-    transition: `all 1.2s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
-    transform: isHovered ? 'translateY(-4px)' : 'translateY(0)',
-    opacity: isHovered ? 1 : 0.6,
-  });
-
-  switch (pattern) {
-    case 'hotel':
-      return (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-[70%] h-[65%] relative">
-            {/* Nav mockup */}
-            <div className="flex justify-between items-center mb-6" style={floatStyle(0)}>
-              <div className="w-16 h-[1px]" style={{ backgroundColor: accent, opacity: 0.5 }} />
-              <div className="flex gap-4">
-                {[...Array(4)].map((_, i) => (
-                  <div key={i} className="w-8 h-[1px] bg-white/10" />
-                ))}
-              </div>
-              <div className="w-12 h-[1px] bg-white/10" />
-            </div>
-
-            {/* Hero text lines — staggered float */}
-            <div className="space-y-3 mb-8">
-              <div className="w-[60%] h-[2px]" style={{ ...floatStyle(100), backgroundColor: accent, opacity: isHovered ? 0.5 : 0.3 }} />
-              <div className="w-[45%] h-[2px] bg-white/8" style={floatStyle(150)} />
-              <div className="w-[30%] h-[1px] bg-white/5 mt-4" style={floatStyle(200)} />
-            </div>
-
-            {/* Room cards — rise on hover */}
-            <div className="grid grid-cols-3 gap-3 mt-auto">
-              {[...Array(3)].map((_, i) => (
-                <div
-                  key={i}
-                  className="aspect-[3/4] border bg-white/[0.02]"
-                  style={{
-                    ...floatStyle(250 + i * 80),
-                    borderColor: isHovered && i === 0 ? `${accent}40` : 'rgba(255,255,255,0.05)',
-                  }}
-                >
-                  {/* Mini content inside cards */}
-                  <div className="p-2 h-full flex flex-col justify-end">
-                    <div className="w-[60%] h-[1px] bg-white/5 mb-1" />
-                    <div
-                      className="w-[40%] h-[1px]"
-                      style={{
-                        backgroundColor: accent,
-                        opacity: isHovered ? 0.3 : 0.1,
-                        transition: 'opacity 0.8s ease',
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      );
-
-    case 'ecommerce':
-      return (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-[75%] h-[70%] relative">
-            {/* Search bar mockup */}
-            <div
-              className="w-full h-6 border border-white/5 bg-white/[0.02] mb-4 flex items-center px-3"
-              style={floatStyle(0)}
-            >
-              <div className="w-3 h-3 border border-white/10 rounded-full" />
-              <div className="w-[40%] h-[1px] bg-white/5 ml-2" />
-            </div>
-
-            {/* Product grid */}
-            <div className="grid grid-cols-2 gap-3">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="space-y-2" style={floatStyle(100 + i * 80)}>
-                  <div
-                    className="aspect-square bg-white/[0.03] border border-white/5 relative overflow-hidden"
-                    style={{
-                      borderColor: isHovered && i === 0 ? `${accent}25` : undefined,
-                    }}
-                  >
-                    {/* Price tag mockup */}
-                    <div className="absolute bottom-2 right-2">
-                      <div
-                        className="w-8 h-3 rounded-sm"
-                        style={{
-                          backgroundColor: accent,
-                          opacity: isHovered ? 0.2 : 0.08,
-                          transition: 'opacity 0.6s ease',
-                        }}
-                      />
-                    </div>
-                  </div>
-                  <div className="w-[70%] h-[1px] bg-white/8" />
-                  <div className="flex justify-between">
-                    <div className="w-[35%] h-[1px]" style={{ backgroundColor: accent, opacity: 0.15 }} />
-                    <div className="w-[20%] h-[1px] bg-white/5" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      );
-
-    case 'brand':
-      return (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative">
-            {/* Geometric logo — rotates subtly on hover */}
-            <div
-              className="w-20 h-20 md:w-28 md:h-28 border"
-              style={{
-                borderColor: `${accent}30`,
-                transform: isHovered ? 'rotate(50deg) scale(1.05)' : 'rotate(45deg)',
-                transition: 'all 1.5s cubic-bezier(0.16, 1, 0.3, 1)',
-              }}
-            />
-            <div
-              className="absolute inset-0 w-20 h-20 md:w-28 md:h-28 border"
-              style={{
-                borderColor: `${accent}15`,
-                transform: isHovered ? 'rotate(28deg) scale(1.08)' : 'rotate(22.5deg)',
-                transition: 'all 1.8s cubic-bezier(0.16, 1, 0.3, 1)',
-              }}
-            />
-            <div
-              className="absolute inset-0 w-20 h-20 md:w-28 md:h-28 border"
-              style={{
-                borderColor: `${accent}08`,
-                transform: isHovered ? 'rotate(5deg) scale(1.12)' : 'rotate(0deg)',
-                transition: 'all 2s cubic-bezier(0.16, 1, 0.3, 1)',
-              }}
-            />
-            {/* Center dot — pulses on hover */}
-            <div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full"
-              style={{
-                width: isHovered ? '6px' : '3px',
-                height: isHovered ? '6px' : '3px',
-                backgroundColor: accent,
-                opacity: isHovered ? 0.8 : 0.5,
-                transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-                boxShadow: isHovered ? `0 0 20px ${accent}40` : 'none',
-              }}
-            />
-          </div>
-
-          {/* Brand name lines — fade in on hover */}
-          <div className="absolute bottom-[18%] left-1/2 -translate-x-1/2 space-y-2 text-center">
-            <div
-              className="h-[1px] mx-auto"
-              style={{
-                width: isHovered ? '60px' : '40px',
-                backgroundColor: accent,
-                opacity: isHovered ? 0.4 : 0.2,
-                transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-              }}
-            />
-            <div
-              className="h-[1px] mx-auto bg-white/8"
-              style={{
-                width: isHovered ? '40px' : '30px',
-                transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 100ms',
-              }}
-            />
-          </div>
-        </div>
-      );
-
-    case 'corporate':
-      return (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-[75%] h-[65%] relative">
-            {/* Stats cards */}
-            <div className="flex gap-3 mb-4">
-              {[
-                { w: 'w-12', val: '84%' },
-                { w: 'w-10', val: '2.4k' },
-                { w: 'w-14', val: '$12M' },
-              ].map((stat, i) => (
-                <div
-                  key={i}
-                  className="flex-1 h-16 bg-white/[0.03] border border-white/5 p-3"
-                  style={floatStyle(i * 80)}
-                >
-                  <div className="w-8 h-[1px] bg-white/10 mb-2" />
-                  <div
-                    className={`${stat.w} h-[2px]`}
-                    style={{
-                      backgroundColor: i === 0 ? accent : 'rgba(255,255,255,0.08)',
-                      opacity: i === 0 ? (isHovered ? 0.5 : 0.25) : 1,
-                      transition: 'opacity 0.6s ease',
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-
-            {/* Chart — bars animate on hover */}
-            <div
-              className="h-28 bg-white/[0.02] border border-white/5 p-3 flex items-end gap-[3px]"
-              style={floatStyle(250)}
-            >
-              {[40, 65, 45, 80, 55, 70, 90, 60, 75, 85, 50, 95, 70, 82].map((h, i) => (
-                <div
-                  key={i}
-                  className="flex-1 rounded-sm"
-                  style={{
-                    height: isHovered ? `${h}%` : `${h * 0.6}%`,
-                    backgroundColor: i >= 12 ? `${accent}50` : 'rgba(255,255,255,0.04)',
-                    transition: `height 1s cubic-bezier(0.16, 1, 0.3, 1) ${i * 40}ms`,
-                  }}
-                />
-              ))}
-            </div>
-
-            {/* Table rows mockup */}
-            <div className="mt-3 space-y-[2px]" style={floatStyle(350)}>
-              {[...Array(3)].map((_, i) => (
-                <div key={i} className="flex gap-3 py-1">
-                  <div className="w-[30%] h-[1px] bg-white/5" />
-                  <div className="w-[20%] h-[1px] bg-white/3" />
-                  <div className="flex-1" />
-                  <div
-                    className="w-[15%] h-[1px]"
-                    style={{
-                      backgroundColor: i === 0 ? accent : 'rgba(255,255,255,0.03)',
-                      opacity: i === 0 ? 0.2 : 1,
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      );
-
-    case 'wellness':
-      return (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-[70%] h-[60%] relative flex items-center">
-            {/* Left: Text content mockup */}
-            <div className="flex-1 pr-6 space-y-4">
-              <div
-                className="h-[2px]"
-                style={{
-                  ...floatStyle(0),
-                  width: isHovered ? '85%' : '75%',
-                  backgroundColor: accent,
-                  opacity: isHovered ? 0.4 : 0.2,
-                }}
-              />
-              <div className="w-[60%] h-[2px] bg-white/8" style={floatStyle(80)} />
-              <div className="w-[40%] h-[1px] bg-white/5 mt-2" style={floatStyle(120)} />
-
-              {/* CTA mockup */}
-              <div className="pt-4" style={floatStyle(200)}>
-                <div
-                  className="inline-block border px-3 py-1"
-                  style={{
-                    borderColor: isHovered ? `${accent}40` : `${accent}15`,
-                    transition: 'border-color 0.6s ease',
-                  }}
-                >
-                  <div className="w-12 h-[1px]" style={{ backgroundColor: accent, opacity: 0.3 }} />
-                </div>
-              </div>
-            </div>
-
-            {/* Divider line */}
-            <div
-              className="w-px bg-white/5"
-              style={{
-                height: isHovered ? '100%' : '60%',
-                transition: 'height 1s cubic-bezier(0.16, 1, 0.3, 1)',
-              }}
-            />
-
-            {/* Right: Image placeholder */}
-            <div className="flex-1 pl-6" style={floatStyle(150)}>
-              <div
-                className="aspect-[4/5] bg-white/[0.02] border overflow-hidden relative"
-                style={{
-                  borderColor: isHovered ? `${accent}20` : 'rgba(255,255,255,0.05)',
-                  transition: 'border-color 0.8s ease',
-                }}
-              >
-                {/* Decorative circles inside */}
-                <div
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border"
-                  style={{
-                    width: isHovered ? '60%' : '40%',
-                    height: isHovered ? '60%' : '40%',
-                    borderColor: `${accent}10`,
-                    transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)',
-                  }}
-                />
-                <div
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border"
-                  style={{
-                    width: isHovered ? '35%' : '20%',
-                    height: isHovered ? '35%' : '20%',
-                    borderColor: `${accent}15`,
-                    transition: 'all 1.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-
-    default:
-      return null;
-  }
-}
 
 
 // ═══════════════════════════════════════
@@ -727,29 +405,31 @@ function MockUI({ pattern, accent, isHovered }) {
 function PortfolioCard({ project, index }) {
   const cardRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [transform, setTransform] = useState(
-    'perspective(1000px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)'
-  );
   const [shine, setShine] = useState({ x: 50, y: 50 });
+  const { t } = useTranslation();
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTransform(
-      `perspective(1000px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) scale3d(1.02, 1.02, 1.02)`
-    );
+    cardRef.current.style.transform = `perspective(1000px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg) scale3d(1.02, 1.02, 1.02)`;
     setShine({ x: (x + 0.5) * 100, y: (y + 0.5) * 100 });
-  };
+  }, []);
 
-  const handleMouseEnter = () => setIsHovered(true);
-
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
+    if (cardRef.current) {
+      cardRef.current.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+      cardRef.current.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) scale3d(1,1,1)';
+    }
     setIsHovered(false);
-    setTransform('perspective(1000px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)');
     setShine({ x: 50, y: 50 });
-  };
+  }, []);
+
+  const handleMouseEnter = useCallback(() => {
+    if (cardRef.current) cardRef.current.style.transition = 'none';
+    setIsHovered(true);
+  }, []);
 
   const sizeClasses = {
     large: 'col-span-12 md:col-span-7',
@@ -766,12 +446,12 @@ function PortfolioCard({ project, index }) {
       transition={{ duration: 0.8, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
     >
       <Link
-        href={`/work/${project.slug}`}
+        href={project.demoUrl || `/work/${project.slug}`}
         ref={cardRef}
         className="relative block group overflow-hidden"
         style={{
-          transform,
-          transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+          transform: 'perspective(1000px) rotateY(0) rotateX(0) scale3d(1,1,1)',
+          transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
           aspectRatio: project.size === 'full' ? '21 / 9' : '16 / 10',
         }}
         onMouseMove={handleMouseMove}
@@ -780,51 +460,67 @@ function PortfolioCard({ project, index }) {
         data-cursor="view"
         data-testid={`portfolio-card-${project.slug}`}
       >
-        {/* Base gradient */}
-        <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient}`} />
+        {/* IMAGE AREA - 16:9 aspect για screenshots */}
+        <div className="absolute inset-0 bg-neutral-900">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover object-center transition-all duration-700 ease-out"
+            style={{
+              transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+            }}
+            sizes={
+              project.size === 'full' 
+                ? '100vw' 
+                : project.size === 'large' 
+                  ? '(max-width: 768px) 100vw, 66vw' 
+                  : '(max-width: 768px) 100vw, 33vw'
+            }
+          />
 
-        {/* Subtle noise texture */}
-        <div className="absolute inset-0 opacity-[0.015]"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          }}
-        />
+          {/* Dark overlay on hover */}
+          <div 
+            className="absolute inset-0 transition-all duration-500 pointer-events-none"
+            style={{
+              backgroundColor: isHovered ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0)',
+            }}
+          />
 
-        {/* Grid overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            opacity: isHovered ? 0.04 : 0.02,
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px',
-            transition: 'opacity 0.8s ease',
-          }}
-        />
+          {/* Shine effect */}
+          <div
+            className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+            style={{
+              opacity: isHovered ? 0.6 : 0,
+              background: `radial-gradient(600px circle at ${shine.x}% ${shine.y}%, ${project.accent}12 0%, transparent 60%)`,
+            }}
+          />
+        </div>
 
-        {/* Animated Mock UI */}
-        <MockUI pattern={project.pattern} accent={project.accent} isHovered={isHovered} />
-
-        {/* Hover overlay */}
-        <div
-          className="absolute inset-0 transition-colors duration-700"
-          style={{
-            backgroundColor: isHovered ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0)',
-          }}
-        />
-
-        {/* Shine */}
-        <div
-          className="absolute inset-0 pointer-events-none transition-opacity duration-500"
+        {/* Year badge - top right */}
+        <div 
+          className="absolute top-6 right-6 md:top-8 md:right-8 transition-all duration-500 pointer-events-none z-10"
           style={{
             opacity: isHovered ? 1 : 0,
-            background: `radial-gradient(800px circle at ${shine.x}% ${shine.y}%, ${project.accent}08 0%, transparent 50%)`,
+            transform: isHovered ? 'translateY(0)' : 'translateY(-10px)',
           }}
-        />
+        >
+          <span 
+            className="font-mono text-[10px] tracking-[0.2em] px-2 py-1 backdrop-blur-sm"
+            style={{
+              color: project.accent,
+              backgroundColor: 'rgba(0,0,0,0.6)',
+              border: `1px solid ${project.accent}40`,
+            }}
+          >
+            {project.year}
+          </span>
+        </div>
 
-        {/* ═══ BOTTOM CONTENT ═══ */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-          {/* Accent line — grows on hover */}
+
+        {/* Bottom content */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 z-10">
+          {/* Accent line */}
           <div
             className="h-px mb-4"
             style={{
@@ -835,7 +531,7 @@ function PortfolioCard({ project, index }) {
             }}
           />
 
-          {/* Category */}
+          {/* Category - πάνω από τον τίτλο */}
           <span
             className="font-mono text-[10px] tracking-[0.2em] uppercase block mb-1.5"
             style={{
@@ -849,49 +545,22 @@ function PortfolioCard({ project, index }) {
 
           {/* Title */}
           <h3
-          className={`transition-colors duration-300 ${isHovered ? 'text-foreground' : 'text-foreground/85'}`}
+            className="font-heading text-2xl md:text-3xl transition-colors duration-300"
+            style={{
+              color: isHovered ? '#fff' : 'rgba(255,255,255,0.85)',
+            }}
           >
             {project.title}
           </h3>
         </div>
 
-        {/* ═══ TOP RIGHT — Year ═══ */}
-        <div className="absolute top-6 right-6 md:top-8 md:right-8">
-          <span
-            className="font-mono text-[10px] tracking-[0.15em]"
-            style={{
-              color: project.accent,
-              opacity: isHovered ? 0.5 : 0,
-              transform: isHovered ? 'translateY(0)' : 'translateY(-4px)',
-              transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
-              display: 'block',
-            }}
-          >
-            {project.year}
-          </span>
-        </div>
-
-        {/* ═══ TOP LEFT — Index ═══ */}
-        <div className="absolute top-6 left-6 md:top-8 md:left-8">
-          <span
-            className="font-mono text-[10px] tracking-[0.15em] text-foreground/20"
-            style={{
-              opacity: isHovered ? 0.4 : 0.15,
-              transition: 'opacity 0.6s ease',
-            }}
-          >
-            0{index + 1}
-          </span>
-        </div>
-
-        {/* ═══ BORDER GLOW ═══ */}
+        {/* Border glow */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none transition-all duration-500"
           style={{
             boxShadow: isHovered
-              ? `inset 0 0 0 1px ${project.accent}15, 0 0 40px ${project.accent}05`
-              : 'inset 0 0 0 1px rgba(255,255,255,0.04)',
-            transition: 'box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+              ? `inset 0 0 0 1px ${project.accent}40`
+              : 'inset 0 0 0 1px transparent',
           }}
         />
       </Link>

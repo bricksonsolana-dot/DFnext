@@ -76,7 +76,7 @@ function AnimatedHeadline({ lines, className = '', delay = 0.3 }) {
 const team = [
   {
     name: 'Οδυσσέας Σ.',
-    role: 'Co-Founder & Lead Developer',
+    role: 'Co-Founder & CEO',
     image:
       'images/about/ody.jpg',
   },
