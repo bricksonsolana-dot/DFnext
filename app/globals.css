@@ -247,3 +247,12 @@
     cursor: pointer !important;
   }
 }
+/* Estimator page: override fonts only inside /estimator */
+.estimator-font-scope {
+  /* Αυτά τα 2 vars τα χρησιμοποιεί ήδη το Tailwind σου */
+  --font-space-grotesk: var(--font-estimator);       /* font-heading -> Manrope */
+  --font-jetbrains: var(--font-estimator-mono);      /* font-mono -> DM Mono */
+
+  /* καλύτερη στοίχιση/όψη αριθμών */
+  font-variant-numeric: tabular-nums;
+}
