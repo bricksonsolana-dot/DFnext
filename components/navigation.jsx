@@ -214,18 +214,12 @@ export default function Navigation() {
             data-cursor="hover"
             data-testid="logo-link"
           >
-            <span 
-              className="font-heading font-bold text-2xl text-accent" 
-              style={getLogoStyle(0)}
-            >
-              [DF]
-            </span>
-            <span
-              className="hidden md:inline font-heading font-medium text-foreground"
-              style={getLogoStyle(100)}
-            >
-              DigitalFootprint
-            </span>
+           <span className="font-logo-original font-bold text-2xl text-accent" style={getLogoStyle(0)}>
+  [DF]
+</span>
+          <span className="hidden md:inline font-logo-original font-medium text-foreground" style={getLogoStyle(100)}>
+  DigitalFootprint
+</span>
           </Link>
 
           {/* Desktop Nav Links */}

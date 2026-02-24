@@ -1,17 +1,27 @@
 // app/layout.js
-import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
+import { Playfair_Display, Montserrat, JetBrains_Mono , Space_Grotesk} from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/components/ui/theme-provider';
 
-const spaceGrotesk = Space_Grotesk({
+// ← Άλλαξε αυτό
+const playfair = Playfair_Display({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-space-grotesk',
   display: 'swap',
 });
 
-const inter = Inter({
+const montserrat = Montserrat({
   subsets: ['latin', 'greek'],
-  variable: '--font-inter',
+  weight: ['600', '700', '800', '900'],  // ← Μόνο bold weights
+  variable: '--font-subheading',     // ← h2, h3
+  display: 'swap',
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-logo-original',
   display: 'swap',
 });
 
@@ -30,7 +40,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="el"
-      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${playfair.variable} ${montserrat.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable}`} // ← Άλλαξε εδώ
       suppressHydrationWarning
     >
       <body className="bg-background text-foreground font-body antialiased">

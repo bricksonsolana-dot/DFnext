@@ -119,11 +119,6 @@ function Counter({ from = 0, to, duration = 2, suffix = '' }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   DATA
-   ═══════════════════════════════════════════════════════ */
-
-
-/* ═══════════════════════════════════════════════════════
    HERO — matched to old project
    - scrollY opacity+y on entire content
    - Noise texture
@@ -199,7 +194,7 @@ function HeroSection() {
                 { text: t('hero.line2'), accent: true },
                 { text: t('hero.line3'), accent: false },
               ]}
-              className="font-heading text-display font-medium"
+              className="font-heading text-hero font-medium"
             />
 
             <FadeUp delay={0.9}>

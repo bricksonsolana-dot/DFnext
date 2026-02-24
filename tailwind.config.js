@@ -62,15 +62,19 @@ module.exports = {
         'ag-muted': 'hsl(var(--muted-foreground))',
       },
       fontFamily: {
-        heading: ['var(--font-space-grotesk)', 'sans-serif'],
-        body: ['var(--font-inter)', 'sans-serif'],
-        mono: ['var(--font-jetbrains)', 'monospace'],
-      },
+  heading: ['var(--font-space-grotesk)', 'serif'],      // Playfair - hero, h1
+  subheading: ['var(--font-subheading)', 'sans-serif'], // Montserrat - h2, h3  
+  body: ['var(--font-body)', 'sans-serif'],             // Inter
+  mono: ['var(--font-jetbrains)', 'monospace'],         // JetBrains Mono
+  logo: ['var(--font-logo)', 'serif'],
+  'logo-original': ['var(--font-logo-original)', 'sans-serif'], // Space Grotesk ← ΝΕΟ                  // ← ΜΟΝΟ ΑΥΤΟ ΠΡΟΣΘΕΣΑ
+},
       fontSize: {
+        'hero': ['clamp(4rem, 13vw, 10rem)', { lineHeight: '0.88', letterSpacing: '-0.04em' }], // ← ΝΕΟ
         'display': ['clamp(3rem, 10vw, 6rem)', { lineHeight: '0.9', letterSpacing: '-0.04em' }],
         'h1': ['clamp(2.5rem, 8vw, 4.5rem)', { lineHeight: '1.0', letterSpacing: '-0.03em' }],
-        'h2': ['clamp(1.75rem, 5vw, 3rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-        'h3': ['clamp(1.25rem, 3vw, 2rem)', { lineHeight: '1.2' }],
+        'h2': ['clamp(2.25rem, 6vw, 4rem)', { lineHeight: '1.05', letterSpacing: '-0.02em' }],
+        'h3': ['clamp(1.5rem, 3vw, 2rem)', { lineHeight: '1.2' }],
         'body-lg': ['18px', { lineHeight: '1.7' }],
         'label-sm': ['12px', { letterSpacing: '0.12em' }],
       },
