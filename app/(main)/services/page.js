@@ -1,14 +1,16 @@
+// app/services/page.js
+
 'use client';
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, Check } from 'lucide-react';
 import { useTranslation } from '@/components/language-provider';
-import { useScroll, useTransform } from 'framer-motion';
 
 /* ═══════════════════════════════════════════════════════
-   HELPERS — matched to old project's Animations.js
+   HELPERS
    ═══════════════════════════════════════════════════════ */
+
 function CTASection() {
   const { t } = useTranslation();
 
@@ -17,7 +19,6 @@ function CTASection() {
       className="relative py-32 md:py-48 overflow-hidden bg-gradient-to-b from-card to-background"
       data-testid="cta-section"
     >
-      {/* Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 border border-ag-border/20 rotate-45 opacity-30" />
         <div className="absolute bottom-1/4 right-1/4 w-48 h-48 border border-ag-border/20 rotate-12 opacity-20" />
@@ -71,10 +72,6 @@ function FadeUp({ children, delay = 0, className = '' }) {
   );
 }
 
-/**
- * AnimatedHeadline — word-by-word with 3D rotateX
- * Matched to old project exactly.
- */
 function AnimatedHeadline({ text, className = '', delay = 0.3 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
@@ -86,8 +83,9 @@ function AnimatedHeadline({ text, className = '', delay = 0.3 }) {
     <div ref={ref} className={`perspective-1000 ${className}`}>
       {lines.map((line, lineIndex) => (
         <div key={lineIndex} className="overflow-visible block pb-[0.1em]">
-          {line.split(' ')
-            .filter(w => w)
+          {line
+            .split(' ')
+            .filter((w) => w)
             .map((word, wordIndex) => {
               const currentIndex = globalWordIndex++;
               return (
@@ -95,8 +93,16 @@ function AnimatedHeadline({ text, className = '', delay = 0.3 }) {
                   key={wordIndex}
                   className="inline-block mr-[0.25em]"
                   initial={{ y: 80, opacity: 0, rotateX: -15 }}
-                  animate={isInView ? { y: 0, opacity: 1, rotateX: 0 } : { y: 80, opacity: 0, rotateX: -15 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: delay + currentIndex * 0.15 }}
+                  animate={
+                    isInView
+                      ? { y: 0, opacity: 1, rotateX: 0 }
+                      : { y: 80, opacity: 0, rotateX: -15 }
+                  }
+                  transition={{
+                    duration: 0.8,
+                    ease: [0.16, 1, 0.3, 1],
+                    delay: delay + currentIndex * 0.15,
+                  }}
                 >
                   {word}
                 </motion.span>
@@ -109,114 +115,51 @@ function AnimatedHeadline({ text, className = '', delay = 0.3 }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   DATA — matched to old project
+   STATIC DATA — images don't change per language
    ═══════════════════════════════════════════════════════ */
 
-const services = [
-  {
-    id: 'web-development',
-    number: '01',
-    title: 'Website Development',
-    subtitle: 'Custom websites με focus στο UX και την απόδοση',
-    description: 'Δημιουργούμε websites που δεν είναι απλά όμορφα — είναι γρήγορα, accessible, και optimized για conversions. Από single-page apps έως complex web platforms.',
-    features: ['Custom React/Next.js Development', 'Performance Optimization', 'SEO-First Architecture', 'CMS Integration', 'API Development'],
-    image: '/images/services/WebsiteDevelopment.jpg',
-  },
-  {
-    id: 'ecommerce',
-    number: '02',
-    title: 'E-Commerce Solutions',
-    subtitle: 'Online shops που πουλάνε',
-    description: 'Δεν φτιάχνουμε απλά e-shops — φτιάχνουμε πωλητικές μηχανές. WooCommerce, Shopify, ή custom solutions ανάλογα με τις ανάγκες σου.',
-    features: ['Shopify / WooCommerce Setup', 'Custom E-Commerce Development', 'Payment Gateway Integration', 'Inventory Management', 'Conversion Optimization'],
-    image: '/images/services/E-Commerce.png',
-  },
-  {
-    id: 'ui-ux-design',
-    number: '03',
-    title: 'UI / UX Design',
-    subtitle: 'Interfaces που οι χρήστες αγαπούν',
-    description: 'Research-driven design με focus στη μετατροπή. Δεν κάνουμε assumptions — κάνουμε testing και iterating μέχρι να βρούμε τη σωστή λύση.',
-    features: ['User Research & Testing', 'Wireframing & Prototyping', 'Visual Design', 'Design Systems', 'Micro-interactions'],
-    image: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800',
-  },
-  {
-    id: 'brand-identity',
-    number: '04',
-    title: 'Brand Identity',
-    subtitle: 'Cohesive brand presence σε κάθε touchpoint',
-    description: 'Logos, visual systems, και guidelines που κάνουν το brand σου αναγνωρίσιμο. Από το business card μέχρι το website.',
-    features: ['Logo Design', 'Visual Identity System', 'Brand Guidelines', 'Marketing Collateral', 'Social Media Templates'],
-    image: '/images/services/BrandIdentity.jpg',
-  },
-  {
-    id: 'digital-marketing',
-    number: '05',
-    title: 'Digital Marketing',
-    subtitle: 'Data-driven αποφάσεις',
-    description: 'SEO, campaigns, και strategy για measurable results. Δεν υποσχόμαστε νούμερα — τα δείχνουμε.',
-    features: ['SEO Optimization', 'Google Ads Management', 'Social Media Marketing', 'Analytics & Reporting', 'Content Strategy'],
-    image: 'https://images.pexels.com/photos/905163/pexels-photo-905163.jpeg?auto=compress&cs=tinysrgb&w=800',
-  },
-  {
-    id: 'support',
-    number: '06',
-    title: 'Ongoing Support',
-    subtitle: 'Μαζί σου μέχρι το τέλος',
-    description: 'Maintenance, updates, και continuous improvement. Είμαστε partners, όχι vendors.',
-    features: ['24/7 Monitoring', 'Security Updates', 'Performance Optimization', 'Content Updates', 'Technical Support'],
-    image: '/images/services/OngoingSupport.jpg',
-  },
+const serviceImages = [
+  '/images/services/WebsiteDevelopment.jpg',
+  '/images/services/E-Commerce.png',
+  'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800',
+  '/images/services/BrandIdentity.jpg',
+  'https://images.pexels.com/photos/905163/pexels-photo-905163.jpeg?auto=compress&cs=tinysrgb&w=800',
+  '/images/services/OngoingSupport.jpg',
 ];
 
-const pricingTiers = [
-  {
-    name: 'Starter',
-    description: 'Για μικρές επιχειρήσεις και startups',
-    features: ['Single Page Website', 'Basic SEO', 'Mobile Responsive', '1 Month Support'],
-  },
-  {
-    name: 'Professional',
-    description: 'Για established businesses',
-    features: ['Multi-page Website', 'Advanced SEO', 'CMS Integration', 'E-commerce Ready', '6 Months Support'],
-    highlighted: true,
-  },
-  {
-    name: 'Enterprise',
-    description: 'Για complex projects',
-    features: ['Custom Development', 'Full Brand Identity', 'API Integration', 'Analytics Dashboard', '12 Months Support'],
-  },
+const serviceIds = [
+  'web-development',
+  'ecommerce',
+  'ui-ux-design',
+  'brand-identity',
+  'digital-marketing',
+  'support',
 ];
 
 /* ═══════════════════════════════════════════════════════
-   SERVICE BLOCK — matched to old project
-   - Alternating image/content with order classes
-   - Real image instead of icon placeholder
-   - Check icon for features
-   - Underline link with full width underline
-   - gradient overlay on image
+   SERVICE BLOCK
    ═══════════════════════════════════════════════════════ */
 
-function ServiceBlock({ service, index }) {
+function ServiceBlock({ service, image, serviceId, index }) {
+  const { t } = useTranslation();
   const isEven = index % 2 === 0;
   const ref = useRef(null);
-  
-  // Parallax effect
+
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"]
+    offset: ['start end', 'end start'],
   });
-  
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
+  const imageY = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
 
   return (
     <section
       ref={ref}
       className={`py-24 md:py-32 ${index % 2 === 0 ? 'bg-background' : 'bg-card'}`}
-      data-testid={`service-${service.id}`}
+      data-testid={`service-${serviceId}`}
     >
       <div className="max-w-[1800px] mx-auto px-4 md:px-8">
-        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center`}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Content */}
           <div className={`order-2 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
             <FadeUp>
@@ -236,7 +179,7 @@ function ServiceBlock({ service, index }) {
             </FadeUp>
             <FadeUp delay={0.3}>
               <p className="font-body text-ag-body leading-relaxed mb-8">
-                {service.description}
+                {service.desc}
               </p>
             </FadeUp>
             <FadeUp delay={0.4}>
@@ -256,19 +199,25 @@ function ServiceBlock({ service, index }) {
                 data-cursor="hover"
               >
                 <span className="relative">
-                  Ρώτησέ μας
+                  {t('servicesPage.askUs')}
                   <span className="absolute bottom-0 left-0 w-full h-[1px] bg-ag-accent" />
                 </span>
-                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                <ArrowRight
+                  size={16}
+                  className="group-hover:translate-x-1 transition-transform"
+                />
               </Link>
             </FadeUp>
           </div>
 
-          {/* Image με Parallax */}
-          <FadeUp delay={0.2} className={`order-1 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+          {/* Image with Parallax */}
+          <FadeUp
+            delay={0.2}
+            className={`order-1 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}
+          >
             <div className="relative aspect-[4/3] overflow-hidden">
               <motion.img
-                src={service.image}
+                src={image}
                 alt={service.title}
                 className="w-full h-[120%] object-cover"
                 style={{ y: imageY }}
@@ -284,123 +233,116 @@ function ServiceBlock({ service, index }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   PAGE — matched to old project exactly
+   PAGE
    ═══════════════════════════════════════════════════════ */
 
 export default function ServicesPage() {
   const { t } = useTranslation();
 
+  // Get translated data
+  const servicesItems = t('servicesPage.items');
+  const pricingTiers = t('servicesPage.tiers');
+
   return (
     <main className="bg-background" data-testid="services-page">
-      {/* ─────────────────────────────────────────────────────
-         HERO — matched to old project
-         - pt-32 pb-24 md:pb-32
-         - AnimatedHeadline word-by-word
-         - max-w-2xl for description
-         ───────────────────────────────────────────────────── */}
+      {/* ── HERO ── */}
       <section className="pt-32 pb-24 md:pb-32" data-testid="services-hero">
         <div className="max-w-[1800px] mx-auto px-4 md:px-8">
           <FadeUp>
             <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
-              SERVICES
+              {t('servicesPage.heroLabel')}
             </span>
           </FadeUp>
           <AnimatedHeadline
-            text="Υπηρεσίες."
+            text={t('servicesPage.title')}
             className="font-heading text-h1 text-foreground mb-8"
           />
           <FadeUp delay={0.6}>
             <p className="font-body text-xl text-ag-body max-w-2xl">
-              Από concept μέχρι launch — και μετά. Προσφέρουμε end-to-end 
-              digital services που βοηθούν brands να ξεχωρίσουν.
+              {t('servicesPage.subtitle')}
             </p>
           </FadeUp>
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────
-         SERVICE BLOCKS — matched to old project
-         - Alternating backgrounds (bg-background / bg-card)
-         - Alternating content/image order
-         ───────────────────────────────────────────────────── */}
-      {services.map((service, index) => (
-        <ServiceBlock key={service.id} service={service} index={index} />
-      ))}
+      {/* ── SERVICE BLOCKS ── */}
+      {Array.isArray(servicesItems) &&
+        servicesItems.map((service, index) => (
+          <ServiceBlock
+            key={serviceIds[index] || index}
+            service={service}
+            image={serviceImages[index]}
+            serviceId={serviceIds[index] || `service-${index}`}
+            index={index}
+          />
+        ))}
 
-      {/* ─────────────────────────────────────────────────────
-         PRICING — matched to old project
-         - bg-card (old df-surface)
-         - Sharp border (no rounded-lg)
-         - Check icon for features (size 14)
-         - Sharp button (no rounded-full)
-         - highlighted tier: border-ag-accent bg-background
-         ───────────────────────────────────────────────────── */}
+      {/* ── PRICING ── */}
       <section className="py-24 md:py-32 bg-card" data-testid="pricing-section">
         <div className="max-w-[1800px] mx-auto px-4 md:px-8">
           <FadeUp>
             <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
-              PRICING
+              {t('servicesPage.pricingLabel')}
             </span>
             <h2 className="font-heading text-h2 text-foreground mb-4">
-              Προσέγγιση τιμολόγησης.
+              {t('servicesPage.pricingTitle')}
             </h2>
             <p className="font-body text-ag-body max-w-2xl mb-16">
-              Κάθε project είναι μοναδικό. Αυτά είναι τα starting points — 
-              η τελική τιμή εξαρτάται από τις συγκεκριμένες ανάγκες σου.
+              {t('servicesPage.pricingSubtitle')}
             </p>
           </FadeUp>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {pricingTiers.map((tier, index) => (
-              <FadeUp key={tier.name} delay={index * 0.1}>
-                <div
-                  className={`p-8 border transition-colors ${
-                    tier.highlighted
-                      ? 'border-ag-accent bg-background'
-                      : 'border-ag-border hover:border-ag-accent/30'
-                  }`}
-                >
-                  {tier.highlighted && (
-                    <span className="font-mono text-xs text-accent tracking-wider block mb-4">
-                      MOST POPULAR
-                    </span>
-                  )}
-                  <h3 className="font-heading text-2xl text-foreground mb-2">
-                    {tier.name}
-                  </h3>
-                  <p className="font-body text-sm text-ag-body mb-6">
-                    {tier.description}
-                  </p>
-                  <ul className="space-y-3 mb-8">
-                    {tier.features.map((feature, i) => (
-                      <li key={i} className="flex items-center gap-3">
-                        <Check size={14} className="text-accent shrink-0" />
-                        <span className="font-body text-sm text-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {/* Sharp button — NO rounded-full */}
-                  <Link
-                    href="/contact"
-                    className={`block text-center py-3 font-heading font-medium transition-all ${
+            {Array.isArray(pricingTiers) &&
+              pricingTiers.map((tier, index) => (
+                <FadeUp key={tier.name} delay={index * 0.1}>
+                  <div
+                    className={`p-8 border transition-colors ${
                       tier.highlighted
-                        ? 'bg-ag-accent text-ag-bg hover:opacity-90'
-                        : 'border border-ag-border text-foreground hover:bg-ag-accent hover:text-ag-bg hover:border-ag-accent'
+                        ? 'border-ag-accent bg-background'
+                        : 'border-ag-border hover:border-ag-accent/30'
                     }`}
-                    data-cursor="hover"
                   >
-                    Get Started
-                  </Link>
-                </div>
-              </FadeUp>
-            ))}
+                    {tier.highlighted && (
+                      <span className="font-mono text-xs text-accent tracking-wider block mb-4">
+                        {t('servicesPage.mostPopular')}
+                      </span>
+                    )}
+                    <h3 className="font-heading text-2xl text-foreground mb-2">
+                      {tier.name}
+                    </h3>
+                    <p className="font-body text-sm text-ag-body mb-6">
+                      {tier.desc}
+                    </p>
+                    <ul className="space-y-3 mb-8">
+                      {tier.features.map((feature, i) => (
+                        <li key={i} className="flex items-center gap-3">
+                          <Check size={14} className="text-accent shrink-0" />
+                          <span className="font-body text-sm text-foreground">
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      href="/contact"
+                      className={`block text-center py-3 font-heading font-medium transition-all ${
+                        tier.highlighted
+                          ? 'bg-ag-accent text-ag-bg hover:opacity-90'
+                          : 'border border-ag-border text-foreground hover:bg-ag-accent hover:text-ag-bg hover:border-ag-accent'
+                      }`}
+                      data-cursor="hover"
+                    >
+                      {t('servicesPage.getStarted')}
+                    </Link>
+                  </div>
+                </FadeUp>
+              ))}
           </div>
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────
-         CTA — matched to old project (sharp button)
-         ───────────────────────────────────────────────────── */}
+      {/* ── CTA ── */}
       <CTASection />
     </main>
   );

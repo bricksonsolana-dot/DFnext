@@ -130,16 +130,16 @@ export default function ContactPage() {
                   {t('contactPage.form.selectRange')}
                 </option>
                 <option value="2500-5000" className="bg-card text-foreground">
-                  &euro;2,500 - &euro;5,000
+                  &euro;0 - &euro;1,000
                 </option>
                 <option value="5000-10000" className="bg-card text-foreground">
-                  &euro;5,000 - &euro;10,000
+                  &euro;1,000 - &euro;2,000
                 </option>
                 <option value="10000-25000" className="bg-card text-foreground">
-                  &euro;10,000 - &euro;25,000
+                  &euro;2,000- &euro;5,000
                 </option>
                 <option value="25000+" className="bg-card text-foreground">
-                  &euro;25,000+
+                  &euro;5,000+
                 </option>
               </select>
             </div>

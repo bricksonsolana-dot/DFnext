@@ -1,3 +1,5 @@
+// app/about/page.js
+
 'use client';
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
@@ -6,7 +8,7 @@ import { ArrowRight } from 'lucide-react';
 import { useTranslation } from '@/components/language-provider';
 
 /* ═══════════════════════════════════════════════════════
-   HELPERS — matched to old project
+   HELPERS
    ═══════════════════════════════════════════════════════ */
 
 function FadeUp({ children, delay = 0, className = '' }) {
@@ -70,21 +72,19 @@ function AnimatedHeadline({ lines, className = '', delay = 0.3 }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   DATA — matched to old project
+   STATIC DATA — doesn't change per language
    ═══════════════════════════════════════════════════════ */
 
 const team = [
   {
     name: 'Οδυσσέας Σ.',
     role: 'Co-Founder & CEO',
-    image:
-      'images/about/ody.jpg',
+    image: 'images/about/ody.jpg',
   },
   {
     name: 'Γιώργος Σ.',
     role: 'Co-Founder & Lead Developer',
-    image:
-      'images/about/george.jpg',
+    image: 'images/about/george.jpg',
   },
   {
     name: 'Γιώργος Α.',
@@ -100,50 +100,6 @@ const team = [
   },
 ];
 
-const values = [
-  {
-    title: 'Craft',
-    description:
-      'Κάθε pixel, κάθε γραμμή κώδικα έχει σημασία. Δεν κάνουμε συμβιβασμούς στην ποιότητα.',
-  },
-  {
-    title: 'Honesty',
-    description:
-      'Λέμε την αλήθεια, ακόμα και όταν δεν είναι αυτό που θέλετε να ακούσετε.',
-  },
-  {
-    title: 'Results',
-    description:
-      'Ωραία websites που δεν φέρνουν αποτελέσματα δεν μας ενδιαφέρουν.',
-  },
-  {
-    title: 'Curiosity',
-    description:
-      'Μαθαίνουμε συνεχώς. Οι τεχνολογίες αλλάζουν, εμείς εξελισσόμαστε.',
-  },
-];
-
-const timeline = [
-  {
-    year: '2016',
-    event: 'Ξεκινήσαμε ως freelancers με ένα laptop και μια ιδέα.',
-  },
-  {
-    year: '2018',
-    event:
-      'Το πρώτο μας γραφείο στο κέντρο της Αθήνας. 3 άτομα, απεριόριστη ενέργεια.',
-  },
-  {
-    year: '2020',
-    event:
-      'Pandemic pivot: 100% remote, 200% focused. Καλύτερη δουλειά από ποτέ.',
-  },
-  {
-    year: '2023',
-    event: 'Νέο studio, νέα εποχή. 8 άτομα, 120+ projects, 15+ awards.',
-  },
-];
-
 const clients = [
   'TechCorp',
   'Startup GR',
@@ -154,7 +110,7 @@ const clients = [
 ];
 
 /* ═══════════════════════════════════════════════════════
-   CTA SECTION — matched to old project
+   CTA SECTION
    ═══════════════════════════════════════════════════════ */
 
 function CTASection() {
@@ -162,10 +118,9 @@ function CTASection() {
 
   return (
     <section
-className="relative py-32 md:py-48 overflow-hidden bg-gradient-to-b from-card to-background"
+      className="relative py-32 md:py-48 overflow-hidden bg-gradient-to-b from-card to-background"
       data-testid="cta-section"
     >
-      {/* Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 border border-ag-border/20 rotate-45 opacity-30" />
         <div className="absolute bottom-1/4 right-1/4 w-48 h-48 border border-ag-border/20 rotate-12 opacity-20" />
@@ -207,7 +162,7 @@ className="relative py-32 md:py-48 overflow-hidden bg-gradient-to-b from-card to
 }
 
 /* ═══════════════════════════════════════════════════════
-   ABOUT PAGE — matched to old project
+   ABOUT PAGE
    ═══════════════════════════════════════════════════════ */
 
 export default function AboutPage() {
@@ -219,14 +174,13 @@ export default function AboutPage() {
   });
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
+  // Get translated data
+  const timelineData = t('about.timeline');
+  const valuesData = t('about.values');
+
   return (
     <main className="bg-background" data-testid="about-page">
-      {/* ═══════════════════════════════════════════════════════
-          HERO — matched to old project
-          - min-h-[80vh], pt-24
-          - 2-column grid: content left, parallax image right
-          - AnimatedHeadline word-by-word
-          ═══════════════════════════════════════════════════════ */}
+      {/* ── HERO ── */}
       <section
         ref={heroRef}
         className="relative min-h-[80vh] flex items-center pt-24"
@@ -238,24 +192,21 @@ export default function AboutPage() {
             <div>
               <FadeUp>
                 <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
-                  ABOUT US
+                  {t('about.heroLabel')}
                 </span>
               </FadeUp>
 
               <AnimatedHeadline
                 lines={[
-                  { text: 'Ποιοι', accent: false },
-                  { text: 'Είμαστε.', accent: false },
+                  { text: t('about.title1'), accent: false },
+                  { text: t('about.title2'), accent: false },
                 ]}
                 className="font-heading text-h1 text-foreground mb-8"
               />
 
               <FadeUp delay={0.6}>
                 <p className="font-body text-lg text-ag-body leading-relaxed">
-                  Είμαστε ένα ανεξάρτητο digital studio με έδρα την Αθήνα. Από
-                  το 2016, βοηθάμε brands να αποκτήσουν ψηφιακή παρουσία που
-                  ξεχωρίζει — με craft, strategy, και obsessive attention to
-                  detail.
+                  {t('about.subtitle')}
                 </p>
               </FadeUp>
             </div>
@@ -263,7 +214,7 @@ export default function AboutPage() {
             {/* Parallax Image */}
             <FadeUp delay={0.3} className="relative aspect-[4/3] overflow-hidden">
               <motion.img
-                src='images\about\About.jpg'
+                src="images/about/About.jpg"
                 alt="DigitalFootprint team"
                 className="w-full h-full object-cover"
                 style={{ y: heroY }}
@@ -274,11 +225,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          MISSION — matched to old project
-          - bg-card (= old df-surface)
-          - Large blockquote
-          ═══════════════════════════════════════════════════════ */}
+      {/* ── MISSION QUOTE ── */}
       <section
         className="py-24 md:py-32 bg-card"
         data-testid="mission-section"
@@ -286,19 +233,13 @@ export default function AboutPage() {
         <div className="max-w-[1800px] mx-auto px-4 md:px-8">
           <FadeUp>
             <blockquote className="font-heading text-2xl md:text-4xl lg:text-5xl text-foreground leading-tight max-w-4xl">
-              "Πιστεύουμε ότι το web δεν πρέπει να είναι boring. Κάθε project
-              είναι μια ευκαιρία να δημιουργήσουμε κάτι που θα θυμούνται οι
-              άνθρωποι."
+              {t('about.missionQuote')}
             </blockquote>
           </FadeUp>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          STORY TIMELINE — matched to old project
-          - border-l on each item
-          - year in accent, large font-mono
-          ═══════════════════════════════════════════════════════ */}
+      {/* ── STORY TIMELINE ── */}
       <section
         className="py-24 md:py-32 bg-background"
         data-testid="story-section"
@@ -306,34 +247,32 @@ export default function AboutPage() {
         <div className="max-w-[1800px] mx-auto px-4 md:px-8">
           <FadeUp>
             <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
-              OUR STORY
+              {t('about.storyLabel')}
             </span>
             <h2 className="font-heading text-h2 text-foreground mb-16">
-              Η ιστορία μας
+              {t('about.storyTitle')}
             </h2>
           </FadeUp>
 
           <div className="space-y-12">
-            {timeline.map((item, index) => (
-              <FadeUp key={item.year} delay={index * 0.1}>
-                <div className="flex items-start gap-8 border-l border-ag-border pl-8 py-4">
-                  <span className="font-mono text-2xl text-ag-accent font-bold shrink-0">
-                    {item.year}
-                  </span>
-                  <p className="font-body text-lg text-ag-body">{item.event}</p>
-                </div>
-              </FadeUp>
-            ))}
+            {Array.isArray(timelineData) &&
+              timelineData.map((item, index) => (
+                <FadeUp key={item.year} delay={index * 0.1}>
+                  <div className="flex items-start gap-8 border-l border-ag-border pl-8 py-4">
+                    <span className="font-mono text-2xl text-ag-accent font-bold shrink-0">
+                      {item.year}
+                    </span>
+                    <p className="font-body text-lg text-ag-body">
+                      {item.event}
+                    </p>
+                  </div>
+                </FadeUp>
+              ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          VALUES — matched to old project
-          - 2-column grid (NOT 4)
-          - p-8 border cards, NO rounded-lg
-          - Title hover turns accent
-          ═══════════════════════════════════════════════════════ */}
+      {/* ── VALUES ── */}
       <section
         className="py-24 md:py-32 bg-card"
         data-testid="values-section"
@@ -341,43 +280,41 @@ export default function AboutPage() {
         <div className="max-w-[1800px] mx-auto px-4 md:px-8">
           <FadeUp>
             <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
-              OUR VALUES
+              {t('about.valuesLabel')}
             </span>
             <h2 className="font-heading text-h2 text-foreground mb-16">
-              Τι πιστεύουμε
+              {t('about.valuesTitle')}
             </h2>
           </FadeUp>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {values.map((value, index) => (
-              <FadeUp key={value.title} delay={index * 0.1}>
-                <div className="p-8 border border-ag-border hover:border-ag-accent/30 transition-colors group">
-                  <h3 className="font-heading text-2xl text-foreground mb-4 group-hover:text-ag-accent transition-colors">
-                    {value.title}
-                  </h3>
-                  <p className="font-body text-ag-body">{value.description}</p>
-                </div>
-              </FadeUp>
-            ))}
+            {Array.isArray(valuesData) &&
+              valuesData.map((value, index) => (
+                <FadeUp key={value.title} delay={index * 0.1}>
+                  <div className="p-8 border border-ag-border hover:border-ag-accent/30 transition-colors group">
+                    <h3 className="font-heading text-2xl text-foreground mb-4 group-hover:text-ag-accent transition-colors">
+                      {value.title}
+                    </h3>
+                    <p className="font-body text-ag-body">{value.desc}</p>
+                  </div>
+                </FadeUp>
+              ))}
           </div>
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          TEAM — matched to old project
-          - 4-column grid
-          - aspect-[3/4] images
-          - grayscale → color on hover
-          - accent overlay on hover
-          ═══════════════════════════════════════════════════════ */}
-      <section className="py-24 md:py-32 bg-background" data-testid="team-section">
+      {/* ── TEAM ── */}
+      <section
+        className="py-24 md:py-32 bg-background"
+        data-testid="team-section"
+      >
         <div className="max-w-[1800px] mx-auto px-4 md:px-8">
           <FadeUp>
             <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
-              THE TEAM
+              {t('about.teamLabel')}
             </span>
             <h2 className="font-heading text-h2 text-foreground mb-16">
-              Οι άνθρωποί μας
+              {t('about.teamTitle')}
             </h2>
           </FadeUp>
 
@@ -407,11 +344,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════
-          CLIENTS — matched to old project
-          - flex wrap centered
-          - Large text hover effect
-          ═══════════════════════════════════════════════════════ */}
+      {/* ── CLIENTS ── */}
       <section
         className="py-24 md:py-32 bg-card"
         data-testid="clients-section"
@@ -419,10 +352,10 @@ export default function AboutPage() {
         <div className="max-w-[1800px] mx-auto px-4 md:px-8">
           <FadeUp>
             <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
-              CLIENTS
+              {t('about.clientsLabel')}
             </span>
             <h2 className="font-heading text-h2 text-foreground mb-16">
-              Με ποιους συνεργαστήκαμε.
+              {t('about.clientsTitle')}
             </h2>
           </FadeUp>
 
@@ -441,7 +374,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* ── CTA ── */}
       <CTASection />
     </main>
   );
