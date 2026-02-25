@@ -373,14 +373,14 @@ const portfolioProjects = [
   },
   {
     id: 5,
-    slug: 'kaiser-omnia-tm',
-    title: 'Kaiser-Omnia',
+    slug: 'NyConstruction',
+    title: 'NyConstruction',
     category: 'Web Design',
     size: 'full',
     image: '/images/projects/construction.jpg',
     accent: '#a78bfa',
     year: '2023',
-    demoUrl: '/kaiser-omnia-tm',
+    demoUrl: '/NyConstruction',
   },
 ];
 
