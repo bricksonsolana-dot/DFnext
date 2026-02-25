@@ -59,6 +59,24 @@ export default function DemoViewer({ url, title }) {
               ))}
             </div>
 
+            {/* Actions */}
+            <div className="flex items-center gap-2">
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-white/50 hover:text-white text-sm transition-colors cursor-pointer"
+              >
+                <ExternalLink className="w-4 h-4" />
+                <span className="hidden sm:inline">Νέα καρτέλα</span>
+              </a>
+              <button
+                onClick={() => setShowBar(false)}
+                className="text-white/20 hover:text-white/60 ml-2 transition-colors cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
           </div>
         </div>
       )}
