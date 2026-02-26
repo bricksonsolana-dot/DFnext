@@ -175,7 +175,7 @@ export default function AboutPage() {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   // Get translated data
-  const timelineData = t('about.timeline');
+  const thoughtsData = t('about.thoughts');
   const valuesData = t('about.values');
 
   return (
@@ -239,7 +239,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── STORY TIMELINE ── */}
+      {/* ── SOUND FAMILIAR ── */}
       <section
         className="py-24 md:py-32 bg-background"
         data-testid="story-section"
@@ -254,21 +254,22 @@ export default function AboutPage() {
             </h2>
           </FadeUp>
 
-          <div className="space-y-12">
-            {Array.isArray(timelineData) &&
-              timelineData.map((item, index) => (
-                <FadeUp key={item.year} delay={index * 0.1}>
-                  <div className="flex items-start gap-8 border-l border-ag-border pl-8 py-4">
-                    <span className="font-mono text-2xl text-ag-accent font-bold shrink-0">
-                      {item.year}
-                    </span>
-                    <p className="font-body text-lg text-ag-body">
-                      {item.event}
-                    </p>
-                  </div>
+          <div className="space-y-6">
+            {Array.isArray(thoughtsData) &&
+              thoughtsData.map((item, index) => (
+                <FadeUp key={index} delay={index * 0.1}>
+                  <p className="font-body text-xl md:text-2xl text-ag-body border-l-2 border-ag-accent pl-8 py-2 leading-relaxed">
+                    {item.text}
+                  </p>
                 </FadeUp>
               ))}
           </div>
+
+          <FadeUp delay={thoughtsData?.length * 0.1 || 0.5}>
+            <p className="font-heading text-xl md:text-2xl text-ag-accent mt-16 pl-8">
+              {t('about.storyClosing')}
+            </p>
+          </FadeUp>
         </div>
       </section>
 
