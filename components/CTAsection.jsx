@@ -75,13 +75,10 @@ export default function CTASection() {
           className="font-heading text-h1 md:text-display text-foreground mb-8"
         />
 
-        <FadeUp delay={0.8}>
+        <FadeUp delay={0.6}>
           <p className="font-body text-lg text-muted-foreground max-w-xl mx-auto mb-12">
             {t('cta.subtitle')}
           </p>
-        </FadeUp>
-
-        <FadeUp delay={1}>
           <Link
             href="/contact"
             className="inline-flex items-center gap-3 px-8 py-4 bg-ag-accent text-background font-heading font-semibold text-lg hover:scale-105 transition-transform group"
@@ -95,6 +92,7 @@ export default function CTASection() {
             />
           </Link>
         </FadeUp>
+
       </div>
     </section>
   );

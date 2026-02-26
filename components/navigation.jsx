@@ -247,7 +247,7 @@ export default function Navigation() {
             {mounted && (
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-3 border border-border text-muted-foreground hover:text-foreground hover:border-accent transition-colors duration-300"
+                className="px-4 py-3 border border-border text-sm font-mono text-muted-foreground hover:text-foreground hover:border-accent transition-colors duration-300 min-w-14 text-center disabled:pointer-events-none"
                 data-cursor="hover"
                 aria-label="Toggle theme"
               >
@@ -292,7 +292,7 @@ export default function Navigation() {
             {mounted && (
               <button
                 onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                className="p-2 border border-border text-muted-foreground hover:text-foreground transition-colors"
+                className="px-3 py-2 border border-border text-xs font-mono text-muted-foreground hover:text-foreground transition-colors min-w-10 text-center disabled:pointer-events-none"
                 data-cursor="hover"
                 aria-label="Toggle theme"
               >
