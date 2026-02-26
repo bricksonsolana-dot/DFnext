@@ -333,9 +333,9 @@ const portfolioProjects = [
     title: 'UltraChamp',
     category: 'SPORTS',
     size: 'large',
-    image: '/images/projects/UltraChamp.jpg',
+    image: '/images/projects/UltraChamp.png',
     accent: '#ffffff',
-    year: '2024',
+    year: '2026',
     demoUrl: '/UltraChamp',
   },
   {
@@ -346,7 +346,7 @@ const portfolioProjects = [
     size: 'small',
     image: '/images/projects/construction.jpg',
     accent: '#a78bfa',
-    year: '2024',
+    year: '2026',
     demoUrl: '/kaiser-omnia',
   },
   {
@@ -368,7 +368,7 @@ const portfolioProjects = [
     size: 'large',
     image: '/images/projects/clothing.jpg',
     accent: '#a35617',
-    year: '2025',
+    year: '2026',
     demoUrl: '/Clothing',
   },
   {
@@ -379,7 +379,7 @@ const portfolioProjects = [
     size: 'full',
     image: '/images/projects/Architects.jpg',
     accent: '#c4a35a',
-    year: '2025',
+    year: '2026',
     demoUrl: '/Architects',
   },
 ];
