@@ -1,7 +1,7 @@
 // components/language-provider.jsx
 'use client';
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { translations } from '@/lib/translations';
+import { translations } from '@/lib/translations/index';
 
 const LanguageContext = createContext({
   lang: 'el',
