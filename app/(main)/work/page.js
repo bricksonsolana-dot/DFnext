@@ -25,15 +25,15 @@ const allProjects = [
   },
   {
     id: 2,
-    slug: 'kaiser-omnia-tm',
-    name: 'Construction',
+    slug: 'NyConstruction',
+    name: 'NyConstruction',
     category: 'Corporate',
     image: '/images/projects/construction.jpg',
     accent: '#5B8DEF',
     year: '2026',
     scope: 'Full Branding',
     isDemo: true,
-    demoUrl: '/kaiser-omnia-tm',
+    demoUrl: '/NyConstruction',
   },
     {
     id: 3,

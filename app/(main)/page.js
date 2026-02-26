@@ -347,7 +347,7 @@ const portfolioProjects = [
     image: '/images/projects/construction.jpg',
     accent: '#a78bfa',
     year: '2026',
-    demoUrl: '/kaiser-omnia',
+    demoUrl: '/NyConstruction',
   },
   {
     id: 3,

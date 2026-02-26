@@ -72,21 +72,8 @@ function AnimatedHeadline({ lines, className = '', delay = 0.3 }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   STATIC DATA — doesn't change per language
+   STATIC DATA — Clients (doesn't need translation function inside)
    ═══════════════════════════════════════════════════════ */
-
-const team = [
-  {
-    name: 'Οδυσσέας Σ.',
-    role: 'Co-Founder & CEO',
-    image: 'images/about/ody.jpg',
-  },
-  {
-    name: 'Γιώργος Σ.',
-    role: 'Co-Founder & Lead Developer',
-    image: 'images/about/george.jpg',
-  },
-];
 
 const clients = [
   'Property Hall',
@@ -154,7 +141,25 @@ function CTASection() {
    ═══════════════════════════════════════════════════════ */
 
 export default function AboutPage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(); // <--- Το t ορίζεται εδώ
+
+  // 1. Το team Array μεταφέρθηκε εδώ μέσα, ώστε να βλέπει το 't'
+  const team = [
+    {
+      name: t('about.teamMembers.0.name'),
+      role: t('about.teamMembers.0.role'),
+      bio: t('about.teamMembers.0.bio'),
+      // Προσοχή: Βεβαιώσου ότι έχεις αυτές τις εικόνες στο φάκελο public/images/team/
+      image: '/images/about/ody.jpg'
+    },
+    {
+      name: t('about.teamMembers.1.name'),
+      role: t('about.teamMembers.1.role'),
+      bio: t('about.teamMembers.1.bio'),
+      image: '/images/about/george.jpg'
+    }
+  ];
+
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -163,8 +168,8 @@ export default function AboutPage() {
   const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   // Get translated data
-  const timelineData = t('about.timeline');
-  const valuesData = t('about.values');
+  const timelineData = t('about.timeline', { returnObjects: true }); // Πρόσθεσα returnObjects για ασφάλεια
+  const valuesData = t('about.values', { returnObjects: true });
 
   return (
     <main className="bg-background" data-testid="about-page">
@@ -291,40 +296,54 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── TEAM ── */}
+      {/* ── TEAM (ΝΕΟ LAYOUT) ── */}
       <section
         className="py-24 md:py-32 bg-background"
         data-testid="team-section"
       >
-        <div className="max-w-[1800px] mx-auto px-4 md:px-8">
+        <div className="max-w-6xl mx-auto px-4 md:px-8">
           <FadeUp>
-            <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
-              {t('about.teamLabel')}
-            </span>
-            <h2 className="font-heading text-h2 text-foreground mb-16">
-              {t('about.teamTitle')}
-            </h2>
+            <div className="mb-20 md:mb-32 text-center md:text-left">
+              <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
+                {t('about.teamLabel')}
+              </span>
+              <h2 className="font-heading text-h2 text-foreground">
+                {t('about.teamTitle')}
+              </h2>
+            </div>
           </FadeUp>
 
-          <div className="grid grid-cols-2 gap-6 md:gap-8 max-w-2xl mx-auto">
+          <div className="flex flex-col gap-24 md:gap-40">
             {team.map((member, index) => (
-              <FadeUp key={member.name} delay={index * 0.1}>
-                <div className="group" data-cursor="hover">
-                  <div className="relative aspect-[3/4] overflow-hidden mb-4">
+              <FadeUp key={index} delay={0.1}>
+                {/* Grid: Εικόνα - Κείμενο */}
+                <div className={`grid md:grid-cols-12 gap-8 md:gap-16 items-start group`}>
+                  
+                  {/* Image Column */}
+                  <div className={`md:col-span-5 relative aspect-[3/4] overflow-hidden ${index % 2 === 1 ? 'md:order-last' : ''}`}>
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-ag-accent/0 group-hover:bg-ag-accent/10 transition-colors" />
+                    <div className="absolute inset-0 bg-ag-accent/0 group-hover:bg-ag-accent/5 transition-colors duration-500" />
                   </div>
-                  <h3 className="font-heading text-lg text-foreground">
-                    {member.name}
-                  </h3>
-                  <p className="font-mono text-xs text-ag-muted tracking-wider">
-                    {member.role}
-                  </p>
+
+                  {/* Text Column */}
+                  <div className="md:col-span-7 flex flex-col justify-center h-full md:py-8 text-left">
+                    <h3 className="font-heading text-3xl md:text-4xl text-foreground mb-2">
+                      {member.name}
+                    </h3>
+                    <p className="font-mono text-sm text-ag-muted tracking-wider mb-8 uppercase border-l-2 border-ag-primary pl-4">
+                      {member.role}
+                    </p>
+                    
+                    <p className="text-base md:text-lg lg:text-xl text-ag-muted/90 leading-relaxed max-w-2xl font-light">
+                      {member.bio}
+                    </p>
+                  </div>
+
                 </div>
               </FadeUp>
             ))}
