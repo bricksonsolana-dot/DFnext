@@ -86,23 +86,11 @@ const team = [
     role: 'Co-Founder & Lead Developer',
     image: 'images/about/george.jpg',
   },
-  {
-    name: 'Γιώργος Α.',
-    role: 'UI/UX Designer',
-    image:
-      'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
-  {
-    name: 'Ελένη Μ.',
-    role: 'Project Manager',
-    image:
-      'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?auto=compress&cs=tinysrgb&w=400',
-  },
 ];
 
 const clients = [
-  'TechCorp',
-  'Startup GR',
+  'Property Hall',
+  'Ultra Champ',
   'Design Co',
   'Innovation Lab',
   'Digital First',
@@ -239,7 +227,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── STORY TIMELINE ── */}
+      {/* ── STACK / HOW WE BUILD ── */}
       <section
         className="py-24 md:py-32 bg-background"
         data-testid="story-section"
@@ -259,7 +247,7 @@ export default function AboutPage() {
               timelineData.map((item, index) => (
                 <FadeUp key={item.year} delay={index * 0.1}>
                   <div className="flex items-start gap-8 border-l border-ag-border pl-8 py-4">
-                    <span className="font-mono text-2xl text-ag-accent font-bold shrink-0">
+                    <span className="font-mono text-2xl text-ag-accent font-bold shrink-0 min-w-[120px]">
                       {item.year}
                     </span>
                     <p className="font-body text-lg text-ag-body">
@@ -318,7 +306,7 @@ export default function AboutPage() {
             </h2>
           </FadeUp>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-2 gap-6 md:gap-8 max-w-2xl mx-auto">
             {team.map((member, index) => (
               <FadeUp key={member.name} delay={index * 0.1}>
                 <div className="group" data-cursor="hover">
