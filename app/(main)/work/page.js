@@ -107,6 +107,18 @@ const allProjects = [
     year: '2026',
     scope: 'Full Branding',
   },
+  {
+    id: 10,
+    slug: 'propertyhall',
+    name: 'Property Hall',
+    category: 'Web Design',
+    image: '/images/projects/propertyhall.png',
+    accent: '#2a7de1',
+    year: '2026',
+    scope: 'Design & Development',
+    isDemo: true,
+    demoUrl: '/propertyhall',
+  },
 ];
 
 
