@@ -31,15 +31,79 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
+const BASE_URL = 'https://digitalfootprint.gr';
+
 export const metadata = {
-  title: 'Digital Footprint - Web Development & Design Studio | Athens, Greece',
-  description: 'Premium web development & design studio based in Athens.',
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: 'Digital Footprint - Web Development & Design Studio | Athens, Greece',
+    template: '%s | Digital Footprint',
+  },
+  description:
+    'Premium web development & design studio based in Athens, Greece. We build fast, modern websites and web applications that grow your business.',
+  alternates: {
+    canonical: BASE_URL,
+  },
+  openGraph: {
+    title: 'Digital Footprint - Web Development & Design Studio | Athens, Greece',
+    description:
+      'Premium web development & design studio based in Athens, Greece. We build fast, modern websites and web applications that grow your business.',
+    url: BASE_URL,
+    siteName: 'Digital Footprint',
+    images: [
+      {
+        url: '/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Digital Footprint - Web Development & Design Studio',
+      },
+    ],
+    locale: 'el_GR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Digital Footprint - Web Development & Design Studio | Athens, Greece',
+    description:
+      'Premium web development & design studio based in Athens, Greece.',
+    images: ['/images/og-image.jpg'],
+  },
   icons: {
     icon: [
-      { url: 'iamges/icon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/images/icon.png', sizes: '32x32', type: 'image/png' },
     ],
-    shortcut: 'images/icon.png',
-    apple: 'images/apple-icon.png',
+    shortcut: '/images/icon.png',
+    apple: '/images/apple-icon.png',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+};
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': ['Organization', 'LocalBusiness'],
+  name: 'Digital Footprint',
+  url: 'https://digitalfootprint.gr',
+  logo: 'https://digitalfootprint.gr/images/icon.png',
+  description:
+    'Premium web development & design studio based in Athens, Greece.',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Athens',
+    addressCountry: 'GR',
+  },
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'customer service',
+    url: 'https://digitalfootprint.gr/contact',
   },
 };
 
@@ -51,6 +115,10 @@ export default function RootLayout({ children }) {
       suppressHydrationWarning
     >
       <body className="bg-background text-foreground font-body antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         <ThemeProvider>
           {children}
         </ThemeProvider>
