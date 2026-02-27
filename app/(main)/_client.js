@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, memo } from 'react';
 import {
   motion,
   useScroll,
@@ -333,7 +333,7 @@ const portfolioProjects = [
     title: 'UltraChamp',
     category: 'SPORTS',
     size: 'large',
-    image: '/images/projects/UltraChamp.png',
+    image: '/images/projects/UltraChamp.jpg',
     accent: '#ffffff',
     year: '2026',
     demoUrl: '/UltraChamp',
@@ -388,7 +388,7 @@ const portfolioProjects = [
 // PORTFOLIO CARD — Prestige Edition
 // ═══════════════════════════════════════
 
-function PortfolioCard({ project, index }) {
+const PortfolioCard = memo(function PortfolioCard({ project, index }) {
   const cardRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const [shine, setShine] = useState({ x: 50, y: 50 });
@@ -404,13 +404,16 @@ function PortfolioCard({ project, index }) {
 
   const handleMouseMove = useCallback((e) => {
     if (isMobile || !cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    
-    // ✅ Increased rotation slightly for larger cards to feel more "3D"
-    cardRef.current.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg) scale3d(1.02, 1.02, 1.02)`;
-    setShine({ x: (x + 0.5) * 100, y: (y + 0.5) * 100 });
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+    requestAnimationFrame(() => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = (clientX - rect.left) / rect.width - 0.5;
+      const y = (clientY - rect.top) / rect.height - 0.5;
+      cardRef.current.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg) scale3d(1.02, 1.02, 1.02)`;
+      setShine({ x: (x + 0.5) * 100, y: (y + 0.5) * 100 });
+    });
   }, [isMobile]);
 
   const handleMouseLeave = useCallback(() => {
@@ -618,7 +621,7 @@ function PortfolioCard({ project, index }) {
       </Link>
     </motion.div>
   );
-}
+});
 
 // ═══════════════════════════════════════
 // PORTFOLIO SECTION

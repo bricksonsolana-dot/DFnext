@@ -54,10 +54,15 @@ export default function CustomCursor() {
     setIsTouchDevice(isTouch);
     if (isTouch) return;
 
+    let rafId = null;
     const handleMouseMove = (e) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-      setIsVisible(true);
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        cursorX.set(e.clientX);
+        cursorY.set(e.clientY);
+        setIsVisible(true);
+        rafId = null;
+      });
     };
 
     const handleMouseOver = (e) => {
@@ -85,6 +90,7 @@ export default function CustomCursor() {
     document.documentElement.addEventListener('mouseenter', handleMouseEnter);
 
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseover', handleMouseOver);
       document.removeEventListener('mousedown', handleMouseDown);

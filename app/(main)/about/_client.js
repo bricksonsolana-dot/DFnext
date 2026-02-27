@@ -4,6 +4,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 import { useTranslation } from '@/components/language-provider';
 
@@ -206,13 +207,15 @@ export default function AboutPage() {
 
             {/* Parallax Image */}
             <FadeUp delay={0.3} className="relative aspect-[4/3] overflow-hidden">
-              <motion.img
-                src="images/about/About.jpg"
-                alt="DigitalFootprint team"
-                className="w-full h-full object-cover"
-                style={{ y: heroY }}
-                loading="lazy"
-              />
+              <motion.div className="absolute inset-0" style={{ y: heroY }}>
+                <Image
+                  src="/images/about/About.jpg"
+                  alt="DigitalFootprint team"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </motion.div>
             </FadeUp>
           </div>
         </div>
@@ -321,11 +324,12 @@ export default function AboutPage() {
                   
                   {/* Image Column */}
                   <div className={`md:col-span-5 relative aspect-[3/4] overflow-hidden ${index % 2 === 1 ? 'md:order-last' : ''}`}>
-                    <img
+                    <Image
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
-                      loading="lazy"
+                      fill
+                      className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
+                      sizes="(max-width: 768px) 100vw, 40vw"
                     />
                     <div className="absolute inset-0 bg-ag-accent/0 group-hover:bg-ag-accent/5 transition-colors duration-500" />
                   </div>

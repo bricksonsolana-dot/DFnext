@@ -52,11 +52,11 @@ export function LanguageProvider({ children }) {
          Αν δεν έχει γίνει hydration (mounted), κρατάμε το περιεχόμενο 
          κρυφό (opacity 0) για να αποφύγουμε το stuttering και το error.
       */}
-      <div 
-        style={{ 
+      <div
+        style={{
           opacity: mounted ? 1 : 0,
           visibility: mounted ? 'visible' : 'hidden',
-          transition: 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1)' 
+          transition: mounted ? 'opacity 0.15s ease' : 'none',
         }}
       >
         {children}
