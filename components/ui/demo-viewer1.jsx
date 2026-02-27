@@ -34,7 +34,7 @@ export default function DemoViewer({ url, title }) {
             <div className="hidden md:flex items-center gap-2">
               <Eye className="w-4 h-4 text-emerald-400" />
               <span className="text-sm text-white/50">
-                Live Mockup: <strong className="text-white">{title}</strong>
+                Live : <strong className="text-white">{title}</strong>
               </span>
             </div>
 

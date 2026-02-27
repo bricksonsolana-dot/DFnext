@@ -1,4 +1,4 @@
-import DemoViewer from '@/components/ui/demo-viewer'
+import DemoViewer from '@/components/ui/demo-viewer1'
 export const metadata = {
   title: 'Sports Platform Demo',
   description: 'Demo showcase: Ultra Champ football live tournament platform built by Digital Footprint. Dynamic sports web app with real-time updates.',

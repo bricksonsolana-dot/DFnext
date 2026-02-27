@@ -1,3 +1,4 @@
+//app/main/_client.js
 'use client';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import {
@@ -7,15 +8,15 @@ import {
   useInView,
   useMotionValue,
   useSpring,
-  AnimatePresence, 
+  AnimatePresence,
 } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight , ArrowUpRight} from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useTranslation } from '@/components/language-provider';
 import Image from 'next/image';
 
 /* ═══════════════════════════════════════════════════════
-   HELPERS — matched to old project's Animations.js
+   HELPERS
    ═══════════════════════════════════════════════════════ */
 
 function FadeUp({ children, delay = 0, className = '' }) {
@@ -35,12 +36,6 @@ function FadeUp({ children, delay = 0, className = '' }) {
   );
 }
 
-/**
- * AnimatedHeadline — word-by-word with 3D rotateX
- * Matched to old project exactly.
- *
- * @param {Array} lines - [{ text: string, accent?: boolean }]
- */
 function AnimatedHeadline({ lines, className = '', delay = 0.3 }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
@@ -84,10 +79,6 @@ function AnimatedHeadline({ lines, className = '', delay = 0.3 }) {
   );
 }
 
-/**
- * Counter — requestAnimationFrame with easeOut
- * Matched to old project exactly.
- */
 function Counter({ from = 0, to, duration = 2, suffix = '' }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
@@ -119,13 +110,7 @@ function Counter({ from = 0, to, duration = 2, suffix = '' }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   HERO — matched to old project
-   - scrollY opacity+y on entire content
-   - Noise texture
-   - Exact floating rectangle sizes
-   - 1+10+1 grid with vertical label + scroll indicator
-   - Word-by-word AnimatedHeadline
-   - Sharp rectangle CTAs
+   HERO
    ═══════════════════════════════════════════════════════ */
 
 function HeroSection() {
@@ -139,20 +124,14 @@ function HeroSection() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       data-testid="hero-section"
     >
-      {/* ── Background ── */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Noise texture */}
         <div
           className="absolute inset-0 opacity-[0.02]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
           }}
         />
-
-        {/* Horizontal line */}
         <div className="absolute top-[40%] left-0 right-0 h-[1px] bg-ag-border" />
-
-        {/* Floating rectangles — exact old sizes */}
         <motion.div
           className="absolute top-[20%] right-[15%] w-32 h-48 border border-ag-border/30"
           animate={{ rotate: 360 }}
@@ -170,13 +149,11 @@ function HeroSection() {
         />
       </div>
 
-      {/* ── Main Content — fades on scroll ── */}
       <motion.div
         className="relative z-10 max-w-[1800px] w-full mx-auto px-4 md:px-8 pt-24"
         style={{ opacity, y }}
       >
         <div className="grid grid-cols-12 gap-4 items-center min-h-[80vh]">
-          {/* LEFT col — Vertical Label */}
           <div className="hidden lg:flex col-span-1 items-center justify-center">
             <span
               className="font-mono text-xs text-ag-muted tracking-[0.15em] whitespace-nowrap"
@@ -186,7 +163,6 @@ function HeroSection() {
             </span>
           </div>
 
-          {/* CENTER col — Content */}
           <div className="col-span-12 lg:col-span-10 space-y-8">
             <AnimatedHeadline
               lines={[
@@ -205,7 +181,6 @@ function HeroSection() {
 
             <FadeUp delay={1.1}>
               <div className="flex flex-wrap gap-4 pt-4">
-                {/* Primary CTA — sharp rectangle */}
                 <Link
                   href="/work"
                   className="inline-flex items-center gap-3 px-8 py-4 bg-ag-accent text-ag-bg font-heading font-semibold hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(232,255,61,0.3)] transition-all group"
@@ -219,7 +194,6 @@ function HeroSection() {
                   />
                 </Link>
 
-                {/* Secondary CTA — underline reveal */}
                 <Link
                   href="/about"
                   className="inline-flex items-center gap-2 px-8 py-4 font-body text-foreground group"
@@ -239,7 +213,6 @@ function HeroSection() {
             </FadeUp>
           </div>
 
-          {/* RIGHT col — Scroll Indicator */}
           <div className="hidden lg:flex col-span-1 items-center justify-center">
             <motion.div
               className="flex flex-col items-center gap-4"
@@ -266,9 +239,7 @@ function HeroSection() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   MARQUEE — matched to old project
-   - framer-motion x animation (not CSS)
-   - Duplicated content for seamless loop
+   MARQUEE
    ═══════════════════════════════════════════════════════ */
 
 function MarqueeSection() {
@@ -297,11 +268,8 @@ function MarqueeSection() {
       className="relative w-full py-5 bg-transparent border-y border-ag-border/30 overflow-hidden"
       data-testid="marquee-section"
     >
-      {/* ✅ FIXED: Theme-aware edge fades */}
       <div className="absolute inset-y-0 left-0 w-24 md:w-40 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
       <div className="absolute inset-y-0 right-0 w-24 md:w-40 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
-      {/* Subtle top highlight */}
       <div className="absolute top-0 left-[20%] right-[20%] h-px bg-gradient-to-r from-transparent via-ag-accent/10 to-transparent" />
 
       <motion.div
@@ -323,7 +291,7 @@ function MarqueeSection() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   PORTFOLIO — Prestige Edition with Mobile-First Design
+   PORTFOLIO
    ═══════════════════════════════════════════════════════ */
 
 const portfolioProjects = [
@@ -384,16 +352,11 @@ const portfolioProjects = [
   },
 ];
 
-// ═══════════════════════════════════════
-// PORTFOLIO CARD — Prestige Edition
-// ═══════════════════════════════════════
-
 function PortfolioCard({ project, index }) {
   const cardRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const [shine, setShine] = useState({ x: 50, y: 50 });
   const [isMobile, setIsMobile] = useState(false);
-  // const { t } = useTranslation(); // Uncomment if you use translation
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -402,22 +365,25 @@ function PortfolioCard({ project, index }) {
     return () => window.removeEventListener('resize', check);
   }, []);
 
-  const handleMouseMove = useCallback((e) => {
-    if (isMobile || !cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    
-    // ✅ Increased rotation slightly for larger cards to feel more "3D"
-    cardRef.current.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg) scale3d(1.02, 1.02, 1.02)`;
-    setShine({ x: (x + 0.5) * 100, y: (y + 0.5) * 100 });
-  }, [isMobile]);
+  const handleMouseMove = useCallback(
+    (e) => {
+      if (isMobile || !cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      cardRef.current.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg) scale3d(1.02, 1.02, 1.02)`;
+      setShine({ x: (x + 0.5) * 100, y: (y + 0.5) * 100 });
+    },
+    [isMobile]
+  );
 
   const handleMouseLeave = useCallback(() => {
     if (isMobile) return;
     if (cardRef.current) {
-      cardRef.current.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-      cardRef.current.style.transform = 'perspective(1000px) rotateY(0) rotateX(0) scale3d(1,1,1)';
+      cardRef.current.style.transition =
+        'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+      cardRef.current.style.transform =
+        'perspective(1000px) rotateY(0) rotateX(0) scale3d(1,1,1)';
     }
     setIsHovered(false);
     setShine({ x: 50, y: 50 });
@@ -429,7 +395,6 @@ function PortfolioCard({ project, index }) {
     setIsHovered(true);
   }, [isMobile]);
 
-  // Desktop grid sizing
   const sizeClasses = {
     large: 'md:col-span-7',
     small: 'md:col-span-5',
@@ -442,15 +407,23 @@ function PortfolioCard({ project, index }) {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      transition={{
+        duration: 0.8,
+        delay: index * 0.1,
+        ease: [0.16, 1, 0.3, 1],
+      }}
     >
       <Link
         href={project.demoUrl || `/work/${project.slug}`}
         ref={cardRef}
         className="relative block group overflow-hidden"
         style={{
-          transform: isMobile ? 'none' : 'perspective(1000px) rotateY(0) rotateX(0) scale3d(1,1,1)',
-          transition: isMobile ? 'none' : 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+          transform: isMobile
+            ? 'none'
+            : 'perspective(1000px) rotateY(0) rotateX(0) scale3d(1,1,1)',
+          transition: isMobile
+            ? 'none'
+            : 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
@@ -458,15 +431,13 @@ function PortfolioCard({ project, index }) {
         data-cursor="view"
         data-testid={`portfolio-card-${project.slug}`}
       >
-        {/* ── IMAGE CONTAINER ── */}
         <div
           className="relative w-full bg-neutral-900"
           style={{
-            // ✅ CHANGED: Logic to make 'full' cards taller on desktop
             aspectRatio: isMobile
               ? '3 / 4'
               : project.size === 'full'
-                ? '16 / 9'  // 👈 CHANGED FROM 21/9. This makes it 35% taller/larger!
+                ? '16 / 9'
                 : '16 / 10',
           }}
         >
@@ -478,51 +449,50 @@ function PortfolioCard({ project, index }) {
             style={{
               transform: isHovered ? 'scale(1.05)' : 'scale(1)',
             }}
-            // ✅ Optimized sizes for the larger display
             sizes={
               project.size === 'full'
-                ? '100vw' 
+                ? '100vw'
                 : project.size === 'large'
                   ? '(max-width: 768px) 100vw, 75vw'
                   : '(max-width: 768px) 100vw, 50vw'
             }
-            priority={index === 0} // Optional: Prioritize loading if it's the very first card
+            priority={index === 0}
           />
 
-          {/* ── Mobile gradient overlay ── */}
           <div
             className="absolute inset-0 pointer-events-none md:hidden"
             style={{
-              background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.05) 70%, transparent 100%)',
+              background:
+                'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.05) 70%, transparent 100%)',
             }}
           />
 
-          {/* ── Desktop hover overlay ── */}
           <div
             className="absolute inset-0 transition-all duration-500 pointer-events-none hidden md:block"
             style={{
-              backgroundColor: isHovered ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0)', // Slightly lighter overlay for clarity
+              backgroundColor: isHovered ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0)',
             }}
           />
 
-          {/* ── Desktop shine effect ── */}
           <div
             className="absolute inset-0 pointer-events-none transition-opacity duration-500 hidden md:block"
             style={{
               opacity: isHovered ? 0.6 : 0,
-              background: `radial-gradient(800px circle at ${shine.x}% ${shine.y}%, ${project.accent}15 0%, transparent 60%)`, // Larger shine radius
+              background: `radial-gradient(800px circle at ${shine.x}% ${shine.y}%, ${project.accent}15 0%, transparent 60%)`,
             }}
           />
         </div>
 
-        {/* ── REST OF YOUR COMPONENTS (Badges, Text) REMAIN EXACTLY THE SAME ── */}
-        
         {/* Year Badge */}
         <div
           className="absolute top-4 right-4 md:top-8 md:right-8 z-10 pointer-events-none"
           style={{
             opacity: isMobile ? 1 : isHovered ? 1 : 0,
-            transform: isMobile ? 'none' : isHovered ? 'translateY(0)' : 'translateY(-10px)',
+            transform: isMobile
+              ? 'none'
+              : isHovered
+                ? 'translateY(0)'
+                : 'translateY(-10px)',
             transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         >
@@ -555,12 +525,18 @@ function PortfolioCard({ project, index }) {
         {/* Bottom content */}
         <div className="absolute bottom-0 left-0 right-0 z-10">
           <div className="md:hidden p-5 pb-6">
-            <div className="h-px w-8 mb-3" style={{ backgroundColor: project.accent, opacity: 0.5 }} />
+            <div
+              className="h-px w-8 mb-3"
+              style={{ backgroundColor: project.accent, opacity: 0.5 }}
+            />
             <h3 className="font-heading text-xl font-semibold text-white mb-2 leading-tight">
               {project.title}
             </h3>
             <div className="flex items-center gap-2 mt-3">
-              <span className="font-mono text-[10px] tracking-[0.15em] uppercase" style={{ color: project.accent, opacity: 0.7 }}>
+              <span
+                className="font-mono text-[10px] tracking-[0.15em] uppercase"
+                style={{ color: project.accent, opacity: 0.7 }}
+              >
                 View Project
               </span>
             </div>
@@ -586,7 +562,6 @@ function PortfolioCard({ project, index }) {
             >
               {project.category}
             </span>
-            {/* ✅ Increased Font Size for "Full" cards impact */}
             <h3
               className={`font-heading transition-colors duration-300 ${
                 project.size === 'full' ? 'text-4xl' : 'text-2xl md:text-3xl'
@@ -620,16 +595,17 @@ function PortfolioCard({ project, index }) {
   );
 }
 
-// ═══════════════════════════════════════
-// PORTFOLIO SECTION
-// ═══════════════════════════════════════
-
 function PortfolioSection({ showAll = false }) {
   const { t } = useTranslation();
-  const displayedProjects = showAll ? portfolioProjects : portfolioProjects.slice(0, 5);
+  const displayedProjects = showAll
+    ? portfolioProjects
+    : portfolioProjects.slice(0, 5);
 
   return (
-    <section className="py-16 md:py-24 lg:py-32 bg-background" data-testid="portfolio-section">
+    <section
+      className="py-16 md:py-24 lg:py-32 bg-background"
+      data-testid="portfolio-section"
+    >
       <div className="max-w-[1800px] mx-auto px-4 md:px-8">
         {!showAll && (
           <motion.div
@@ -650,7 +626,6 @@ function PortfolioSection({ showAll = false }) {
           </motion.div>
         )}
 
-        {/* Mobile: stacked full-width cards. Desktop: original 12-col grid */}
         <div className="grid grid-cols-12 gap-4 md:gap-6">
           {displayedProjects.map((project, index) => (
             <PortfolioCard key={project.id} project={project} index={index} />
@@ -663,7 +638,11 @@ function PortfolioSection({ showAll = false }) {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            transition={{
+              duration: 0.8,
+              delay: 0.3,
+              ease: [0.16, 1, 0.3, 1],
+            }}
           >
             <Link
               href="/work"
@@ -687,10 +666,7 @@ function PortfolioSection({ showAll = false }) {
 }
 
 /* ═══════════════════════════════════════════════════════
-   SERVICES — matched to old project
-   - AnimatePresence for description reveal
-   - Mobile description expansion
-   - border-t on container
+   SERVICES
    ═══════════════════════════════════════════════════════ */
 
 function ServiceRow({ service, index }) {
@@ -720,20 +696,15 @@ function ServiceRow({ service, index }) {
       data-cursor="hover"
       data-testid={`service-row-${service.num}`}
     >
-      {/* ── MOBILE LAYOUT ── */}
+      {/* MOBILE */}
       <div className="md:hidden">
         <div className="py-5 px-4 flex items-center gap-4">
-          {/* Number */}
           <span className="font-mono text-[11px] text-ag-muted flex-shrink-0 w-6">
             {service.num}
           </span>
-
-          {/* Title */}
           <h3 className="font-heading text-lg flex-1 text-foreground">
             {service.name}
           </h3>
-
-          {/* Arrow — smooth rotate */}
           <div
             className="flex-shrink-0 text-ag-body"
             style={{
@@ -745,12 +716,12 @@ function ServiceRow({ service, index }) {
           </div>
         </div>
 
-        {/* Expandable description — CSS transition via grid trick */}
         <div
           style={{
             display: 'grid',
             gridTemplateRows: isMobileExpanded ? '1fr' : '0fr',
-            transition: 'grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+            transition:
+              'grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         >
           <div className="overflow-hidden">
@@ -763,7 +734,7 @@ function ServiceRow({ service, index }) {
         </div>
       </div>
 
-      {/* ── DESKTOP LAYOUT ── */}
+      {/* DESKTOP */}
       <div className="hidden md:block">
         <div className="py-8 px-4 flex flex-row items-center justify-between gap-4">
           <span className="font-mono text-xs text-ag-muted">{service.num}</span>
@@ -817,7 +788,10 @@ function ServicesSection() {
   const servicesData = t('services.items');
 
   return (
-    <section className="py-16 md:py-24 lg:py-32 bg-card" data-testid="services-section">
+    <section
+      className="py-16 md:py-24 lg:py-32 bg-card"
+      data-testid="services-section"
+    >
       <div className="max-w-[1800px] mx-auto px-4 md:px-8">
         <FadeUp>
           <span className="font-mono text-xs text-muted-foreground tracking-wider block mb-3 md:mb-4">
@@ -844,11 +818,8 @@ function ServicesSection() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   ABOUT TEASER — matched to old project
-   - aspect-[4/3] (was 4/5)
-   - Gradient overlay on image
-   - Two content paragraphs
-   - Underline reveal link
+   ABOUT TEASER — Updated: Option 3 (Professional)
+   - EST. 2024 replaced with decorative diamond
    ═══════════════════════════════════════════════════════ */
 
 function AboutTeaser() {
@@ -860,82 +831,83 @@ function AboutTeaser() {
   });
   const imageY = useTransform(scrollYProgress, [0, 1], [-50, 50]);
 
-return (
-  <section ref={sectionRef} className="py-32 md:py-48 bg-background overflow-hidden" data-testid="about-teaser">
-    <div className="max-w-[1800px] mx-auto px-4 md:px-8">
-      
-      {/* Top decorative line */}
-      <FadeUp>
-        <div className="w-24 h-[1px] bg-ag-accent mb-16" />
-      </FadeUp>
+  return (
+    <section
+      ref={sectionRef}
+      className="py-32 md:py-48 bg-background overflow-hidden"
+      data-testid="about-teaser"
+    >
+      <div className="max-w-[1800px] mx-auto px-4 md:px-8">
+        {/* Top decorative line */}
+        <FadeUp>
+          <div className="w-24 h-[1px] bg-ag-accent mb-16" />
+        </FadeUp>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-        
-        {/* Left side - Large heading */}
-        <div className="lg:col-span-7 space-y-8">
-          <FadeUp>
-            <span className="font-mono text-xs text-ag-muted tracking-[0.3em] uppercase">
-              {t('aboutTeaser.label')}
-            </span>
-          </FadeUp>
-
-          <FadeUp delay={0.1}>
-            <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-foreground leading-[1.1]">
-              {t('aboutTeaser.heading1')}
-              <br />
-              <span className="text-ag-accent">{t('aboutTeaser.heading2')}</span>
-              <br />
-              {t('aboutTeaser.heading3')}
-            </h2>
-          </FadeUp>
-        </div>
-
-        {/* Right side - Body text and CTA */}
-        <div className="lg:col-span-5 lg:pt-24 space-y-8">
-          <FadeUp delay={0.2}>
-            <p className="font-body text-lg md:text-xl text-ag-body leading-relaxed">
-              {t('aboutTeaser.body')}
-            </p>
-          </FadeUp>
-
-          <FadeUp delay={0.3}>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-3 font-body text-foreground group"
-              data-cursor="hover"
-              data-testid="about-learn-more"
-            >
-              <span className="relative text-lg">
-                {t('aboutTeaser.learnMore')}
-                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-ag-accent group-hover:w-full transition-all duration-500" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Left side — Large heading */}
+          <div className="lg:col-span-7 space-y-8">
+            <FadeUp>
+              <span className="font-mono text-xs text-ag-muted tracking-[0.3em] uppercase">
+                {t('aboutTeaser.label')}
               </span>
-              <ArrowRight
-                size={20}
-                className="group-hover:translate-x-2 transition-transform duration-300"
-              />
-            </Link>
-          </FadeUp>
+            </FadeUp>
+
+            <FadeUp delay={0.1}>
+              <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-foreground leading-[1.1]">
+                {t('aboutTeaser.heading1')}
+                <br />
+                <span className="text-ag-accent">
+                  {t('aboutTeaser.heading2')}
+                </span>
+                <br />
+                {t('aboutTeaser.heading3')}
+              </h2>
+            </FadeUp>
+          </div>
+
+          {/* Right side — Body text and CTA */}
+          <div className="lg:col-span-5 lg:pt-24 space-y-8">
+            <FadeUp delay={0.2}>
+              <p className="font-body text-lg md:text-xl text-ag-body leading-relaxed">
+                {t('aboutTeaser.body')}
+              </p>
+            </FadeUp>
+
+            <FadeUp delay={0.3}>
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-3 font-body text-foreground group"
+                data-cursor="hover"
+                data-testid="about-learn-more"
+              >
+                <span className="relative text-lg">
+                  {t('aboutTeaser.learnMore')}
+                  <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-ag-accent group-hover:w-full transition-all duration-500" />
+                </span>
+                <ArrowRight
+                  size={20}
+                  className="group-hover:translate-x-2 transition-transform duration-300"
+                />
+              </Link>
+            </FadeUp>
+          </div>
         </div>
+
+        {/* Bottom decorative elements — diamond instead of EST. 2024 */}
+        <FadeUp delay={0.4}>
+          <div className="mt-24 flex items-center gap-8">
+            <div className="flex-1 h-[1px] bg-gradient-to-r from-ag-accent/50 to-transparent" />
+            <div className="w-2 h-2 rotate-45 bg-ag-accent/30" />
+            <div className="flex-1 h-[1px] bg-gradient-to-l from-ag-accent/50 to-transparent" />
+          </div>
+        </FadeUp>
       </div>
-
-      {/* Bottom decorative elements */}
-      <FadeUp delay={0.4}>
-        <div className="mt-24 flex items-center gap-8">
-          <div className="flex-1 h-[1px] bg-gradient-to-r from-ag-accent/50 to-transparent" />
-          <span className="font-mono text-xs text-ag-muted tracking-widest">EST. 2024</span>
-          <div className="flex-1 h-[1px] bg-gradient-to-l from-ag-accent/50 to-transparent" />
-        </div>
-      </FadeUp>
-
-    </div>
-  </section>
-);
+    </section>
+  );
 }
 
 /* ═══════════════════════════════════════════════════════
-   STATS — matched to old project
-   - bg-background, NO border-y
-   - Counter with suffix separated via span
+   STATS — Updated: Honest stats
    ═══════════════════════════════════════════════════════ */
 
 function StatsSection() {
@@ -969,12 +941,7 @@ function StatsSection() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   PROCESS — matched to old project
-   - Desktop: horizontal timeline with circle + inner dot
-   - Circle: w-6 h-6, inner dot w-2 h-2 bg-ag-accent
-   - Step number in accent color, content centered
-   - Mobile: bordered card stack
-   - Line at top-12
+   PROCESS
    ═══════════════════════════════════════════════════════ */
 
 function ProcessSection() {
@@ -1001,7 +968,6 @@ function ProcessSection() {
 
         {/* Desktop: Horizontal Timeline */}
         <div className="hidden lg:block relative">
-          {/* Connecting Line */}
           <div className="absolute top-12 left-0 right-0 h-[1px] bg-ag-border">
             <motion.div
               className="h-full bg-ag-accent origin-left"
@@ -1018,20 +984,28 @@ function ProcessSection() {
                   key={index}
                   className="relative pt-8"
                   initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ delay: 0.3 + index * 0.15, duration: 0.6 }}
+                  animate={
+                    isInView
+                      ? { opacity: 1, y: 0 }
+                      : { opacity: 0, y: 20 }
+                  }
+                  transition={{
+                    delay: 0.3 + index * 0.15,
+                    duration: 0.6,
+                  }}
                 >
-                  {/* Circle with inner dot */}
                   <motion.div
                     className="absolute top-[38px] left-1/2 -translate-x-1/2 w-6 h-6 rounded-full border-2 border-ag-border bg-card flex items-center justify-center"
                     initial={{ scale: 0 }}
                     animate={isInView ? { scale: 1 } : { scale: 0 }}
-                    transition={{ delay: 0.5 + index * 0.15, duration: 0.3 }}
+                    transition={{
+                      delay: 0.5 + index * 0.15,
+                      duration: 0.3,
+                    }}
                   >
                     <div className="w-2 h-2 rounded-full bg-ag-accent" />
                   </motion.div>
 
-                  {/* Content — centered */}
                   <div className="text-center pt-12 px-2 group cursor-default">
                     <span className="font-mono text-xs text-ag-accent block mb-2">
                       {step.num}
@@ -1039,7 +1013,9 @@ function ProcessSection() {
                     <h3 className="font-heading text-lg text-foreground mb-2 group-hover:text-ag-accent transition-colors">
                       {step.title}
                     </h3>
-                    <p className="font-body text-sm text-ag-body">{step.desc}</p>
+                    <p className="font-body text-sm text-ag-body">
+                      {step.desc}
+                    </p>
                   </div>
                 </motion.div>
               ))}
@@ -1059,7 +1035,9 @@ function ProcessSection() {
                     <h3 className="font-heading text-xl text-foreground mb-2">
                       {step.title}
                     </h3>
-                    <p className="font-body text-sm text-ag-body">{step.desc}</p>
+                    <p className="font-body text-sm text-ag-body">
+                      {step.desc}
+                    </p>
                   </div>
                 </div>
               </FadeUp>
@@ -1071,140 +1049,138 @@ function ProcessSection() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   TESTIMONIALS — matched to old project
-   - Draggable carousel with useMotionValue + useSpring
-   - Large quote text (text-xl md:text-2xl lg:text-3xl)
-   - Large quote mark (text-[120px] md:text-[180px])
-   - Centered dots, h-2
+   TESTIMONIALS
    ═══════════════════════════════════════════════════════ */
 
-function TestimonialsSection() {
-  const { t } = useTranslation();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const containerRef = useRef(null);
-  const x = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 300, damping: 30 });
-  const testimonialsData = t('testimonials.items');
-  const itemsLen = Array.isArray(testimonialsData) ? testimonialsData.length : 0;
-
-  // Auto-advance
-  useEffect(() => {
-    if (isDragging || itemsLen === 0) return;
-
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % itemsLen);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [isDragging, itemsLen]);
-
-  // Update x position based on activeIndex
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const width = containerRef.current.offsetWidth;
-    x.set(-activeIndex * width);
-  }, [activeIndex, x]);
-
-  const handleDragEnd = (event, info) => {
-    const threshold = 50;
-    if (info.offset.x < -threshold && activeIndex < itemsLen - 1) {
-      setActiveIndex(activeIndex + 1);
-    } else if (info.offset.x > threshold && activeIndex > 0) {
-      setActiveIndex(activeIndex - 1);
-    }
-    setIsDragging(false);
-  };
-
-  if (itemsLen === 0) return null;
-
-  return (
-    <section
-      className="py-24 md:py-32 bg-card overflow-hidden"
-      data-testid="testimonials-section"
-    >
-      <div className="max-w-[1800px] mx-auto px-4 md:px-8">
-        <FadeUp>
-          <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
-            {t('testimonials.label')}
-          </span>
-          <h2 className="font-heading text-h2 text-foreground mb-12 md:mb-16">
-            {t('testimonials.heading1')}
-            <br />
-            {t('testimonials.heading2')}
-          </h2>
-        </FadeUp>
-
-        {/* Draggable Carousel */}
-        <div ref={containerRef} className="relative overflow-hidden">
-          <motion.div
-            className="flex"
-            style={{ x: springX }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            onDragStart={() => setIsDragging(true)}
-            onDragEnd={handleDragEnd}
-            dragElastic={0.1}
-          >
-            {testimonialsData.map((testimonial, index) => (
-              <div
-                key={index}
-                className="min-w-full px-4 md:px-12"
-                data-testid={`testimonial-${index}`}
-              >
-                <div className="relative max-w-4xl mx-auto">
-                  {/* Large Quote Mark */}
-                  <span className="absolute -top-8 -left-4 font-heading text-[120px] md:text-[180px] text-ag-surface leading-none select-none">
-                    &ldquo;
-                  </span>
-
-                  {/* Quote — larger text to match old project */}
-                  <blockquote className="relative z-10 font-body text-xl md:text-2xl lg:text-3xl text-foreground/90 italic leading-relaxed mb-8 pl-8 md:pl-12">
-                    {testimonial.quote}
-                  </blockquote>
-
-                  {/* Author */}
-                  <div className="pl-8 md:pl-12">
-                    <p className="font-heading text-lg text-foreground">
-                      {testimonial.name}
-                    </p>
-                    <p className="font-mono text-xs text-ag-muted tracking-wider uppercase">
-                      {testimonial.role}, {testimonial.company}
-                    </p>
+   function TestimonialsSection() {
+    const { t } = useTranslation();
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
+    const [containerWidth, setContainerWidth] = useState(0);
+    const containerRef = useRef(null);
+    const testimonialsData = t('testimonials.items');
+    const itemsLen = Array.isArray(testimonialsData)
+      ? testimonialsData.length
+      : 0;
+  
+    // Measure container width
+    useEffect(() => {
+      if (!containerRef.current) return;
+      const measure = () => {
+        setContainerWidth(containerRef.current.offsetWidth);
+      };
+      measure();
+      window.addEventListener('resize', measure);
+      return () => window.removeEventListener('resize', measure);
+    }, []);
+  
+    // Auto-play
+    useEffect(() => {
+      if (isDragging || itemsLen === 0) return;
+      const interval = setInterval(() => {
+        setActiveIndex((prev) => (prev + 1) % itemsLen);
+      }, 5000);
+      return () => clearInterval(interval);
+    }, [isDragging, itemsLen]);
+  
+    const handleDragEnd = (event, info) => {
+      const threshold = 50;
+      if (info.offset.x < -threshold && activeIndex < itemsLen - 1) {
+        setActiveIndex((prev) => prev + 1);
+      } else if (info.offset.x > threshold && activeIndex > 0) {
+        setActiveIndex((prev) => prev - 1);
+      }
+      setIsDragging(false);
+    };
+  
+    if (itemsLen === 0) return null;
+  
+    return (
+      <section
+        className="py-24 md:py-32 bg-card overflow-hidden"
+        data-testid="testimonials-section"
+      >
+        <div className="max-w-[1800px] mx-auto px-4 md:px-8">
+          <FadeUp>
+            <span className="font-mono text-xs text-ag-muted tracking-wider block mb-4">
+              {t('testimonials.label')}
+            </span>
+            <h2 className="font-heading text-h2 text-foreground mb-12 md:mb-16">
+              {t('testimonials.heading1')}
+              <br />
+              {t('testimonials.heading2')}
+            </h2>
+          </FadeUp>
+  
+          <div ref={containerRef} className="relative overflow-hidden cursor-grab active:cursor-grabbing">
+            <motion.div
+              className="flex"
+              animate={{ x: -activeIndex * containerWidth }}
+              transition={{
+                type: 'spring',
+                stiffness: 300,
+                damping: 30,
+              }}
+              drag="x"
+              dragConstraints={{
+                left: -(itemsLen - 1) * containerWidth,
+                right: 0,
+              }}
+              dragElastic={0.15}
+              dragMomentum={false}
+              onDragStart={() => setIsDragging(true)}
+              onDragEnd={handleDragEnd}
+            >
+              {testimonialsData.map((testimonial, index) => (
+                <div
+                  key={index}
+                  className="min-w-full px-4 md:px-12 select-none"
+                  data-testid={`testimonial-${index}`}
+                >
+                  <div className="relative max-w-4xl mx-auto">
+                    <span className="absolute -top-8 -left-4 font-heading text-[120px] md:text-[180px] text-ag-surface leading-none select-none pointer-events-none">
+                      &ldquo;
+                    </span>
+                    <blockquote className="relative z-10 font-body text-xl md:text-2xl lg:text-3xl text-foreground/90 italic leading-relaxed mb-8 pl-8 md:pl-12">
+                      {testimonial.quote}
+                    </blockquote>
+                    <div className="pl-8 md:pl-12">
+                      <p className="font-heading text-lg text-foreground">
+                        {testimonial.name}
+                      </p>
+                      <p className="font-mono text-xs text-ag-muted tracking-wider uppercase">
+                        {testimonial.role}, {testimonial.company}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
+            </motion.div>
+          </div>
+  
+          <div className="flex justify-center gap-3 mt-12">
+            {testimonialsData.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveIndex(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  index === activeIndex
+                    ? 'w-8 bg-ag-accent'
+                    : 'w-2 bg-ag-border hover:bg-ag-body'
+                }`}
+                data-cursor="hover"
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
             ))}
-          </motion.div>
+          </div>
         </div>
-
-        {/* Dots — centered, h-2 */}
-        <div className="flex justify-center gap-3 mt-12">
-          {testimonialsData.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveIndex(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === activeIndex
-                  ? 'w-8 bg-ag-accent'
-                  : 'w-2 bg-ag-border hover:bg-ag-body'
-              }`}
-              data-cursor="hover"
-              aria-label={`Go to testimonial ${index + 1}`}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+      </section>
+    );
+  }
+  
 
 /* ═══════════════════════════════════════════════════════
-   CTA — matched to old project
-   - Decorative rotated rectangles
-   - AnimatedHeadline (word-by-word)
-   - Sharp rectangle button (no rounded-full)
-   - py-32 md:py-48
+   CTA
    ═══════════════════════════════════════════════════════ */
 
 function CTASection() {
@@ -1215,7 +1191,6 @@ function CTASection() {
       className="relative py-32 md:py-48 overflow-hidden bg-gradient-to-b from-card to-background"
       data-testid="cta-section"
     >
-      {/* Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 border border-border/20 rotate-45 opacity-30" />
         <div className="absolute bottom-1/4 right-1/4 w-48 h-48 border border-border/20 rotate-12 opacity-20" />

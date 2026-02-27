@@ -95,7 +95,7 @@ const organizationJsonLd = {
   logo: 'https://digitalfootprint.gr/icon.png',
   description: 'Premium web development & design studio βασισμένο στην Αθήνα, Ελλάδα.',
   telephone: '+30-694-792-0875',
-  email: 'hello@digitalfootprint.gr',
+  email: 'info@digitalfootprint.gr',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Athens',
@@ -111,7 +111,7 @@ const organizationJsonLd = {
   contactPoint: {
     '@type': 'ContactPoint',
     telephone: '+30-694-792-0875',
-    email: 'hello@digitalfootprint.gr',
+    email: 'info@digitalfootprint.gr',
     contactType: 'customer service',
     availableLanguage: ['Greek', 'English'],
     url: 'https://digitalfootprint.gr/contact',

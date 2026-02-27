@@ -1,4 +1,4 @@
-// app/about/page.js
+// app/about/_client.js
 
 'use client';
 import { useRef } from 'react';
@@ -78,10 +78,7 @@ function AnimatedHeadline({ lines, className = '', delay = 0.3 }) {
 const clients = [
   'Property Hall',
   'Ultra Champ',
-  'Design Co',
-  'Innovation Lab',
-  'Digital First',
-  'Growth Hub',
+  
 ];
 
 /* ═══════════════════════════════════════════════════════

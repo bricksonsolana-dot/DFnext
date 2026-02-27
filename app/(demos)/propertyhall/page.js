@@ -1,5 +1,5 @@
 // app/propertyhall/page.js
-import DemoViewer from '@/components/ui/demo-viewer'
+import DemoViewer from '@/components/ui/demo-viewer1'
 export const metadata = {
   title: 'Property Hall Demo',
   description: 'Demo showcase: Property Hall real estate platform built by Digital Footprint. Clean and trustworthy design for a Greek real estate agency.',
