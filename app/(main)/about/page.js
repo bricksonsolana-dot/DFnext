@@ -1,19 +1,44 @@
-// app/(main)/about/page.js — Server Component (metadata only, renders client component)
+// app/(main)/about/page.js — Server Component (metadata + BreadcrumbList JSON-LD)
+import ClientAbout from './_client';
 
 export const metadata = {
-  title: 'About Us',
+  title: 'Ποιοι Είμαστε | Digital Footprint — Web Studio Αθήνα',
   description:
-    'Learn about Digital Footprint, a premium web development & design studio in Athens, Greece. Discover our story, values, and the team behind your next digital project.',
+    'Ανεξάρτητο web development studio στην Αθήνα. Σχεδιάζουμε & αναπτύσσουμε ιστοσελίδες που συνδυάζουν τεχνική αρτιότητα με μετρήσιμα επιχειρηματικά αποτελέσματα.',
   alternates: {
     canonical: 'https://digitalfootprint.gr/about',
   },
   openGraph: {
-    title: 'About Us | Digital Footprint',
+    title: 'Ποιοι Είμαστε | Digital Footprint — Web Studio Αθήνα',
     description:
-      'Learn about Digital Footprint, a premium web development & design studio in Athens, Greece.',
+      'Ανεξάρτητο web development studio στην Αθήνα. Σχεδιάζουμε & αναπτύσσουμε ιστοσελίδες που συνδυάζουν τεχνική αρτιότητα με μετρήσιμα επιχειρηματικά αποτελέσματα.',
     url: 'https://digitalfootprint.gr/about',
     type: 'website',
   },
+  twitter: {
+    title: 'Ποιοι Είμαστε | Digital Footprint — Web Studio Αθήνα',
+    description:
+      'Ανεξάρτητο web development studio στην Αθήνα. Σχεδιάζουμε & αναπτύσσουμε ιστοσελίδες με μετρήσιμα αποτελέσματα.',
+  },
 };
 
-export { default } from './_client';
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Αρχική', item: 'https://digitalfootprint.gr' },
+    { '@type': 'ListItem', position: 2, name: 'Ποιοι Είμαστε', item: 'https://digitalfootprint.gr/about' },
+  ],
+};
+
+export default function AboutPage() {
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <ClientAbout />
+    </>
+  );
+}

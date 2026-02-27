@@ -1,19 +1,44 @@
-// app/(main)/work/page.js — Server Component (metadata only, renders client component)
+// app/(main)/work/page.js — Server Component (metadata + BreadcrumbList JSON-LD)
+import ClientWork from './_client';
 
 export const metadata = {
-  title: 'Our Work',
+  title: 'Portfolio — Έργα Κατασκευής Ιστοσελίδων | Digital Footprint',
   description:
-    'Browse our portfolio of web development projects. From e-commerce stores to agency websites, see how Digital Footprint has helped businesses establish their digital presence.',
+    'Δείτε τα projects μας: e-shop, εταιρικές ιστοσελίδες, brand identity & web apps. 50+ ολοκληρωμένα projects σε Ελλάδα και εξωτερικό.',
   alternates: {
     canonical: 'https://digitalfootprint.gr/work',
   },
   openGraph: {
-    title: 'Our Work | Digital Footprint',
+    title: 'Portfolio — Έργα Κατασκευής Ιστοσελίδων | Digital Footprint',
     description:
-      'Portfolio of web development and design projects by Digital Footprint — Athens, Greece.',
+      'Δείτε τα projects μας: e-shop, εταιρικές ιστοσελίδες, brand identity & web apps. 50+ ολοκληρωμένα projects σε Ελλάδα και εξωτερικό.',
     url: 'https://digitalfootprint.gr/work',
     type: 'website',
   },
+  twitter: {
+    title: 'Portfolio — Έργα Κατασκευής Ιστοσελίδων | Digital Footprint',
+    description:
+      'Δείτε τα projects μας: e-shop, εταιρικές ιστοσελίδες, brand identity & web apps. 50+ projects.',
+  },
 };
 
-export { default } from './_client';
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Αρχική', item: 'https://digitalfootprint.gr' },
+    { '@type': 'ListItem', position: 2, name: 'Έργα μας', item: 'https://digitalfootprint.gr/work' },
+  ],
+};
+
+export default function WorkPage() {
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <ClientWork />
+    </>
+  );
+}
