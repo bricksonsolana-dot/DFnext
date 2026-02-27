@@ -107,7 +107,7 @@ const allFeaturesMeta = [
   { id: "google-ads-setup", price: 150, priceMax: 300, icon: BarChart3, category: "marketing", showFor: ["onepage","multipage","eshop-small","eshop-large"] },
   { id: "contact-form", price: 0, icon: Mail, category: "communication", showFor: ["onepage","multipage","eshop-small","eshop-large"], includedIn: ["onepage","multipage","eshop-small","eshop-large"] },
   { id: "google-maps", price: 0, icon: MapPin, category: "communication", showFor: ["onepage","multipage","eshop-small","eshop-large"], includedIn: ["onepage","multipage","eshop-small","eshop-large"] },
-  { id: "chat", price: 1000, priceMax: 1500, icon: MessageSquare, category: "communication", showFor: ["onepage","multipage","eshop-small","eshop-large","webapp"] },
+  { id: "chat", price: 200, priceMax: 300, icon: MessageSquare, category: "communication", showFor: ["onepage","multipage","eshop-small","eshop-large","webapp"] },
   { id: "chatbot", price: 200, priceMax: 500, icon: Bot, category: "communication", showFor: ["multipage","eshop-small","eshop-large","webapp"] },
   { id: "booking", price: 300, priceMax: 600, icon: Calendar, category: "communication", showFor: ["onepage","multipage","eshop-small","eshop-large"] },
   { id: "email-marketing", price: 100, priceMax: 200, icon: Mail, category: "communication", showFor: ["multipage","eshop-small","eshop-large"] },
