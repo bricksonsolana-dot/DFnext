@@ -313,34 +313,15 @@ export default function AboutPage() {
           <div className="flex flex-col gap-24 md:gap-40">
             {team.map((member, index) => (
               <FadeUp key={index} delay={0.1}>
-                {/* Grid: Εικόνα - Κείμενο */}
-                <div className={`grid md:grid-cols-12 gap-8 md:gap-16 items-start group`}>
-                  
-                  {/* Image Column */}
-                  <div className={`md:col-span-5 relative aspect-[3/4] overflow-hidden ${index % 2 === 1 ? 'md:order-last' : ''}`}>
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-ag-accent/0 group-hover:bg-ag-accent/5 transition-colors duration-500" />
-                  </div>
-
-                  {/* Text Column */}
-                  <div className="md:col-span-7 flex flex-col justify-center h-full md:py-8 text-left">
-                    <h3 className="font-heading text-3xl md:text-4xl text-foreground mb-2">
-                      {member.name}
-                    </h3>
-                    <p className="font-mono text-sm text-ag-muted tracking-wider mb-8 uppercase border-l-2 border-ag-primary pl-4">
-                      {member.role}
-                    </p>
-                    
-                    <p className="text-base md:text-lg lg:text-xl text-ag-muted/90 leading-relaxed max-w-2xl font-light">
-                      {member.bio}
-                    </p>
-                  </div>
-
+                {/* Image only */}
+                <div className="relative aspect-[3/4] overflow-hidden group">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-ag-accent/0 group-hover:bg-ag-accent/5 transition-colors duration-500" />
                 </div>
               </FadeUp>
             ))}
