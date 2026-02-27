@@ -32,15 +32,22 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata = {
-  title: 'Digital Footprint — Web Development & Design Studio | Athens, Greece',
+  title: 'Digital Footprint - Web Development & Design Studio | Athens, Greece',
   description: 'Premium web development & design studio based in Athens.',
+  icons: {
+    icon: [
+      { url: 'iamges/icon.png', sizes: '32x32', type: 'image/png' },
+    ],
+    shortcut: 'images/icon.png',
+    apple: 'images/apple-icon.png',
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html
       lang="el"
-      className={`${playfair.variable} ${montserrat.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable}`} // ← Άλλαξε εδώ
+      className={`${playfair.variable} ${montserrat.variable} ${jetbrainsMono.variable} ${spaceGrotesk.variable}`}
       suppressHydrationWarning
     >
       <body className="bg-background text-foreground font-body antialiased">
