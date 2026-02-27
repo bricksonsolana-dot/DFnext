@@ -310,18 +310,25 @@ export default function AboutPage() {
             </div>
           </FadeUp>
 
-          <div className="flex flex-col gap-24 md:gap-40">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 max-w-3xl">
             {team.map((member, index) => (
-              <FadeUp key={index} delay={0.1}>
-                {/* Image only */}
-                <div className="relative aspect-[3/4] overflow-hidden group">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-ag-accent/0 group-hover:bg-ag-accent/5 transition-colors duration-500" />
+              <FadeUp key={index} delay={index * 0.15}>
+                <div className="group">
+                  <div className="relative aspect-[3/4] overflow-hidden mb-5">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-out"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-ag-accent/0 group-hover:bg-ag-accent/5 transition-colors duration-500" />
+                  </div>
+                  <h3 className="font-heading text-xl text-foreground mb-1">
+                    {member.name}
+                  </h3>
+                  <p className="font-mono text-xs text-ag-muted tracking-wider uppercase border-l-2 border-ag-primary pl-3">
+                    {member.role}
+                  </p>
                 </div>
               </FadeUp>
             ))}
