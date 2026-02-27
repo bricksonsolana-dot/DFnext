@@ -38,9 +38,9 @@ export const metadata = {
   // Favicons
   icons: {
     icon: [
-      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
+      { url: 'images/icon.png', sizes: '32x32', type: 'image/png' },
     ],
-    apple: '/apple-icon.png',
+    apple: 'images/apple-icon.png',
   },
   
   // Open Graph (for social media previews) 👇
