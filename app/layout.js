@@ -104,6 +104,41 @@ const organizationJsonLd = {
     '@type': 'ContactPoint',
     contactType: 'customer service',
     url: 'https://digitalfootprint.gr/contact',
+  title: 'Digital Footprint - Web Development & Design Studio | Athens, Greece',
+  description: 'Premium web development & design studio based in Athens.',
+  
+  // Favicons
+  icons: {
+    icon: [
+      { url: '/icon.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/apple-icon.png',
+  },
+  
+  // Open Graph (for social media previews) 👇
+  openGraph: {
+    title: 'Digital Footprint - Web Development & Design Studio',
+    description: 'Premium web development & design studio based in Athens.',
+    url: 'https://digitalfootprint.gr',
+    siteName: 'Digital Footprint',
+    images: [
+      {
+        url: 'images/ogpicture.png', // Your preview image
+        width: 1200,
+        height: 630,
+        alt: 'Digital Footprint - Web Development Studio',
+      },
+    ],
+    locale: 'el_GR',
+    type: 'website',
+  },
+  
+  // Twitter Card
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Digital Footprint - Web Development & Design Studio',
+    description: 'Premium web development & design studio based in Athens.',
+    images: ['images/ogpicture.png'],
   },
 };
 
