@@ -1,18 +1,23 @@
 // app/(main)/estimator/page.js — Server Component (metadata only, renders client component)
 
 export const metadata = {
-  title: 'Project Estimator',
+  title: 'Κόστος Κατασκευής Ιστοσελίδας | Εκτιμητής Τιμής — Digital Footprint',
   description:
-    'Get an instant price estimate for your web project. Use our interactive estimator to configure your website type, features, and timeline — tailored to your budget.',
+    'Υπολογίστε το κόστος της ιστοσελίδας σας online. One page, εταιρική ιστοσελίδα ή e-shop — λάβετε εκτίμηση τιμής σε 2 λεπτά, χωρίς δέσμευση.',
   alternates: {
     canonical: 'https://digitalfootprint.gr/estimator',
   },
   openGraph: {
-    title: 'Project Estimator | Digital Footprint',
+    title: 'Κόστος Κατασκευής Ιστοσελίδας | Εκτιμητής Τιμής — Digital Footprint',
     description:
-      'Instantly estimate the cost of your web project with our interactive pricing tool.',
+      'Υπολογίστε το κόστος της ιστοσελίδας σας online. One page, εταιρική ιστοσελίδα ή e-shop — λάβετε εκτίμηση τιμής σε 2 λεπτά, χωρίς δέσμευση.',
     url: 'https://digitalfootprint.gr/estimator',
     type: 'website',
+  },
+  twitter: {
+    title: 'Κόστος Κατασκευής Ιστοσελίδας | Εκτιμητής Τιμής — Digital Footprint',
+    description:
+      'Υπολογίστε το κόστος της ιστοσελίδας σας. One page, εταιρική ή e-shop — εκτίμηση σε 2 λεπτά.',
   },
 };
 

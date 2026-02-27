@@ -36,18 +36,19 @@ const BASE_URL = 'https://digitalfootprint.gr';
 export const metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'Digital Footprint - Web Development & Design Studio | Athens, Greece',
+    default: 'Κατασκευή Ιστοσελίδων Αθήνα | Digital Footprint — Web Development Studio',
     template: '%s | Digital Footprint',
   },
   description:
-    'Premium web development & design studio based in Athens, Greece. We build fast, modern websites and web applications that grow your business.',
+    'Premium web development studio στην Αθήνα. Κατασκευή ιστοσελίδων, e-shop & web apps που αποφέρουν αποτελέσματα. 50+ projects, 4 χρόνια εμπειρίας.',
+  keywords: 'κατασκευή ιστοσελίδων, κατασκευή ιστοσελίδων αθήνα, αγορά ιστοσελίδας, web development αθήνα, ιστοσελίδες ελλάδα, web design αθήνα, κατασκευή e-shop, σχεδιασμός ιστοσελίδων',
   alternates: {
     canonical: BASE_URL,
   },
   openGraph: {
-    title: 'Digital Footprint - Web Development & Design Studio | Athens, Greece',
+    title: 'Κατασκευή Ιστοσελίδων Αθήνα | Digital Footprint — Web Development Studio',
     description:
-      'Premium web development & design studio based in Athens, Greece. We build fast, modern websites and web applications that grow your business.',
+      'Premium web development studio στην Αθήνα. Κατασκευή ιστοσελίδων, e-shop & web apps που αποφέρουν αποτελέσματα. 50+ projects, 4 χρόνια εμπειρίας.',
     url: BASE_URL,
     siteName: 'Digital Footprint',
     images: [
@@ -55,7 +56,7 @@ export const metadata = {
         url: '/images/ogpicture.png',
         width: 1200,
         height: 630,
-        alt: 'Digital Footprint - Web Development & Design Studio',
+        alt: 'Digital Footprint - Κατασκευή Ιστοσελίδων Αθήνα',
       },
     ],
     locale: 'el_GR',
@@ -63,9 +64,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Digital Footprint - Web Development & Design Studio | Athens, Greece',
+    title: 'Κατασκευή Ιστοσελίδων Αθήνα | Digital Footprint',
     description:
-      'Premium web development & design studio based in Athens, Greece.',
+      'Premium web development studio στην Αθήνα. Κατασκευή ιστοσελίδων, e-shop & web apps. 50+ projects.',
     images: ['/images/ogpicture.png'],
   },
   icons: {
@@ -88,21 +89,46 @@ export const metadata = {
 
 const organizationJsonLd = {
   '@context': 'https://schema.org',
-  '@type': ['Organization', 'LocalBusiness'],
+  '@type': ['Organization', 'LocalBusiness', 'ProfessionalService'],
   name: 'Digital Footprint',
   url: 'https://digitalfootprint.gr',
   logo: 'https://digitalfootprint.gr/icon.png',
-  description:
-    'Premium web development & design studio based in Athens, Greece.',
+  description: 'Premium web development & design studio βασισμένο στην Αθήνα, Ελλάδα.',
+  telephone: '+30-694-792-0875',
+  email: 'hello@digitalfootprint.gr',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Athens',
+    addressRegion: 'Attica',
     addressCountry: 'GR',
+  },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '09:00',
+    closes: '18:00',
   },
   contactPoint: {
     '@type': 'ContactPoint',
+    telephone: '+30-694-792-0875',
+    email: 'hello@digitalfootprint.gr',
     contactType: 'customer service',
+    availableLanguage: ['Greek', 'English'],
     url: 'https://digitalfootprint.gr/contact',
+  },
+  priceRange: '€€',
+  areaServed: { '@type': 'Country', name: 'Greece' },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Web Development Services',
+    itemListElement: [
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Κατασκευή Ιστοσελίδων' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'E-Commerce Solutions' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'UI/UX Design' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Brand Identity' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Digital Marketing' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Ongoing Support' } },
+    ],
   },
 };
 
