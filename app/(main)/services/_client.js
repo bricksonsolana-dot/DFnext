@@ -4,6 +4,7 @@
 import { useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Check } from 'lucide-react';
 import { useTranslation } from '@/components/language-provider';
 
@@ -120,7 +121,7 @@ function AnimatedHeadline({ text, className = '', delay = 0.3 }) {
 
 const serviceImages = [
   '/images/services/WebsiteDevelopment.jpg',
-  '/images/services/E-Commerce.png',
+  '/images/services/E-Commerce.jpg',
   'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800',
   '/images/services/BrandIdentity.jpg',
   'https://images.pexels.com/photos/905163/pexels-photo-905163.jpeg?auto=compress&cs=tinysrgb&w=800',
@@ -216,13 +217,15 @@ function ServiceBlock({ service, image, serviceId, index }) {
             className={`order-1 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}
           >
             <div className="relative aspect-[4/3] overflow-hidden">
-              <motion.img
-                src={image}
-                alt={service.title}
-                className="w-full h-[120%] object-cover"
-                style={{ y: imageY }}
-                loading="lazy"
-              />
+              <motion.div className="absolute inset-0 h-[120%]" style={{ y: imageY }}>
+                <Image
+                  src={image}
+                  alt={service.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </motion.div>
               <div className="absolute inset-0 bg-gradient-to-t from-ag-bg/30 to-transparent pointer-events-none" />
             </div>
           </FadeUp>

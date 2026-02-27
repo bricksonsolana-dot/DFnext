@@ -1,6 +1,6 @@
 // app/work/page.js
 'use client';
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from '@/components/language-provider';
 import Link from 'next/link';
@@ -82,7 +82,7 @@ const allProjects = [
     slug: 'UltraChamp',
     name: 'UltraChamp Sports Tournament',
     category: 'Sports',
-    image: '/images/projects/UltraChamp.png',
+    image: '/images/projects/UltraChamp.jpg',
     accent: '#ffffff',
     year: '2026',
     demoUrl: '/UltraChamp',
@@ -92,7 +92,7 @@ const allProjects = [
     slug: 'propertyhall',
     name: 'Property Hall',
     category: 'Web Design',
-    image: '/images/projects/propertyhall.png',
+    image: '/images/projects/propertyhall.jpg',
     accent: '#2a7de1',
     year: '2026',
     scope: 'Design & Development',
@@ -106,18 +106,23 @@ const allProjects = [
 // WORK CARD
 // ═══════════════════════════════════════
 
-function WorkCard({ project, viewText }) {
+const WorkCard = memo(function WorkCard({ project, viewText }) {
   const cardRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
   const [shine, setShine] = useState({ x: 50, y: 50 });
 
   const handleMouseMove = useCallback((e) => {
     if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    cardRef.current.style.transform = `perspective(1000px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg) scale3d(1.02, 1.02, 1.02)`;
-    setShine({ x: (x + 0.5) * 100, y: (y + 0.5) * 100 });
+    const clientX = e.clientX;
+    const clientY = e.clientY;
+    requestAnimationFrame(() => {
+      if (!cardRef.current) return;
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = (clientX - rect.left) / rect.width - 0.5;
+      const y = (clientY - rect.top) / rect.height - 0.5;
+      cardRef.current.style.transform = `perspective(1000px) rotateY(${x * 4}deg) rotateX(${-y * 4}deg) scale3d(1.02, 1.02, 1.02)`;
+      setShine({ x: (x + 0.5) * 100, y: (y + 0.5) * 100 });
+    });
   }, []);
 
   const handleMouseLeave = useCallback(() => {
@@ -275,7 +280,7 @@ function WorkCard({ project, viewText }) {
       </Link>
     </motion.div>
   );
-}
+});
 
 
 // ═══════════════════════════════════════

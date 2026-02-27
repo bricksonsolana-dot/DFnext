@@ -1,7 +1,12 @@
 const nextConfig = {
   output: 'standalone',
   images: {
-    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.pexels.com',
+      },
+    ],
   },
   turbopack: {},
   async headers() {
