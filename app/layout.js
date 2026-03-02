@@ -1,5 +1,6 @@
 // app/layout.js
 import { Playfair_Display, Montserrat, JetBrains_Mono , Space_Grotesk} from 'next/font/google';
+import { headers } from 'next/headers';
 import './globals.css';
 import { ThemeProvider } from '@/components/ui/theme-provider';
 
@@ -132,7 +133,9 @@ const organizationJsonLd = {
   },
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const nonce = (await headers()).get('x-nonce');
+
   return (
     <html
       lang="el"
@@ -141,6 +144,7 @@ export default function RootLayout({ children }) {
     >
       <body className="bg-background text-foreground font-body antialiased">
         <script
+          nonce={nonce}
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
