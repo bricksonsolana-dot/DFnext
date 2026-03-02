@@ -13,7 +13,7 @@ export function middleware(request) {
     `object-src 'none'`,
     `base-uri 'self'`,
     `form-action 'self' https://api.web3forms.com`,
-    `frame-ancestors *`,
+    `frame-ancestors 'none'`,
     `upgrade-insecure-requests`,
   ].join('; ');
 
