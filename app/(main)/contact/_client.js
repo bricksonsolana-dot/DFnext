@@ -56,7 +56,6 @@ export default function ContactPage() {
       budget: data.budget || 'Not specified',
       message: data.message,
     };
-    console.log('Web3Forms payload:', payload);
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -64,7 +63,6 @@ export default function ContactPage() {
         body: JSON.stringify(payload),
       });
       const result = await res.json();
-      console.log('Web3Forms response:', res.status, result);
       if (result.success) { setIsSubmitted(true); } else { setSubmitError(result.message || 'Something went wrong.'); }
     } catch (error) {
       console.error('Web3Forms error:', error);
@@ -129,16 +127,16 @@ export default function ContactPage() {
                 <option value="" className="bg-card text-foreground">
                   {t('contactPage.form.selectRange')}
                 </option>
-                <option value="2500-5000" className="bg-card text-foreground">
+                <option value="€0-€1,000" className="bg-card text-foreground">
                   &euro;0 - &euro;1,000
                 </option>
-                <option value="5000-10000" className="bg-card text-foreground">
+                <option value="€1,000-€2,000" className="bg-card text-foreground">
                   &euro;1,000 - &euro;2,000
                 </option>
-                <option value="10000-25000" className="bg-card text-foreground">
-                  &euro;2,000- &euro;5,000
+                <option value="€2,000-€5,000" className="bg-card text-foreground">
+                  &euro;2,000 - &euro;5,000
                 </option>
-                <option value="25000+" className="bg-card text-foreground">
+                <option value="€5,000+" className="bg-card text-foreground">
                   &euro;5,000+
                 </option>
               </select>
