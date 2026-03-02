@@ -53,7 +53,7 @@ export const metadata = {
     siteName: 'Digital Footprint',
     images: [
       {
-        url: '/images/ogpicture.png',
+        url: 'https://digitalfootprint.gr/images/ogpicture.png',
         width: 1200,
         height: 630,
         alt: 'Digital Footprint - Κατασκευή Ιστοσελίδων Αθήνα',
@@ -67,7 +67,7 @@ export const metadata = {
     title: 'Κατασκευή Ιστοσελίδων Αθήνα | Digital Footprint',
     description:
       'Premium web development studio στην Αθήνα. Κατασκευή ιστοσελίδων, e-shop & web apps. 50+ projects.',
-    images: ['/images/ogpicture.png'],
+    images: ['https://digitalfootprint.gr/images/ogpicture.png'],
   },
   icons: {
     icon: [
