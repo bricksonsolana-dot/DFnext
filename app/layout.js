@@ -31,7 +31,7 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
-const BASE_URL = 'https://digitalfootprint.gr';
+const BASE_URL = 'https://www.digitalfootprint.gr';
 
 export const metadata = {
   metadataBase: new URL(BASE_URL),
@@ -53,7 +53,7 @@ export const metadata = {
     siteName: 'Digital Footprint',
     images: [
       {
-        url: 'https://digitalfootprint.gr/images/ogpicture.png',
+        url: 'https://www.digitalfootprint.gr/images/ogpicture.png',
         width: 1200,
         height: 630,
         alt: 'Digital Footprint - Κατασκευή Ιστοσελίδων Αθήνα',
@@ -67,7 +67,7 @@ export const metadata = {
     title: 'Κατασκευή Ιστοσελίδων Αθήνα | Digital Footprint',
     description:
       'Premium web development studio στην Αθήνα. Κατασκευή ιστοσελίδων, e-shop & web apps. 50+ projects.',
-    images: ['https://digitalfootprint.gr/images/ogpicture.png'],
+    images: ['https://www.digitalfootprint.gr/images/ogpicture.png'],
   },
   icons: {
     icon: [
@@ -91,8 +91,8 @@ const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@type': ['Organization', 'LocalBusiness', 'ProfessionalService'],
   name: 'Digital Footprint',
-  url: 'https://digitalfootprint.gr',
-  logo: 'https://digitalfootprint.gr/icon.png',
+  url: 'https://www.digitalfootprint.gr',
+  logo: 'https://www.digitalfootprint.gr/icon.png',
   description: 'Premium web development & design studio βασισμένο στην Αθήνα, Ελλάδα.',
   telephone: '+30-694-792-0875',
   email: 'info@digitalfootprint.gr',
@@ -114,7 +114,7 @@ const organizationJsonLd = {
     email: 'info@digitalfootprint.gr',
     contactType: 'customer service',
     availableLanguage: ['Greek', 'English'],
-    url: 'https://digitalfootprint.gr/contact',
+    url: 'https://www.digitalfootprint.gr/contact',
   },
   priceRange: '€€',
   areaServed: { '@type': 'Country', name: 'Greece' },
