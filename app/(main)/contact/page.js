@@ -8,19 +8,31 @@ export const metadata = {
   keywords:
     'web developer αθήνα, κατασκευή ιστοσελίδων αθήνα επικοινωνία, web studio αθήνα τηλέφωνο, digital footprint αθήνα',
   alternates: {
-    canonical: 'https://digitalfootprint.gr/contact',
+    canonical: 'https://www.digitalfootprint.gr/contact',
   },
   openGraph: {
     title: 'Επικοινωνία | Digital Footprint — Κατασκευή Ιστοσελίδων Αθήνα',
     description:
       'Επικοινωνήστε μαζί μας για την κατασκευή της ιστοσελίδας σας. Αθήνα, Ελλάδα. Απαντάμε εντός 24 ωρών.',
-    url: 'https://digitalfootprint.gr/contact',
+    url: 'https://www.digitalfootprint.gr/contact',
     type: 'website',
+    siteName: 'Digital Footprint',
+    locale: 'el_GR',
+    images: [
+      {
+        url: 'https://www.digitalfootprint.gr/images/ogpicture.png',
+        width: 1200,
+        height: 630,
+        alt: 'Digital Footprint - Κατασκευή Ιστοσελίδων Αθήνα',
+      },
+    ],
   },
   twitter: {
+    card: 'summary_large_image',
     title: 'Επικοινωνία | Digital Footprint — Κατασκευή Ιστοσελίδων Αθήνα',
     description:
       'Τηλ: +30 6947920875. Αθήνα, Ελλάδα. Απαντάμε εντός 24 ωρών.',
+    images: ['https://www.digitalfootprint.gr/images/ogpicture.png'],
   },
 };
 
@@ -28,8 +40,8 @@ const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Αρχική', item: 'https://digitalfootprint.gr' },
-    { '@type': 'ListItem', position: 2, name: 'Επικοινωνία', item: 'https://digitalfootprint.gr/contact' },
+    { '@type': 'ListItem', position: 1, name: 'Αρχική', item: 'https://www.digitalfootprint.gr' },
+    { '@type': 'ListItem', position: 2, name: 'Επικοινωνία', item: 'https://www.digitalfootprint.gr/contact' },
   ],
 };
 
