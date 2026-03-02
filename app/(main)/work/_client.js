@@ -99,6 +99,18 @@ const allProjects = [
     isDemo: true,
     demoUrl: '/propertyhall',
   },
+  {
+    id: 9,
+    slug: 'ShahinYavari',
+    name: 'ShahinYavari',
+    category: 'Brand Identity',
+    image: '/images/projects/shahin.png',
+    accent: '#7b0909',
+    year: '2026',
+    scope: 'Design & Development',
+    isDemo: true,
+    demoUrl: '/ShahinYavari',
+  },
 ];
 
 
