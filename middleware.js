@@ -1,65 +1,41 @@
 import { NextResponse } from 'next/server';
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
 
-// --- IP Rate Limiter ---
-// 100 requests per 60-second window per IP.
-// Uses an in-memory Map — works for single-instance deployments.
-// For multi-region / serverless (Vercel Edge), swap this out for
-// @upstash/ratelimit + Redis so the store is shared across nodes.
-const RATE_LIMIT = 100;       // max requests per window
-const WINDOW_MS = 60 * 1000;  // 1-minute sliding window
-
-const ipTimestamps = new Map(); // ip -> number[]
-
-// Run a periodic cleanup every 5 minutes to prevent unbounded memory growth.
-if (typeof setInterval !== 'undefined') {
-  setInterval(() => {
-    const cutoff = Date.now() - WINDOW_MS;
-    for (const [ip, timestamps] of ipTimestamps) {
-      const fresh = timestamps.filter((t) => t > cutoff);
-      if (fresh.length === 0) {
-        ipTimestamps.delete(ip);
-      } else {
-        ipTimestamps.set(ip, fresh);
-      }
-    }
-  }, 5 * 60 * 1000);
-}
+// --- Global IP Rate Limiter (Upstash Redis) ---
+// 100 requests per 60-second sliding window per IP.
+// Shared across all Vercel edge regions — true global enforcement.
+// Requires UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN env vars.
+const ratelimit = new Ratelimit({
+  redis: Redis.fromEnv(),
+  limiter: Ratelimit.slidingWindow(100, '60 s'),
+  analytics: true,
+  prefix: 'rl', // Redis key prefix
+});
 
 function getClientIP(request) {
-  // Respect proxy / CDN headers first.
   const forwarded = request.headers.get('x-forwarded-for');
   if (forwarded) return forwarded.split(',')[0].trim();
   return request.ip ?? '127.0.0.1';
 }
-
-function checkRateLimit(ip) {
-  const now = Date.now();
-  const windowStart = now - WINDOW_MS;
-
-  const timestamps = (ipTimestamps.get(ip) ?? []).filter((t) => t > windowStart);
-  timestamps.push(now);
-  ipTimestamps.set(ip, timestamps);
-
-  const remaining = Math.max(0, RATE_LIMIT - timestamps.length);
-  const limited = timestamps.length > RATE_LIMIT;
-  return { limited, remaining, total: timestamps.length };
-}
 // --- End Rate Limiter ---
 
-export function middleware(request) {
+export async function middleware(request) {
   const ip = getClientIP(request);
-  const { limited, remaining } = checkRateLimit(ip);
+  const { success, limit, remaining, reset } = await ratelimit.limit(ip);
 
-  if (limited) {
+  if (!success) {
+    const retryAfter = Math.ceil((reset - Date.now()) / 1000);
     return new NextResponse(
-      JSON.stringify({ error: 'Too Many Requests', retryAfter: 60 }),
+      JSON.stringify({ error: 'Too Many Requests', retryAfter }),
       {
         status: 429,
         headers: {
           'Content-Type': 'application/json',
-          'Retry-After': '60',
-          'X-RateLimit-Limit': String(RATE_LIMIT),
+          'Retry-After': String(retryAfter),
+          'X-RateLimit-Limit': String(limit),
           'X-RateLimit-Remaining': '0',
+          'X-RateLimit-Reset': String(reset),
         },
       }
     );
@@ -93,7 +69,7 @@ export function middleware(request) {
   response.headers.set('Content-Security-Policy', cspHeader);
   response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
   response.headers.set('Referrer-Policy', 'no-referrer');
-  response.headers.set('X-RateLimit-Limit', String(RATE_LIMIT));
+  response.headers.set('X-RateLimit-Limit', String(limit));
   response.headers.set('X-RateLimit-Remaining', String(remaining));
 
   return response;
