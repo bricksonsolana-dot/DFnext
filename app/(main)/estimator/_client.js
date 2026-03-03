@@ -194,7 +194,8 @@ export default function EstimatorPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showMobileIncluded, setShowMobileIncluded] = useState(false);
   const [showMobileSummary, setShowMobileSummary] = useState(false);
-  const [showMobileCatPicker, setShowMobileCatPicker] = useState(false);
+  const [honeypotTriggered, setHoneypotTriggered] = useState(false);
+
 
   // Translation helpers
   const et = (key) => t(`estimator.${key}`);
@@ -263,23 +264,82 @@ export default function EstimatorPage() {
   const goNext = () => { if (canProceed() && step < 3) setStep(step + 1); };
   const goBack = () => { if (step > 0) setStep(step - 1); };
 
-  const handleReset = () => { setStep(0); setSelectedType(null); setSelectedFeatures([]); setSelectedSupport(null); setActiveCat("appearance"); setContactForm({ name: "", email: "", phone: "", company: "", notes: "" }); setIsSubmitted(false); };
+  const handleReset = () => {
+    setStep(0); setSelectedType(null); setSelectedFeatures([]);
+    setSelectedSupport(null); setActiveCat("appearance");
+    setContactForm({ name: "", email: "", phone: "", company: "", notes: "" });
+    setIsSubmitted(false); setHoneypotTriggered(false);
+    window.__estimatorFormLoadTime = null;
+  };
+  
   const handleBackToLanding = () => { handleReset(); setShowEstimator(false); };
 
   const toggleFeature = (featureId) => { setSelectedFeatures((prev) => prev.includes(featureId) ? prev.filter((f) => f !== featureId) : [...prev, featureId]); };
 
+ 
   const handleSubmit = async () => {
     if (!contactForm.name || !contactForm.email) return;
+
+    // ── Honeypot Check ──
+    const honeypotField = document.querySelector('input[name="company_url"]');
+    if (honeypotField && honeypotField.value) {
+      setHoneypotTriggered(true);
+      setIsSubmitted(true);
+      return;
+    }
+
+    // ── Timing Check (bots submit in < 3 seconds) ──
+    if (window.__estimatorFormLoadTime && (Date.now() - window.__estimatorFormLoadTime) < 3000) {
+      setHoneypotTriggered(true);
+      setIsSubmitted(true);
+      return;
+    }
+
     setIsSubmitting(true);
     const typeData = selectedTypeData;
     const supportData = supportPlans.find((s) => s.id === selectedSupport);
-    const selectedFeatureNames = selectedFeatures.map((fId) => { const f = allFeatures.find((x) => x.id === fId); if (!f) return null; const isIncl = allFeaturesMeta.find(m => m.id === fId)?.includedIn?.includes(selectedType || ""); return isIncl ? `${f.name} (included)` : `${f.name} (+€${allFeaturesMeta.find(m=>m.id===fId)?.price})`; }).filter(Boolean);
-    const includedFeatureNames = allFeatures.filter((f) => { const m = allFeaturesMeta.find(x=>x.id===f.id); return m?.showFor.includes(selectedType) && m?.includedIn?.includes(selectedType) && !selectedFeatures.includes(f.id); }).map((f) => `${f.name} (included)`);
+    const selectedFeatureNames = selectedFeatures.map((fId) => {
+      const f = allFeatures.find((x) => x.id === fId);
+      if (!f) return null;
+      const isIncl = allFeaturesMeta.find(m => m.id === fId)?.includedIn?.includes(selectedType || "");
+      return isIncl ? `${f.name} (included)` : `${f.name} (+€${allFeaturesMeta.find(m=>m.id===fId)?.price})`;
+    }).filter(Boolean);
+    const includedFeatureNames = allFeatures.filter((f) => {
+      const m = allFeaturesMeta.find(x=>x.id===f.id);
+      return m?.showFor.includes(selectedType) && m?.includedIn?.includes(selectedType) && !selectedFeatures.includes(f.id);
+    }).map((f) => `${f.name} (included)`);
+
     try {
-      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ access_key: '418a01f6-fb93-43bd-a1f1-9f808aa3815a', subject: `New Estimator - ${typeData?.name || 'Unknown'}`, from_name: contactForm.name, name: contactForm.name, email: contactForm.email, phone: contactForm.phone || 'N/A', company: contactForm.company || 'N/A', notes: contactForm.notes || 'None', 'Website Type': typeData?.name || 'N/A', 'Base Price': `€${selectedTypeMeta?.basePrice?.toLocaleString("el-GR") || 0}`, 'Time': typeData?.timeEstimate || 'N/A', 'Included': includedFeatureNames.join(', ') || 'Default', 'Extras': selectedFeatureNames.join(', ') || 'None', 'Features Cost': `€${priceCalc.featuresCost.toLocaleString("el-GR")}`, 'Support': supportData?.name || 'None', 'Monthly': supportData?.monthlyPrice ? `€${supportData.monthlyPrice}/mo` : '€0', 'Total': `€${priceCalc.total.toLocaleString("el-GR")}` }) });
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+          subject: `New Estimator - ${typeData?.name || 'Unknown'}`,
+          from_name: contactForm.name,
+          name: contactForm.name,
+          email: contactForm.email,
+          phone: contactForm.phone || 'N/A',
+          company: contactForm.company || 'N/A',
+          notes: contactForm.notes || 'None',
+          'Website Type': typeData?.name || 'N/A',
+          'Base Price': `€${selectedTypeMeta?.basePrice?.toLocaleString("el-GR") || 0}`,
+          'Time': typeData?.timeEstimate || 'N/A',
+          'Included': includedFeatureNames.join(', ') || 'Default',
+          'Extras': selectedFeatureNames.join(', ') || 'None',
+          'Features Cost': `€${priceCalc.featuresCost.toLocaleString("el-GR")}`,
+          'Support': supportData?.name || 'None',
+          'Monthly': supportData?.monthlyPrice ? `€${supportData.monthlyPrice}/mo` : '€0',
+          'Total': `€${priceCalc.total.toLocaleString("el-GR")}`
+        })
+      });
       const result = await res.json();
       if (result.success) setIsSubmitted(true);
-    } catch (e) {} finally { setIsSubmitting(false); }
+    } catch {
+      // Silent fail
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const featurePriceLabel = (f) => {
@@ -616,9 +676,40 @@ export default function EstimatorPage() {
                   )}
 
                   {step === 3 && !isSubmitted && (
-                    <FadeUp key="m-step3">
+                  <FadeUp key="m-step3">
+                      <div ref={(el) => { if (el && !window.__estimatorFormLoadTime) window.__estimatorFormLoadTime = Date.now(); }} />
                       <h2 className="font-heading text-lg font-bold text-foreground mb-1">{et('step3MobileTitle')}</h2>
                       <p className="font-body text-ag-body text-xs mb-4">{et('step3MobileSubtitle')}</p>
+                     
+                          {/* Honeypot fields — invisible to humans */}
+                          <div
+                            aria-hidden="true"
+                            style={{
+                              position: 'absolute',
+                              left: '-9999px',
+                              top: '-9999px',
+                              opacity: 0,
+                              height: 0,
+                              width: 0,
+                              overflow: 'hidden',
+                            }}
+                          >
+                            <label htmlFor="est_company_url">Website URL</label>
+                            <input
+                              type="url"
+                              id="est_company_url"
+                              name="company_url"
+                              tabIndex={-1}
+                              autoComplete="off"
+                              placeholder="https://yourwebsite.com"
+                            />
+                          </div>
+                          <input
+                            type="checkbox"
+                            name="botcheck"
+                            style={{ display: 'none' }}
+                            tabIndex={-1}
+                          /> 
                       <div className="p-3 border border-ag-accent/20 bg-ag-accent/[0.04] mb-4 flex items-center justify-between">
                         <div>
                           <div className="font-mono text-[10px] text-ag-accent/50 tracking-wider">{et('step3Cost')}</div>
@@ -899,6 +990,7 @@ export default function EstimatorPage() {
               {/* D STEP 3 */}
               {step === 3 && !isSubmitted && (
                 <FadeUp>
+                <div ref={(el) => { if (el && !window.__estimatorFormLoadTime) window.__estimatorFormLoadTime = Date.now(); }} />
                   <div className="mb-10">
                     <PremiumBadge icon={Crown}>{et('step3Badge')}</PremiumBadge>
                     <h1 className="font-heading text-3xl font-bold text-foreground mt-4 mb-2 tracking-tight">{et('step3Title')}</h1>
@@ -934,6 +1026,35 @@ export default function EstimatorPage() {
                       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-ag-accent/15 to-ag-accent/20" />
                       <div className="bg-card/50 border border-ag-border/40 p-6">
                         <h3 className="font-heading text-sm font-semibold text-foreground mb-5 flex items-center gap-2"><div className="w-6 h-6 bg-ag-accent/10 border border-ag-accent/15 flex items-center justify-center"><Mail size={12} className="text-ag-accent" /></div> {et('step3ContactTitle')}</h3>
+                        {/* Honeypot fields — invisible to humans */}
+<div
+  aria-hidden="true"
+  style={{
+    position: 'absolute',
+    left: '-9999px',
+    top: '-9999px',
+    opacity: 0,
+    height: 0,
+    width: 0,
+    overflow: 'hidden',
+  }}
+>
+  <label htmlFor="est_d_company_url">Website URL</label>
+  <input
+    type="url"
+    id="est_d_company_url"
+    name="company_url"
+    tabIndex={-1}
+    autoComplete="off"
+    placeholder="https://yourwebsite.com"
+  />
+</div>
+<input
+  type="checkbox"
+  name="botcheck"
+  style={{ display: 'none' }}
+  tabIndex={-1}
+/>
                         <div className="space-y-4">
                           <div className="grid sm:grid-cols-2 gap-4">
                             <div><label className="font-mono text-[10px] text-ag-accent/50 mb-1.5 block tracking-[0.15em] uppercase">{et('step3Name')} *</label><div className="relative group"><User size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-ag-body/40 group-focus-within:text-ag-accent/60 transition-colors" /><input type="text" value={contactForm.name} onChange={(e) => setContactForm((p) => ({ ...p, name: e.target.value }))} placeholder={et('step3Name')} className="w-full bg-background/50 border border-ag-border/40 pl-9 pr-3 py-2.5 text-foreground placeholder:text-ag-muted/40 focus:border-ag-accent/40 focus:shadow-[0_0_15px_rgba(212,175,55,0.05)] focus:outline-none text-sm" data-testid="input-name" /></div></div>

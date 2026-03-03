@@ -19,15 +19,18 @@ export function middleware(request) {
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-nonce', nonce);
-  requestHeaders.set('Content-Security-Policy', cspHeader);
 
   const response = NextResponse.next({
     request: { headers: requestHeaders },
   });
 
+  // CSP (the big one)
   response.headers.set('Content-Security-Policy', cspHeader);
-  response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
-  response.headers.set('Referrer-Policy', 'no-referrer');
+
+  // These are also in next.config.js headers() but setting
+  // them here too ensures they apply even if config cache is stale
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('X-Frame-Options', 'DENY');
 
   return response;
 }
