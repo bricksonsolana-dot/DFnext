@@ -1,6 +1,7 @@
+// proxy.js
 import { NextResponse } from 'next/server';
 
-export function middleware(request) {
+export function proxy(request) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
 
   const cspHeader = [
@@ -24,11 +25,7 @@ export function middleware(request) {
     request: { headers: requestHeaders },
   });
 
-  // CSP (the big one)
   response.headers.set('Content-Security-Policy', cspHeader);
-
-  // These are also in next.config.js headers() but setting
-  // them here too ensures they apply even if config cache is stale
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', 'DENY');
 
@@ -38,7 +35,7 @@ export function middleware(request) {
 export const config = {
   matcher: [
     {
-      source: '/((?!api|_next/static|_next/image|favicon.ico).*)',
+      source: '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },
