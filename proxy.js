@@ -15,6 +15,28 @@ export function proxy(request) {
     `base-uri 'self'`,
     `form-action 'self' https://api.web3forms.com`,
     `frame-ancestors 'none'`,
+
+    // ─────────────────────────────────────────────────────
+    // NEW: Allow these sites to be embedded in iframes.
+    // Without this, default-src 'self' blocks all external
+    // iframes — which is why your demos stopped working.
+    // ─────────────────────────────────────────────────────
+    [
+      `frame-src`,
+      `'self'`,
+      `https://www.youtube.com`,
+      `https://www.youtube-nocookie.com`,
+      `https://greek-architects.vercel.app`,
+      `https://clothing-1-theta.vercel.app`,
+      `https://eatandplay.vercel.app`,
+      `https://escape-room-nosignal.vercel.app`,
+      `https://kaiser-omnia.vercel.app`,
+      `https://kaiseromniatm.vercel.app`,
+      `https://www.property-hall.com`,
+      `https://shahin-yavari.vercel.app`,
+      `https://www.ultrachamp.gr`,
+    ].join(' '),
+
     `upgrade-insecure-requests`,
   ].join('; ');
 
