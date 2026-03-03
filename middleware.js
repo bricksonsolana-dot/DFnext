@@ -26,6 +26,7 @@ export function middleware(request) {
   });
 
   response.headers.set('Content-Security-Policy', cspHeader);
+  response.headers.set('Strict-Transport-Security', 'max-age=63072000; includeSubDomains; preload');
   response.headers.set('Referrer-Policy', 'no-referrer');
 
   return response;
