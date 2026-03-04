@@ -194,6 +194,7 @@ export default function EstimatorPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [showMobileIncluded, setShowMobileIncluded] = useState(false);
   const [showMobileSummary, setShowMobileSummary] = useState(false);
+  const [showMobileCatPicker, setShowMobileCatPicker] = useState(false);  
   const [honeypotTriggered, setHoneypotTriggered] = useState(false);
 
 
