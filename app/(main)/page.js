@@ -3,7 +3,7 @@
 export const metadata = {
   title: 'Κατασκευή Ιστοσελίδων Αθήνα | Digital Footprint — Web Development Studio',
   description:
-    'Κατασκευή ιστοσελίδων & e-shop στην Αθήνα. Premium web development studio με 50+ projects. Αγοράστε ιστοσελίδα με SEO, responsive design και γρήγορα αποτελέσματα.',
+    'Κατασκευή Ιστοσελίδων & E-shop | Digital Footprint',
   keywords:
     'κατασκευή ιστοσελίδων, κατασκευή ιστοσελίδων αθήνα, αγορά ιστοσελίδας, web development αθήνα, ιστοσελίδες ελλάδα, web design αθήνα, κατασκευή e-shop, σχεδιασμός ιστοσελίδων',
   alternates: {
@@ -12,7 +12,7 @@ export const metadata = {
   openGraph: {
     title: 'Κατασκευή Ιστοσελίδων Αθήνα | Digital Footprint — Web Development Studio',
     description:
-      'Κατασκευή ιστοσελίδων & e-shop στην Αθήνα. Premium web development studio με 50+ projects. Αγοράστε ιστοσελίδα με SEO, responsive design και γρήγορα αποτελέσματα.',
+      'Κατασκευή Ιστοσελίδων & E-shop | Digital Footprint',
     url: 'https://www.digitalfootprint.gr',  // ✅ Add www
     type: 'website',
     siteName: 'Digital Footprint',  // ✅ Add this

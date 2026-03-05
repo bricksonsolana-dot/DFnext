@@ -860,7 +860,7 @@ function AboutTeaser() {
                   {t('aboutTeaser.heading2')}
                 </span>
                 <br />
-                {t('aboutTeaser.heading3')}
+                
               </h2>
             </FadeUp>
           </div>
