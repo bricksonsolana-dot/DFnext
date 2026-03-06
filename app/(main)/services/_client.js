@@ -124,7 +124,7 @@ const serviceImages = [
   'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800',
   '/images/services/BrandIdentity.jpg',
   'https://images.pexels.com/photos/905163/pexels-photo-905163.jpeg?auto=compress&cs=tinysrgb&w=800',
-  '/images/services/OngoingSupport.jpg',
+  '/images/services/support.jpg',
 ];
 
 const serviceIds = [
