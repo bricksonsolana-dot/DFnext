@@ -13,7 +13,7 @@ export default function CustomCursor() {
 
   const [cursorState, setCursorState] = useState('default');
   const [isVisible, setIsVisible] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(true);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [accentColor, setAccentColor] = useState('hsl(220 85% 65%)');
@@ -50,7 +50,8 @@ export default function CustomCursor() {
   }, [mounted, theme]);
 
   useEffect(() => {
-    const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+    const isTouch = !hasFinePointer && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
     setIsTouchDevice(isTouch);
     if (isTouch) return;
 
