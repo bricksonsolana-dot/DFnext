@@ -145,11 +145,11 @@
    CUSTOM CURSOR
    ═══════════════════════════════════════ */
 @media (min-width: 768px) {
-  html,
-  body,
-  a,
-  button,
-  [data-cursor] {
+  html.custom-cursor-active,
+  html.custom-cursor-active body,
+  html.custom-cursor-active a,
+  html.custom-cursor-active button,
+  html.custom-cursor-active [data-cursor] {
     cursor: none !important;
   }
 }

@@ -54,6 +54,8 @@ export default function CustomCursor() {
     setIsTouchDevice(isTouch);
     if (isTouch) return;
 
+    document.documentElement.classList.add('custom-cursor-active');
+
     const handleMouseMove = (e) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -91,6 +93,7 @@ export default function CustomCursor() {
       document.removeEventListener('mouseup', handleMouseUp);
       document.documentElement.removeEventListener('mouseleave', handleMouseLeave);
       document.documentElement.removeEventListener('mouseenter', handleMouseEnter);
+      document.documentElement.classList.remove('custom-cursor-active');
     };
   }, [cursorX, cursorY]);
 
