@@ -13,7 +13,7 @@ export default function CustomCursor() {
 
   const [cursorState, setCursorState] = useState('default');
   const [isVisible, setIsVisible] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(true);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [accentColor, setAccentColor] = useState('hsl(220 85% 65%)');
@@ -94,7 +94,7 @@ export default function CustomCursor() {
     };
   }, [cursorX, cursorY]);
 
-  if (isTouchDevice) return null;
+  if (!mounted || isTouchDevice) return null;
 
   const ringSize = cursorState === 'view' ? 80 : cursorState === 'hover' ? 64 : 40;
   
