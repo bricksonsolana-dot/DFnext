@@ -62,7 +62,7 @@ export default function Footer() {
             </h4>
             <div className="flex flex-col gap-3 text-sm text-ag-body">
               <p>info@digitalfootprint.gr</p>
-              <p>+30 210 1234 567</p>
+              <p>+30 6947920875</p>
               <p>{t('contactPage.location')}</p>
             </div>
           </div>
