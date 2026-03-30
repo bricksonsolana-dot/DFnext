@@ -8,17 +8,18 @@ export default function GoogleAnalytics() {
   const [accepted, setAccepted] = useState(false);
 
   useEffect(() => {
-    // Check existing consent on mount
-    const stored = localStorage.getItem('df-cookie-consent');
-    if (stored === 'accepted') setAccepted(true);
-
-    // Listen for accept event from cookie banner (same tab)
-    const onAccept = () => setAccepted(true);
-    window.addEventListener('df-cookie-accepted', onAccept);
-    window.addEventListener('storage', () => {
-      if (localStorage.getItem('df-cookie-consent') === 'accepted') setAccepted(true);
-    });
-    return () => window.removeEventListener('df-cookie-accepted', onAccept);
+    const check = () => {
+      setAccepted(localStorage.getItem('df-cookie-consent') === 'accepted');
+    };
+    check();
+    window.addEventListener('df-cookie-accepted', check);
+    window.addEventListener('df-cookie-essential', check);
+    window.addEventListener('storage', check);
+    return () => {
+      window.removeEventListener('df-cookie-accepted', check);
+      window.removeEventListener('df-cookie-essential', check);
+      window.removeEventListener('storage', check);
+    };
   }, []);
 
   return (

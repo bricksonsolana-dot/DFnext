@@ -69,6 +69,13 @@ export default function CookieConsent() {
     setVisible(false);
   };
 
+  const handleEssential = () => {
+    localStorage.setItem('df-cookie-consent', 'essential');
+    window.dispatchEvent(new Event('df-cookie-essential'));
+    setModalOpen(false);
+    setVisible(false);
+  };
+
   return (
     <AnimatePresence>
       {visible && (
@@ -105,10 +112,16 @@ export default function CookieConsent() {
                   </button>
                 </p>
               </div>
-              <div className="flex-shrink-0">
+              <div className="flex-shrink-0 flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={handleEssential}
+                  className="border border-ag-border text-foreground font-mono text-xs tracking-widest uppercase px-8 py-4 hover:border-ag-accent hover:text-ag-accent transition-colors duration-300 whitespace-nowrap"
+                >
+                  {t('cookies.decline')}
+                </button>
                 <button
                   onClick={handleAccept}
-                  className="bg-ag-accent text-background font-mono text-xs tracking-widest uppercase px-10 py-4 hover:opacity-90 transition-opacity duration-300 whitespace-nowrap"
+                  className="bg-ag-accent text-background font-mono text-xs tracking-widest uppercase px-8 py-4 hover:opacity-90 transition-opacity duration-300 whitespace-nowrap"
                 >
                   {t('cookies.accept')}
                 </button>
@@ -166,13 +179,19 @@ export default function CookieConsent() {
                       ))}
                     </div>
 
-                    {/* Modal footer — accept button */}
-                    <div className="px-8 pb-8 pt-4 border-t border-ag-border flex-shrink-0">
+                    {/* Modal footer — two buttons */}
+                    <div className="px-8 pb-8 pt-4 border-t border-ag-border flex-shrink-0 flex flex-col gap-3">
                       <button
                         onClick={handleAccept}
                         className="w-full bg-ag-accent text-background font-mono text-xs tracking-widest uppercase py-4 hover:opacity-90 transition-opacity duration-300"
                       >
                         {t('cookies.accept')}
+                      </button>
+                      <button
+                        onClick={handleEssential}
+                        className="w-full border border-ag-border text-foreground font-mono text-xs tracking-widest uppercase py-4 hover:border-ag-accent hover:text-ag-accent transition-colors duration-300"
+                      >
+                        {t('cookies.decline')}
                       </button>
                     </div>
                   </div>
