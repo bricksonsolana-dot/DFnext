@@ -19,9 +19,21 @@ import Image from 'next/image';
    HELPERS
    ═══════════════════════════════════════════════════════ */
 
-function FadeUp({ children, delay = 0, className = '' }) {
+function FadeUp({ children, delay = 0, className = '', mobileOnly = false }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-80px' });
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  if (mobileOnly && !isMobile) {
+    return <div className={className}>{children}</div>;
+  }
 
   return (
     <motion.div
@@ -689,11 +701,10 @@ function ServiceRow({ service, index }) {
 
   return (
     <div
-      className="relative border-b border-ag-border cursor-pointer"
+      className="relative border-b border-ag-border"
       onMouseEnter={() => !isMobile && setIsHovered(true)}
       onMouseLeave={() => !isMobile && setIsHovered(false)}
       onClick={handleClick}
-      data-cursor="hover"
       data-testid={`service-row-${service.num}`}
     >
       {/* MOBILE */}
@@ -736,48 +747,24 @@ function ServiceRow({ service, index }) {
 
       {/* DESKTOP */}
       <div className="hidden md:block">
-        <div className="py-8 px-4 flex flex-row items-center justify-between gap-4">
+        <div className="min-h-[96px] px-4 flex flex-row items-center justify-between gap-4">
           <span className="font-mono text-xs text-ag-muted">{service.num}</span>
 
-          <motion.h3
-            className={`font-heading text-4xl flex-1 ml-8 transition-colors duration-300 ${
-              isHovered ? 'text-accent' : 'text-foreground'
-            }`}
+          <h3
+            className={`font-heading text-4xl flex-1 ml-8 transition-colors duration-300 ${isHovered ? 'text-ag-accent' : 'text-foreground'}`}
           >
             {service.name}
-          </motion.h3>
+          </h3>
 
           <div className="flex items-center gap-8">
-            <AnimatePresence>
-              {isHovered && (
-                <motion.p
-                  className="font-body text-sm text-ag-body max-w-xs"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {service.desc}
-                </motion.p>
-              )}
-            </AnimatePresence>
-
-            <motion.div
-              animate={{ x: isHovered ? 8 : 0 }}
-              transition={{ duration: 0.3 }}
+            <p
+              className="font-body text-base text-ag-body max-w-xs transition-opacity duration-300"
+              style={{ opacity: isHovered ? 1 : 0 }}
             >
-              <ArrowRight className="text-ag-body" size={20} />
-            </motion.div>
+              {service.desc}
+            </p>
           </div>
         </div>
-
-        <motion.div
-          className="absolute bottom-0 left-0 h-[1px] bg-ag-accent"
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: isHovered ? 1 : 0 }}
-          style={{ originX: 0 }}
-          transition={{ duration: 0.3 }}
-        />
       </div>
     </div>
   );
@@ -793,7 +780,7 @@ function ServicesSection() {
       data-testid="services-section"
     >
       <div className="max-w-[1800px] mx-auto px-4 md:px-8">
-        <FadeUp>
+        <FadeUp mobileOnly>
           <span className="font-mono text-xs text-muted-foreground tracking-wider block mb-3 md:mb-4">
             {t('services.label')}
           </span>

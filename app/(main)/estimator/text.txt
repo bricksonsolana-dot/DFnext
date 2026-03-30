@@ -647,7 +647,7 @@ export default function EstimatorPage() {
                 <div>
                   <div className="font-mono text-xs text-ag-muted mb-1">ΕΚΤΙΜΗΣΗ ΚΟΣΤΟΥΣ</div>
                   <div className="text-2xl md:text-3xl font-heading font-bold text-foreground">
-                    €{priceCalc.total.toLocaleString("el-GR")}
+                  ~ {priceCalc.total.toLocaleString("el-GR")} € 
                   </div>
                 </div>
                 {priceCalc.monthly > 0 && (
@@ -1002,7 +1002,7 @@ export default function EstimatorPage() {
                 <div className="bg-card border border-ag-accent/20 p-5 text-center">
                   <div className="font-mono text-xs text-ag-muted mb-1">ΕΚΤΙΜΩΜΕΝΟ ΚΟΣΤΟΣ</div>
                   <div className="font-heading text-3xl font-bold text-foreground mb-1">
-                    €{priceCalc.total.toLocaleString("el-GR")}
+                    ~ {priceCalc.total.toLocaleString("el-GR")}€
                   </div>
                   {priceCalc.monthly > 0 && (
                     <div className="font-body text-ag-accent text-sm font-medium">+ €{priceCalc.monthly}/μήνα συντήρηση</div>
