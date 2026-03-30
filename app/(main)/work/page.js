@@ -251,7 +251,7 @@ const portfolioItemsJsonLd = {
         '@type': 'CreativeWork',
         name: 'Kaiser Omnia',
         description: 'Premium εταιρική ιστοσελίδα με custom design και animations.',
-        image: `${BASE_URL}/images/portfolio/kaiser-omnia.jpg`,
+        image: `${BASE_URL}/images/portfolio/kaiser-omnia.png`,
         url: `${BASE_URL}/work#kaiser-omnia`,
         creator: {
           '@type': 'Organization',

@@ -11,7 +11,7 @@ export const metadata = {
 export default function KaiserOmniaPage() {
   return (
     <DemoViewer
-      url="https://kaiser-omnia.vercel.app/"
+      url="https://kaiser-omnia.gr/"
       title="Kaiser Omnia"
     />
   )

@@ -353,14 +353,14 @@ const portfolioProjects = [
   },
   {
     id: 5,
-    slug: 'Architects',
-    title: 'Greek Architects',
+    slug: 'kaiser-omnia',
+    title: 'Kaiser Omnia Construction',
     category: 'Web Design / Brand Identity',
     size: 'full',
-    image: '/images/projects/Architects.jpg',
+    image: '/images/projects/kaiser-omnia.png',
     accent: '#c4a35a',
     year: '2026',
-    demoUrl: '/Architects',
+    demoUrl: '/kaiser-omnia',
   },
 ];
 

@@ -16,7 +16,7 @@ const allProjects = [
     slug: 'kaiser-omnia',
     name: 'Kaiser Omnia',
     category: 'Web Design',
-    image: '/images/projects/kaiser-omnia.jpg',
+    image: '/images/projects/kaiser-omnia.png',
     accent: '#e8a04a',
     year: '2026',
     scope: 'Design & Development',
