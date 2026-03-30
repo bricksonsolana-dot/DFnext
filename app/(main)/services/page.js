@@ -401,6 +401,63 @@ export default function ServicesPage() {
   return (
     <>
       {/* ============================================= */}
+      {/* SERVER-RENDERED CONTENT — for Google bots    */}
+      {/* ============================================= */}
+      <div className="sr-only" aria-hidden="true">
+
+        {/* ── HERO ── */}
+        <h1>Υπηρεσίες Κατασκευής Ιστοσελίδων και E-Shop — Digital Footprint Αθήνα</h1>
+        <p>Website and E-Shop Development Services — Digital Footprint Athens Greece</p>
+        <p>Από concept μέχρι launch, και μετά. Προσφέρουμε end-to-end digital services που βοηθούν brands να ξεχωρίσουν.</p>
+        <p>From concept to launch, and beyond. We offer end-to-end digital services that help brands stand out.</p>
+
+        {/* ── SERVICES ── */}
+        <h2>Website Development — Κατασκευή Ιστοσελίδων</h2>
+        <p>Custom websites με focus στο UX και την απόδοση. Δημιουργούμε websites που δεν είναι απλά όμορφα, είναι γρήγορα, accessible, και optimized για conversions. Από single-page apps έως complex web platforms.</p>
+        <p>Custom websites focused on UX and performance. We build websites that aren't just beautiful, they're fast, accessible, and optimized for conversions. From single-page apps to complex web platforms.</p>
+        <p>Custom React/Next.js Development, Performance Optimization, SEO-First Architecture, CMS Integration, API Development</p>
+
+        <h2>E-Commerce Solutions — Κατασκευή E-Shop</h2>
+        <p>Online shops που πουλάνε. Δεν φτιάχνουμε απλά e-shops, φτιάχνουμε πωλητικές μηχανές. WooCommerce, Shopify, ή custom solutions ανάλογα με τις ανάγκες σου.</p>
+        <p>Online shops that sell. We don't just build e-shops, we build selling machines. WooCommerce, Shopify, or custom solutions tailored to your needs.</p>
+        <p>Shopify / WooCommerce Setup, Custom E-Commerce Development, Payment Gateway Integration, Inventory Management, Conversion Optimization</p>
+
+        <h2>UI / UX Design — Σχεδιασμός Ιστοσελίδας</h2>
+        <p>Interfaces που οι χρήστες αγαπούν. Research-driven design με focus στη μετατροπή. Δεν κάνουμε assumptions, κάνουμε testing και iterating μέχρι να βρούμε τη σωστή λύση.</p>
+        <p>Interfaces users love to use. Research-driven design focused on conversion. We don't make assumptions, we test and iterate until we find the right solution.</p>
+        <p>User Research and Testing, Wireframing and Prototyping, Visual Design, Design Systems, Micro-interactions</p>
+
+        <h2>Brand Identity — Ταυτότητα Brand</h2>
+        <p>Cohesive brand presence σε κάθε touchpoint. Logos, visual systems, και guidelines που κάνουν το brand σου αναγνωρίσιμο. Από το business card μέχρι το website.</p>
+        <p>Cohesive brand presence at every touchpoint. Logos, visual systems, and guidelines that make your brand recognizable. From business cards to websites.</p>
+        <p>Logo Design, Visual Identity System, Brand Guidelines, Marketing Collateral, Social Media Templates</p>
+
+        <h2>Digital Marketing — SEO και Google Ads</h2>
+        <p>Data-driven αποφάσεις. SEO, campaigns, και strategy για measurable results. Δεν υποσχόμαστε νούμερα, τα δείχνουμε.</p>
+        <p>Data-driven decisions. SEO, campaigns, and strategy for measurable results. We don't promise numbers, we show them.</p>
+        <p>SEO Optimization, Google Ads Management, Social Media Marketing, Analytics and Reporting, Content Strategy</p>
+
+        <h2>Ongoing Support — Συντήρηση Ιστοσελίδας</h2>
+        <p>Μαζί σου μέχρι το τέλος. Maintenance, updates, και continuous improvement. Είμαστε partners, όχι vendors.</p>
+        <p>With you until the end. Maintenance, updates, and continuous improvement. We're partners, not vendors.</p>
+        <p>24/7 Monitoring, Security Updates, Performance Optimization, Content Updates, Technical Support</p>
+
+        {/* ── PRICING ── */}
+        <h2>Τιμολόγηση Κατασκευής Ιστοσελίδας — Πακέτα</h2>
+        <h2>Website Development Pricing — Packages</h2>
+        <h3>Starter — Για μικρές επιχειρήσεις και startups</h3>
+        <p>Single Page Website, Βασικό SEO, Mobile Responsive, 1 Μήνας Support</p>
+        <p>Single Page Website, Basic SEO, Mobile Responsive, 1 Month Support</p>
+        <h3>Professional — Για established businesses</h3>
+        <p>Multi-page Website, Προχωρημένο SEO, CMS Integration, E-commerce Ready, 6 Μήνες Support</p>
+        <p>Multi-page Website, Advanced SEO, CMS Integration, E-commerce Ready, 6 Months Support</p>
+        <h3>Enterprise — Για complex projects</h3>
+        <p>Custom Development, Πλήρης Brand Identity, API Integration, Analytics Dashboard, 12 Μήνες Support</p>
+        <p>Custom Development, Full Brand Identity, API Integration, Analytics Dashboard, 12 Months Support</p>
+
+      </div>
+
+      {/* ============================================= */}
       {/* STRUCTURED DATA (JSON-LD) */}
       {/* ============================================= */}
       <script

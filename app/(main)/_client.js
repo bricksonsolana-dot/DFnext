@@ -48,14 +48,14 @@ function FadeUp({ children, delay = 0, className = '', mobileOnly = false }) {
   );
 }
 
-function AnimatedHeadline({ lines, className = '', delay = 0.3 }) {
+function AnimatedHeadline({ lines, className = '', delay = 0.3, as: Tag = 'div' }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
   let globalWordIndex = 0;
 
   return (
-    <div ref={ref} className={`perspective-1000 ${className}`}>
+    <Tag ref={ref} className={`perspective-1000 ${className}`}>
       {lines.map((line, lineIndex) => (
         <div key={lineIndex} className="overflow-hidden block">
           {line.text
@@ -87,7 +87,7 @@ function AnimatedHeadline({ lines, className = '', delay = 0.3 }) {
             })}
         </div>
       ))}
-    </div>
+    </Tag>
   );
 }
 
@@ -177,6 +177,7 @@ function HeroSection() {
 
           <div className="col-span-12 lg:col-span-10 space-y-8">
             <AnimatedHeadline
+              as="h1"
               lines={[
                 { text: t('hero.line1'), accent: false },
                 { text: t('hero.line2'), accent: true },

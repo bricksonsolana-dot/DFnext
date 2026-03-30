@@ -334,6 +334,86 @@ export default function HomePage() {
       />
       
       {/* ============================================= */}
+      {/* SERVER-RENDERED CONTENT — for Google bots    */}
+      {/* sr-only = invisible to users, crawlable      */}
+      {/* ============================================= */}
+      <div className="sr-only" aria-hidden="true">
+
+        {/* ── HERO ── */}
+        <h1>Κατασκευή Ιστοσελίδων και E-Shop στην Αθήνα | Digital Footprint</h1>
+        <p>Website Development and E-Shop in Athens | Digital Footprint</p>
+        <p>Είμαστε web development studio στην Αθήνα. Σχεδιάζουμε και αναπτύσσουμε custom ιστοσελίδες και e-shop που φέρνουν αποτελέσματα, από κατασκευή ιστοσελίδων μέχρι ολοκληρωμένες ψηφιακές λύσεις.</p>
+        <p>We are a custom web development studio based in Athens, Greece. We design and build websites, e-shops and digital products that drive real results for ambitious brands.</p>
+
+        {/* ── PORTFOLIO ── */}
+        <h2>Portfolio Ιστοσελίδων και E-Shop στην Αθήνα</h2>
+        <h2>Website and E-Shop Portfolio in Athens</h2>
+
+        {/* ── SERVICES ── */}
+        <h2>Υπηρεσίες Web Development και E-Commerce</h2>
+        <h2>Web Development and E-Commerce Services</h2>
+        <h3>Website Development</h3>
+        <p>Κατασκευή ιστοσελίδων με Next.js, WordPress ή custom λύσεις. Κάθε site χτίζεται με focus στο UX, την ταχύτητα και τη σωστή αρχιτεκτονική για μέγιστη απόδοση.</p>
+        <p>Custom website development with Next.js, WordPress or bespoke solutions. Every site is built for speed, great UX and solid architecture that scales.</p>
+        <h3>E-Commerce Solutions</h3>
+        <p>Δημιουργία custom e-shop που πουλάει — με WooCommerce ή tailor-made πλατφόρμα. Αυξάνουμε τις online πωλήσεις σου με σωστό UX και optimized checkout.</p>
+        <p>Custom e-shop development that drives online sales — with WooCommerce or a tailor-made platform. Optimized checkout flows and seamless shopping experiences.</p>
+        <h3>UI / UX Design</h3>
+        <p>Σχεδιασμός ιστοσελίδας με γνώμονα το user experience. Δημιουργούμε interfaces που οι χρήστες αγαπούν να χρησιμοποιούν και που μετατρέπουν επισκέπτες σε πελάτες.</p>
+        <p>Website design rooted in user experience research. We create interfaces that users love and that turn visitors into customers.</p>
+        <h3>Brand Identity</h3>
+        <p>Δημιουργία λογοτύπου, visual identity και brand guidelines που χτίζουν αναγνωρισιμότητα. Κάθε brand element σχεδιάζεται για cohesive παρουσία σε κάθε κανάλι.</p>
+        <p>Logo design, visual identity and brand guidelines that build recognition. Every element is crafted for a cohesive presence across all channels.</p>
+        <h3>Digital Marketing</h3>
+        <p>SEO, Google Ads και social media strategy για measurable αποτελέσματα. Αυξάνουμε την οργανική επισκεψιμότητα και φέρνουμε τους σωστούς πελάτες στο site σου.</p>
+        <p>SEO, Google Ads and social media strategy for measurable results. We grow your organic traffic and connect you with the right audience.</p>
+        <h3>Ongoing Support</h3>
+        <p>Συντήρηση ιστοσελίδας και technical support μετά το launch. Δεν εξαφανιζόμαστε — είμαστε εδώ για updates, ασφάλεια και συνεχή βελτιστοποίηση.</p>
+        <p>Website maintenance and technical support after launch. We don't disappear — we're here for updates, security and continuous optimization.</p>
+
+        {/* ── ABOUT TEASER ── */}
+        <h2>Το website σου είναι το πιο ισχυρό εργαλείο πωλήσεών σου</h2>
+        <h2>Your website is your most powerful sales tool</h2>
+        <p>Να λειτουργεί ως το πιο ισχυρό εργαλείο προβολής και πωλήσεων σου 24/7. Εμείς σχεδιάζουμε και αναπτύσσουμε ιστοσελίδες που μεταφέρουν άψογα την αξία της επιχείρησής σου, φέρνουν νέους πελάτες και ξεχωρίζουν από τον ανταγωνισμό.</p>
+        <p>It must serve as your most effective showcase and sales tool working for you 24/7. We design and build websites that perfectly communicate your value, attract the right clients, and set you apart from the competition.</p>
+
+        {/* ── PROCESS ── */}
+        <h2>Πώς φτιάχνουμε την ιστοσελίδα σου</h2>
+        <h2>How we build your website</h2>
+        <h3>Discovery — Κατανόηση project</h3>
+        <p>Κατανοούμε το project, τους στόχους και το κοινό σας. Αναλύουμε τον ανταγωνισμό και εντοπίζουμε ευκαιρίες ανάπτυξης.</p>
+        <p>Understanding the project, goals and target audience. We analyse your competition and identify growth opportunities.</p>
+        <h3>Strategy — Στρατηγική</h3>
+        <p>Σχεδιάζουμε τη στρατηγική, την αρχιτεκτονική και το content plan. Κάθε απόφαση βασίζεται σε data και τους επιχειρηματικούς σας στόχους.</p>
+        <p>Planning the strategy, architecture and content roadmap. Every decision is informed by data and your business objectives.</p>
+        <h3>Design — Σχεδιασμός</h3>
+        <p>Δημιουργούμε wireframes, visual identity και interactive mockups. Σχεδιάζουμε με γνώμονα τη χρηστικότητα και την αισθητική.</p>
+        <p>Creating wireframes, visual identity and interactive mockups. We design for both usability and aesthetics.</p>
+        <h3>Develop — Ανάπτυξη</h3>
+        <p>Χτίζουμε με clean code, σύγχρονες τεχνολογίες και SEO best practices. Κάθε σελίδα είναι responsive και optimized για ταχύτητα.</p>
+        <p>Building with clean code, modern technologies and SEO best practices. Every page is responsive and optimised for speed.</p>
+        <h3>Launch — Παράδοση</h3>
+        <p>Testing, performance optimization και go live. Παρακολουθούμε τα analytics και κάνουμε fine-tuning για τα καλύτερα αποτελέσματα.</p>
+        <p>Testing, performance optimisation and going live. We monitor analytics and fine-tune for the best possible results.</p>
+
+        {/* ── TESTIMONIALS ── */}
+        <h2>Κριτικές πελατών για τη συνεργασία μας</h2>
+        <h2>Client Reviews on Website Development</h2>
+        <p>Κατάλαβαν ακριβώς τι χρειαζόμουν πριν προλάβω να το διατυπώσω. Το τελικό αποτέλεσμα ήταν σαν να το έβγαλαν από το μυαλό μου — μόνο που ήταν καλύτερο.</p>
+        <p>Είχα δουλέψει με τρία διαφορετικά γραφεία πριν και ειλικρινά ήμουν σκεπτική. Αυτοί με έκαναν να αλλάξω γνώμη. Πραγματικά ακούνε, και φαίνεται στη δουλειά τους.</p>
+        <p>Αυτό που ξεχώρισε ήταν η ειλικρίνειά τους. Μου είπαν τι δεν χρειαζόμουν αντί να προσπαθήσουν να μου πουλήσουν παραπάνω.</p>
+        <p>They understood exactly what I needed before I could even articulate it. The final result felt like it was pulled straight from my head — only better.</p>
+        <p>What stood out was their honesty. They told me what I didn't need instead of trying to upsell me. That kind of integrity earned my trust.</p>
+
+        {/* ── CTA ── */}
+        <h2>Έτοιμοι να φτιάξουμε κάτι μαζί;</h2>
+        <h2>Ready to build something together?</h2>
+        <p>Πες μας για το project σου. Απαντάμε εντός 24 ωρών.</p>
+        <p>Tell us about your project. We respond within 24 hours.</p>
+
+      </div>
+
+      {/* ============================================= */}
       {/* PAGE CONTENT (Your existing client component) */}
       {/* ============================================= */}
       <HomePageClient />

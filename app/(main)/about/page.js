@@ -329,6 +329,72 @@ export default function AboutPage() {
   return (
     <>
       {/* ============================================= */}
+      {/* SERVER-RENDERED CONTENT — for Google bots    */}
+      {/* ============================================= */}
+      <div className="sr-only" aria-hidden="true">
+
+        {/* ── HERO ── */}
+        <h1>Ποιοι Είμαστε — Digital Footprint Web Development Studio Αθήνα</h1>
+        <p>Who We Are — Digital Footprint Web Development Studio Athens Greece</p>
+        <p>Ανεξάρτητο web development studio με έδρα την Αθήνα. Σχεδιάζουμε και αναπτύσσουμε ψηφιακές λύσεις που συνδυάζουν τεχνική αρτιότητα με μετρήσιμα επιχειρηματικά αποτελέσματα.</p>
+        <p>Independent web development studio based in Athens. We design and build digital solutions that combine technical excellence with measurable business outcomes.</p>
+        <p>Ο μέσος επισκέπτης αποφασίζει σε 3 δευτερόλεπτα. Σχεδιάζουμε για εκείνα τα 3 δευτερόλεπτα, και για κάθε αλληλεπίδραση που ακολουθεί.</p>
+        <p>The average visitor decides in 3 seconds. We design for those 3 seconds, and for every interaction that follows.</p>
+
+        {/* ── TECHNOLOGY ── */}
+        <h2>Πώς χτίζουμε ιστοσελίδες — Τεχνολογία</h2>
+        <h2>How we build websites — Technology</h2>
+        <h3>React</h3>
+        <p>Component-based αρχιτεκτονική. Modular, επαναχρησιμοποιήσιμη, σχεδιασμένη για κλιμάκωση.</p>
+        <p>Component-based architecture. Modular, reusable, built to scale.</p>
+        <h3>Next.js</h3>
+        <p>Server-side rendering, static generation, άμεση φόρτωση. Απόδοση εκεί που μετράει, κατατάξεις και εμπειρία χρήστη.</p>
+        <p>Server-side rendering, static generation, instant page loads. Performance where it matters, rankings and user experience.</p>
+        <h3>CMS</h3>
+        <p>Χωρίς templates, χωρίς περιορισμούς. Backend σχεδιασμένο γύρω από τις δικές σας ανάγκες διαχείρισης.</p>
+        <p>No templates, no restrictions. Backend designed around your content management needs.</p>
+        <h3>SEO</h3>
+        <p>Structured data, semantic HTML, βελτιστοποιημένα Core Web Vitals. Κάθε project παραδίδεται έτοιμο για την κορυφή των αποτελεσμάτων.</p>
+        <p>Structured data, semantic HTML, optimized Core Web Vitals. Every project ships ready to rank.</p>
+        <h3>Backend</h3>
+        <p>Custom APIs, integrations, business logic, σχεδιασμένα εξ αρχής γύρω από τη δική σας λειτουργική ροή.</p>
+        <p>Custom APIs, integrations, business logic, designed from scratch around your workflow.</p>
+
+        {/* ── VALUES ── */}
+        <h2>Σε τι πιστεύουμε — Αρχές</h2>
+        <h2>What we believe — Principles</h2>
+        <h3>Αρτιότητα</h3>
+        <p>Κάθε pixel, κάθε γραμμή κώδικα υπηρετεί σκοπό. Δεν παραδίδουμε "αρκετά καλό".</p>
+        <h3>Craft</h3>
+        <p>Every pixel, every line of code serves a purpose. We don't ship "good enough".</p>
+        <h3>Διαφάνεια</h3>
+        <p>Λέμε αυτό που χρειάζεται να ακούσετε. Αν κάτι δεν λειτουργεί, θα το επισημάνουμε πριν σας κοστίσει.</p>
+        <h3>Transparency</h3>
+        <p>We say what needs to be said. If something doesn't work, we'll flag it before it costs you.</p>
+        <h3>Αποτέλεσμα</h3>
+        <p>Η αισθητική χωρίς απόδοση δεν μας ενδιαφέρει. Η επιτυχία σας είναι το μόνο μέτρο αξιολόγησης.</p>
+        <h3>Outcome</h3>
+        <p>Design without measurable impact is decorative. We measure our success through yours.</p>
+        <h3>Εξέλιξη</h3>
+        <p>Η τεχνολογία δεν περιμένει. Ούτε εμείς. Μελετάμε, πειραματιζόμαστε, προσαρμοζόμαστε.</p>
+        <h3>Evolution</h3>
+        <p>Technology doesn't wait. Neither do we. We study, experiment, adapt.</p>
+
+        {/* ── TEAM ── */}
+        <h2>Οι άνθρωποί μας — Ομάδα Web Development</h2>
+        <h2>Our people — Web Development Team</h2>
+        <h3>Οδυσσέας Στάβερης — Co-Founder, B.Sc. Computer Science</h3>
+        <p>Εξειδίκευση σε interactive interfaces, motion design και performance optimization. Πάνω από 3 χρόνια εμπειρίας στο React ecosystem, με εμβάθυνση σε accessibility standards και animation libraries όπως Framer Motion και GSAP.</p>
+        <h3>Odysseas Staveris — Co-Founder, B.Sc. Computer Science</h3>
+        <p>Specializes in interactive interfaces, motion design, and performance optimization. Over 3 years of experience in the React ecosystem, with deep expertise in accessibility standards and animation libraries such as Framer Motion and GSAP.</p>
+        <h3>Γιώργος Σπύρου — Co-Founder, B.Sc. Computer Science</h3>
+        <p>Εξειδίκευση σε scalable αρχιτεκτονική, database design και API development για πραγματικές συνθήκες traffic. PostgreSQL, MongoDB, Redis caching, real-time data pipelines, custom RESTful και GraphQL APIs.</p>
+        <h3>Giorgos Spyrou — Co-Founder, B.Sc. Computer Science</h3>
+        <p>Specializes in scalable architecture, database design, and API development for real-world traffic. PostgreSQL, MongoDB, Redis caching, real-time data pipelines, custom RESTful and GraphQL APIs.</p>
+
+      </div>
+
+      {/* ============================================= */}
       {/* STRUCTURED DATA (JSON-LD) */}
       {/* ============================================= */}
       <script

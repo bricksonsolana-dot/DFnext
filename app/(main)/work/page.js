@@ -413,6 +413,23 @@ export default function WorkPage() {
   return (
     <>
       {/* ============================================= */}
+      {/* SERVER-RENDERED CONTENT — for Google bots    */}
+      {/* ============================================= */}
+      <div className="sr-only" aria-hidden="true">
+
+        <h1>Portfolio Κατασκευής Ιστοσελίδων και E-Shop — Digital Footprint Αθήνα</h1>
+        <p>Website and E-Shop Development Portfolio — Digital Footprint Athens Greece</p>
+        <p>Τα Project μας — Μια επιλογή από projects που μας κάνουν περήφανους. Κάθε ένα φτιαγμένο με φροντίδα και προσοχή στη λεπτομέρεια.</p>
+        <p>Our Projects — A selection of projects we're proud of. Each one crafted with care and attention to detail.</p>
+
+        <h2>Κατηγορίες Portfolio — Web Design, E-Commerce, Brand Identity</h2>
+        <p>Web Design, E-Commerce, Brand Identity, Corporate, Hotel, Sports</p>
+        <p>Κατασκευή ιστοσελίδων για εταιρικούς πελάτες, e-shop για online πωλήσεις, brand identity για νέα brands, εταιρικές ιστοσελίδες, ξενοδοχεία και αθλητικούς οργανισμούς.</p>
+        <p>Website development for corporate clients, e-shop for online sales, brand identity for new brands, corporate websites, hotels and sports organisations.</p>
+
+      </div>
+
+      {/* ============================================= */}
       {/* STRUCTURED DATA (JSON-LD) */}
       {/* ============================================= */}
       <script

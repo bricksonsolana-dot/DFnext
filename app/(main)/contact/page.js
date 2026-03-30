@@ -364,6 +364,28 @@ export default function ContactPage() {
   return (
     <>
       {/* ============================================= */}
+      {/* SERVER-RENDERED CONTENT — for Google bots    */}
+      {/* ============================================= */}
+      <div className="sr-only" aria-hidden="true">
+
+        <h1>Επικοινωνία — Ζητήστε Δωρεάν Προσφορά Κατασκευής Ιστοσελίδας</h1>
+        <p>Contact Us — Request a Free Website Development Quote</p>
+        <p>Επικοινωνήστε μαζί μας για δωρεάν προσφορά κατασκευής ιστοσελίδας ή e-shop. Απαντάμε εντός 24 ωρών κατά τις εργάσιμες.</p>
+        <p>Contact us for a free website or e-shop development quote. We respond within 24 hours during business days.</p>
+
+        <h2>Στοιχεία Επικοινωνίας — Digital Footprint</h2>
+        <h2>Contact Information — Digital Footprint</h2>
+        <p>Email: info@digitalfootprint.gr</p>
+        <p>Τηλέφωνο: +30 6947920875</p>
+        <p>Phone: +30 6947920875</p>
+        <p>Τοποθεσία: Αθήνα, Ελλάδα</p>
+        <p>Location: Athens, Greece</p>
+        <p>Ωράριο: Δευτέρα - Παρασκευή, 09:00 - 18:00</p>
+        <p>Hours: Monday - Friday, 09:00 - 18:00 EET</p>
+
+      </div>
+
+      {/* ============================================= */}
       {/* STRUCTURED DATA (JSON-LD) */}
       {/* ============================================= */}
       <script
