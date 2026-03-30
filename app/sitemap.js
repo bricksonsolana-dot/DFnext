@@ -179,28 +179,20 @@ export default function sitemap() {
   // ===========================================
   // LEGAL PAGES (If you have them)
   // ===========================================
-  /*
   const legalPages = [
     {
-      url: `${BASE_URL}/privacy-policy`,
+      url: `${BASE_URL}/privacy`,
       lastModified: currentDate,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
-      url: `${BASE_URL}/terms-of-service`,
-      lastModified: currentDate,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
-      url: `${BASE_URL}/cookies`,
+      url: `${BASE_URL}/terms`,
       lastModified: currentDate,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
   ];
-  */
   
   // ===========================================
   // COMBINE ALL PAGES
@@ -211,6 +203,6 @@ export default function sitemap() {
     // ...portfolioPages,   // Uncomment when you add these
     // ...blogPages,        // Uncomment when you add these
     // ...locationPages,    // Uncomment when you add these
-    // ...legalPages,       // Uncomment when you add these
+    ...legalPages,
   ];
 }

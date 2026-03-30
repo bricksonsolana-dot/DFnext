@@ -395,29 +395,9 @@ export default async function RootLayout({ children }) {
     >
       <head>
         {/* ============================================= */}
-        {/* GOOGLE ANALYTICS 4 */}
-        {/* Replace G-XXXXXXXXXX with your actual GA4 ID */}
+        {/* GOOGLE ANALYTICS — loaded via GoogleAnalytics  */}
+        {/* component only after cookie consent            */}
         {/* ============================================= */}
-        <Script
-          strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
-        />
-        <Script
-          id="google-analytics"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-XXXXXXXXXX', {
-                page_path: window.location.pathname,
-                anonymize_ip: true,
-                cookie_flags: 'SameSite=None;Secure',
-              });
-            `,
-          }}
-        />
         
         {/* ============================================= */}
         {/* PRECONNECT FOR PERFORMANCE */}

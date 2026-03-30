@@ -72,13 +72,13 @@ export default function Footer() {
             {t('footer.copyright')}
           </p>
           <div className="flex gap-4">
-            <span className="text-ag-muted text-xs hover:text-ag-body cursor-pointer transition-colors">
+            <Link href="/privacy" className="text-ag-muted text-xs hover:text-ag-accent transition-colors duration-300">
               {t('footer.privacy')}
-            </span>
+            </Link>
             <span className="text-ag-muted text-xs">|</span>
-            <span className="text-ag-muted text-xs hover:text-ag-body cursor-pointer transition-colors">
+            <Link href="/terms" className="text-ag-muted text-xs hover:text-ag-accent transition-colors duration-300">
               {t('footer.terms')}
-            </span>
+            </Link>
           </div>
         </div>
       </div>

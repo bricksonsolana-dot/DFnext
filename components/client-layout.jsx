@@ -3,6 +3,8 @@ import { LanguageProvider } from './language-provider';
 import Navigation from './navigation';
 import CustomCursor from './custom-cursor';
 import Footer from './footer';
+import CookieConsent from './cookie-consent';
+import GoogleAnalytics from './google-analytics';
 
 export default function ClientLayout({ children }) {
   return (
@@ -11,6 +13,8 @@ export default function ClientLayout({ children }) {
       <Navigation />
       <main className="min-h-screen">{children}</main>
       <Footer />
+      <CookieConsent />
+      <GoogleAnalytics />
     </LanguageProvider>
   );
 }
