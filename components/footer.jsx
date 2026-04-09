@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useTranslation } from './language-provider';
 
@@ -13,9 +14,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
           <div>
             <Link href="/" className="inline-block">
-              <span className="font-logo-original font-bold text-2xl text-ag-accent">
-  [DF]
-</span>
+              <Image
+                src="/images/df_logo_white.png"
+                alt="DigitalFootprint Logo"
+                width={72}
+                height={72}
+                className="object-contain"
+              />
             </Link>
             <p className="mt-4 text-ag-body text-sm leading-relaxed max-w-[280px]">
               {t('footer.tagline')}

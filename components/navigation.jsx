@@ -7,6 +7,7 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowRight, Sun, Moon } from 'lucide-react';
 import { useTranslation } from './language-provider';
 import { useTheme } from 'next-themes';
+import Image from 'next/image';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -213,12 +214,17 @@ export default function Navigation() {
             data-cursor="hover"
             data-testid="logo-link"
           >
-           <span className="font-logo-original font-bold text-2xl text-accent" style={getLogoStyle(0)}>
-  [DF]
-</span>
-          <span className="hidden md:inline font-logo-original font-medium text-foreground" style={getLogoStyle(100)}>
-  DigitalFootprint
-</span>
+            <Image
+              src="/images/df_logo_white.png"
+              alt="DigitalFootprint Logo"
+              width={52}
+              height={52}
+              className="object-contain"
+              style={getLogoStyle(0)}
+            />
+            <span className="hidden md:inline font-logo-original font-medium text-foreground" style={getLogoStyle(100)}>
+              DigitalFootprint
+            </span>
           </Link>
 
           {/* Desktop Nav Links */}
