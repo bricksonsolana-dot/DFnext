@@ -215,7 +215,7 @@ export default function Navigation() {
             data-testid="logo-link"
           >
             <Image
-              src="/images/df_logo_white.png"
+              src="/images/logo.png"
               alt="DigitalFootprint Logo"
               width={52}
               height={52}

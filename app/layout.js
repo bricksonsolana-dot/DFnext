@@ -101,11 +101,11 @@ export const metadata = {
   
   icons: {
     icon: [
-      { url: '/images/icon.png', sizes: '32x32', type: 'image/png' },
-      { url: '/images/icon.png', sizes: '16x16', type: 'image/png' },
+      { url: '/images/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/images/logo.png', sizes: '16x16', type: 'image/png' },
     ],
-    apple: '/images/apple-icon.png',
-    shortcut: '/images/icon.png',
+    apple: '/images/apple-logo.png',
+    shortcut: '/images/logo.png',
   },
   
   manifest: '/manifest.json',
@@ -158,7 +158,7 @@ const organizationJsonLd = {
   url: BASE_URL,
   logo: {
     '@type': 'ImageObject',
-    url: `${BASE_URL}/icon.png`,
+    url: `${BASE_URL}/logo.png`,
     width: 512,
     height: 512,
   },

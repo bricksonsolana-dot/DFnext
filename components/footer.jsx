@@ -15,7 +15,7 @@ export default function Footer() {
           <div>
             <Link href="/" className="inline-block">
               <Image
-                src="/images/df_logo_white.png"
+                src="/images/logo.png"
                 alt="DigitalFootprint Logo"
                 width={72}
                 height={72}

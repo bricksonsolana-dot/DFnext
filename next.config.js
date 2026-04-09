@@ -35,11 +35,11 @@ const nextConfig = {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
           },
-          // Force HTTPS (2 years + preload)
-          {
+          // Force HTTPS (2 years + preload) — production only
+          ...(process.env.NODE_ENV === 'production' ? [{
             key: 'Strict-Transport-Security',
             value: 'max-age=63072000; includeSubDomains; preload',
-          },
+          }] : []),
           // Control referrer info
           {
             key: 'Referrer-Policy',
